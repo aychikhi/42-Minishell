@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/12 12:36:18 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:35:31 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_cmd
 {
-	void	*cmd;
-	void	*next;
+	void			*cmd;
+	struct s_cmd	*next;
 }			t_cmd;
 
 int		ft_strlen(char	*str);

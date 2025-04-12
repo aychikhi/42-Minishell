@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:25:39 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/12 12:34:31 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:12:52 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,16 @@
 
 int	ft_isspecial(char *str, int i)
 {
+	int	j;
+
+	j = 0;
 	while (str[i])
 	{
 		if (str[i] == '|')
 			break;
 		i++;
+		j++;
 	}
-	return (i);
+	return (j);
 }
-// {
-// 	int i;
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '|')
-// 			return (i);
-// 		i++;
-// 	}
-// 	return(0);
-// }
