@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspecial.c                                     :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 12:25:39 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/12 12:34:31 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/12 12:30:44 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/04/12 12:41:31 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_isspecial(char *str, int i)
+int	ft_strlen(char	*str)
 {
+	int	i;
+
+	i = 0;
 	while (str[i])
-	{
-		if (str[i] == '|')
-			break;
 		i++;
-	}
 	return (i);
 }
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '|')
-// 			return (i);
-// 		i++;
-// 	}
-// 	return(0);
-// }

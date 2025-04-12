@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/10 15:01:42 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/12 12:36:18 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ typedef struct s_cmd
 	void	*next;
 }			t_cmd;
 
+int		ft_strlen(char	*str);
 t_cmd	*ft_lstnew(void *cmd1);
-int		ft_isspecial(char *str);
+int		ft_isspecial(char *str, int i);
 char	**ft_split(char const *s, char c);
 void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
 
