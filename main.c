@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/12 17:40:29 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:13:51 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static void	cleanup(t_cmd *lst, char *line)
 
 int	main(int ac, char **av)
 {
-	(void)av;
-	(void)ac;
 	int		i;
 	int		k;
 	int		j;
@@ -38,14 +36,16 @@ int	main(int ac, char **av)
 	char	*line;
 	t_cmd	*lst;
 
+	(void)av;
+	(void)ac;
 	lst = NULL;
 	i = 0;
 	j = 0;
-	while (1)
+	while (1337)
 	{
 		line = readline("minishell :");
 		if (!line)
-			break;
+			break ;
 		i = 0;
 		while (line[i])
 		{
@@ -69,14 +69,14 @@ int	main(int ac, char **av)
 				i++;
 		}
 		free(line);
-		t_cmd *tmp = lst;
-		while (tmp)
-		{
-			printf("cmd->%s\n", (char *)tmp->cmd);
-			tmp = tmp->next;
-		}
 		cleanup(lst, NULL);
 		lst = NULL;
 	}
 	return (0);
 }
+		// t_cmd *tmp = lst;
+		// while (tmp)
+		// {
+		// 	printf("cmd->%s\n", (char *)tmp->cmd);
+		// 	tmp = tmp->next;
+		// }
