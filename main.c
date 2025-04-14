@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/14 14:13:27 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:31:29 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	error_fun(void)
 
 void	check_unprint(char **line)
 {
-	int i;
-	int f;
+	int	i;
+	int	f;
 
 	i = 0;
 	f = 0;
@@ -36,13 +36,13 @@ void	check_unprint(char **line)
 			i++;
 		}
 	}
-	line[0][i] = '\0'; 
+	line[0][i] = '\0';
 }
 
 int	skip_fun(char *line, int flag)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (flag == 1)
 		line[i - 1] = 31;
@@ -50,11 +50,13 @@ int	skip_fun(char *line, int flag)
 		line[i - 1] = 30;
 	while (line[i])
 	{
-		if (flag == 1 && line[i] == '\'') {
+		if (flag == 1 && line[i] == '\'')
+		{
 			line[i] = 31;
 			return (i + 1);
 		}
-		else if (flag == 2 && line[i] == '\"') {
+		else if (flag == 2 && line[i] == '\"')
+		{
 			line[i] = 30;
 			return (i + 1);
 		}
@@ -67,7 +69,7 @@ void	check_quotes(char *line)
 {
 	int	i;
 	int	j;
-	int f;
+	int	f;
 
 	i = 0;
 	f = 0;
@@ -85,7 +87,8 @@ void	check_quotes(char *line)
 			f = 0;
 			i += j;
 		}
-		else {
+		else
+		{
 			i++;
 		}
 	}
@@ -93,8 +96,8 @@ void	check_quotes(char *line)
 
 void	one_space(char **line)
 {
-	int i;
-	int f;
+	int	i;
+	int	f;
 	int	flag;
 
 	i = 0;
@@ -111,13 +114,13 @@ void	one_space(char **line)
 		{
 			line[0][i] = ' ';
 			flag = 0;
-			i++;	
+			i++;
 		}
 		line[0][i] = line[0][f];
 		f++;
 		i++;
 	}
-	line[0][i] = '\0'; 
+	line[0][i] = '\0';
 }
 
 int	main(int ac, char **av)
@@ -138,8 +141,6 @@ int	main(int ac, char **av)
 	}
 	return (0);
 }
-
-
 
 // static void	cleanup(t_cmd *lst, char *line)
 // {

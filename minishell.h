@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/14 14:12:29 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:58:08 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,27 @@
 # include <unistd.h>
 # include <readline/readline.h>
 
+// typedef enum e_token
+// {
+// 	string,
+// 	pipe,
+// 	and,
+// 	or,
+// 	redirections,
+// }			t_token;
+
 typedef struct s_cmd
 {
 	void			*cmd;
 	struct s_cmd	*next;
 }			t_cmd;
+
+typedef struct s_lst
+{
+	void	*str;
+	// t_token	token;
+	int		len;
+}			t_lst;
 
 void	error_fun(void);
 int		ft_strlen(char	*str);
