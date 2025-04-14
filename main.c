@@ -6,11 +6,17 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/13 18:42:01 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:13:27 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	error_fun(void)
+{
+	printf("Error !\n");
+	exit(EXIT_FAILURE);
+}
 
 void	check_unprint(char **line)
 {
@@ -33,62 +39,56 @@ void	check_unprint(char **line)
 	line[0][i] = '\0'; 
 }
 
-void	kaynin_dquotes(char *line)
-{
-	int	i;
-	int	f;
-	
-	f = 0;
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\"')
-			f++;
-		i++;
-	}
-	if (f % 2 != 0)
-	{
-		printf("Error!\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void	kaynin_quotes(char *line)
-{
-	int	i;
-	int	f;
-	
-	f = 0;
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'')
-			f++;
-		i++;
-	}
-	if (f % 2 != 0)
-	{
-		printf("Error!\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void	check_quotes(char **line)
+int	skip_fun(char *line, int flag)
 {
 	int i;
-
-	kaynin_quotes(*line);
-	kaynin_dquotes(*line);
+	
 	i = 0;
-	while (line[0][i])
+	if (flag == 1)
+		line[i - 1] = 31;
+	else
+		line[i - 1] = 30;
+	while (line[i])
 	{
-		if (line[0][i] == '\'')
-			line[0][i] = 31;
-		else if (line[0][i] == '\"')
-			line[0][i] = 30;
+		if (flag == 1 && line[i] == '\'') {
+			line[i] = 31;
+			return (i + 1);
+		}
+		else if (flag == 2 && line[i] == '\"') {
+			line[i] = 30;
+			return (i + 1);
+		}
 		i++;
 	}
-	line[0][i] = '\0';
+	return (0);
+}
+
+void	check_quotes(char *line)
+{
+	int	i;
+	int	j;
+	int f;
+
+	i = 0;
+	f = 0;
+	while (line[i])
+	{
+		if ((line[i] == '\'' || line[i] == '\"') && !f)
+		{
+			f = 1;
+			if (line[i] == '\"')
+				f++;
+			i++;
+			j = skip_fun(line + i, f);
+			if (j == 0)
+				error_fun();
+			f = 0;
+			i += j;
+		}
+		else {
+			i++;
+		}
+	}
 }
 
 void	one_space(char **line)
@@ -133,7 +133,7 @@ int	main(int ac, char **av)
 		line = readline("minishell :");
 		check_unprint(&line);
 		one_space(&line);
-		check_quotes(&line);
+		check_quotes(line);
 		printf("%s\n", line);
 	}
 	return (0);
