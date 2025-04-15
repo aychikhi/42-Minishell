@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/14 16:31:29 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:16:16 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,18 +126,18 @@ void	one_space(char **line)
 int	main(int ac, char **av)
 {
 	char	*line;
-	t_cmd	*lst;
+	// t_cmd	*lst;
 
 	(void)av;
 	(void)ac;
-	lst = NULL;
+	// lst = NULL;
 	while (1337)
 	{
 		line = readline("minishell :");
 		check_unprint(&line);
 		one_space(&line);
 		check_quotes(line);
-		printf("%s\n", line);
+		// printf("%s\n", line);
 	}
 	return (0);
 }
