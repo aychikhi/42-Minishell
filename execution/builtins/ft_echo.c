@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 16:54:55 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/18 16:55:29 by ayaarab          ###   ########.fr       */
+/*   Created: 2025/04/18 16:56:05 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/04/18 16:56:06 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <unistd.h>
 
-# include "../execution.h"
-
-#endif
+void echo(char **args)
+{
+	int i = 0;
+	while (args[i] != NULL)
+	{
+		write(1, args[i], sizeof(args[i]));
+		write(1, "\n", 1);
+		i++;
+	}
+}

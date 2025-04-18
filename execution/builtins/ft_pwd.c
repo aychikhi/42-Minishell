@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 16:54:55 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/18 16:55:29 by ayaarab          ###   ########.fr       */
+/*   Created: 2025/04/18 16:55:55 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/04/18 16:58:05 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "../execution.h"
-
-#endif
+int	ft_pwd(void)
+{
+	return (0);
+}

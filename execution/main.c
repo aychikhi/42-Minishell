@@ -1,23 +1,39 @@
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/04/18 17:00:10 by ayaarab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int main(void)
+#include "execution.h"
+
+//TODO handle the signal ctrl+C and exit
+
+void	signal_handler(int sig)
 {
-    char *line;
+}
 
-    while (1)
-    {
-        line = readline("minishell$ ");
-        if (!line) {
-            printf("exit\n");
-            break;
-        }
-        if (*line)
-            add_history(line);
-        printf("You typed: %s\n", line);
-        free(line);
-    }
-    return 0;
+int	main(void)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (!line)
+		{
+			printf("exit\n");
+			break ;
+		}
+		if (*line)
+			add_history(line);
+		printf("You typed: %s\n", line);
+		free(line);
+	}
+	return (0);
 }
