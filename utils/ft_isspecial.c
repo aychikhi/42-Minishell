@@ -6,13 +6,13 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:25:39 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/12 17:53:34 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 13:03:32 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_isspecial(char *str, int i)
+int	ft_isspecial(const char *str, int i)
 {
 	int	j;
 

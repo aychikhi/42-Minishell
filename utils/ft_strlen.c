@@ -6,13 +6,13 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 12:30:44 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/12 12:41:31 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 13:03:04 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strlen(char	*str)
+int	ft_strlen(const char	*str)
 {
 	int	i;
 

@@ -6,19 +6,69 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/15 17:32:07 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:58:14 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*tokeniser(char	*input)
+char	*add_word(char *str)
 {
-	t_token	*tokens; //the head
-	t_token	*last;// pointer to the last token in the list
 	int		i;
+	int		l;
+	char	*ptr;
 
 	i = 0;
+	l = 0;
+	while (str[l] && str[l] != ' ' && str[l] != '|' && str[l] != '<'
+		&& str[l] != '>' && str[l] != '&' && str[l] != '(' && str[l] != ')')
+		l++;
+	ptr = malloc(l + 1);
+	if (!ptr)
+		malloc_error();
+	while (i < l)
+	{
+		ptr[i] = str[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+char	*add_word_inside_quote(char c, char *str)
+{
+	int		l;
+	int		i;
+	char	*ptr;
+
+	i = 0;
+	l = 0;
+	while (str[l] && str[l] != c)
+		l++;
+	ptr = malloc(l + 1);
+	if (!ptr)
+		malloc_error();
+	while (i < l)
+	{
+		ptr[i] = str[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+t_token	*tokeniser(char *input)
+{
+	int		i;
+	char	*word;
+	t_token	*tokens;
+	t_token	*last;
+
+	i = 0;
+	last = NULL;
+	tokens = NULL;
+	if (!input)
+		exit (EXIT_FAILURE);
 	while (input[i])
 	{
 		if (input[i] == ' ')
@@ -26,23 +76,70 @@ t_token	*tokeniser(char	*input)
 		else if (input[i] == '&' && input[i + 1] == '&')
 		{
 			add_token(&tokens, &last, TOKEN_AND, "&&");
-			i += 2; 
+			i += 2;
 		}
-		else if (input[i] == '|' && input[i+1] == '|') {
-            add_token(&tokens, &last, TOKEN_OR, "||");
-            i += 2;
-        }
-        else if (input[i] == '|') {
-            add_token(&tokens, &last, TOKEN_PIPE, "|");
-            i++;
-        }
-        else if (input[i] == '(') {
-            add_token(&tokens, &last, TOKEN_LPAREN, "(");
-            i++;
-        }
-        else if (input[i] == ')') {
-            add_token(&tokens, &last, TOKEN_RPAREN, ")");
-            i++;
-        }
+		else if (input[i] == '|' && input[i + 1] == '|')
+		{
+			add_token(&tokens, &last, TOKEN_OR, "||");
+			i += 2;
+		}
+		else if (input[i] == '|')
+		{
+			add_token(&tokens, &last, TOKEN_PIPE, "|");
+			i++;
+		}
+		else if (input[i] == '(')
+		{
+			add_token(&tokens, &last, TOKEN_LPAREN, "(");
+			i++;
+		}
+		else if (input[i] == ')')
+		{
+			add_token(&tokens, &last, TOKEN_RPAREN, ")");
+			i++;
+		}
+		else if (input[i] == '<')
+		{
+			if (input[i + 1] == '<')
+			{
+				add_token(&tokens, &last, TOKEN_HEREDOC, "<<");
+				i += 2;
+			}
+			else
+			{
+				add_token(&tokens, &last, TOKEN_REDIR_IN, "<");
+				i++;
+			}
+		}
+		else if (input[i] == '>')
+		{
+			if (input[i + 1] == '>')
+			{
+				add_token(&tokens, &last, TOKEN_APPEND, ">>");
+				i += 2;
+			}
+			else
+			{
+				add_token(&tokens, &last, TOKEN_REDIR_OUT, ">");
+				i++;
+			}
+		}
+		else if (input[i] == '\'' || input[i] == '\"')
+		{
+			i++;
+			word = add_word_inside_quote(input[i], input + i);
+			add_token(&tokens, &last, TOKEN_WORD, word);
+			i += ft_strlen(word) + 2;
+			free(word);
+		}
+		else
+		{
+			word = add_word(input + i);
+			add_token(&tokens, &last, TOKEN_WORD, word);
+			i += ft_strlen(word);
+			free(word);
+		}
 	}
+	add_token(&tokens, &last, TOKEN_EOF, "EOF");
+	return (tokens);
 }
