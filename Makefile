@@ -2,7 +2,7 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror 
 
-SRCS = ./utils/ft_split.c ./utils/ft_isspecial.c ./utils/ft_strlen.c ./utils/ft_strdup.c\
+SRCS = ./utils/ft_split.c ./utils/ft_strlen.c ./utils/ft_strdup.c\
 		 checker_fun.c helper.c tokeniser.c main.c\
 
 OBJS = $(SRCS:.c=.o)

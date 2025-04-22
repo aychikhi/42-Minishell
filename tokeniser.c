@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/22 13:23:46 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 13:42:52 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_token	*tokeniser(char *input)
 	last = NULL;
 	tokens = NULL;
 	if (!input)
-		exit (EXIT_FAILURE);
+		return (NULL);
 	while (input[i])
 	{
 		if (input[i] == ' ')
@@ -126,10 +126,9 @@ t_token	*tokeniser(char *input)
 		}
 		else if (input[i] == '\'' || input[i] == '\"')
 		{
-			i++;
-			word = add_word_inside_quote(input[i], input + i);
+			word = add_word_inside_quote(input[i], input + (i + 1));
 			add_token(&tokens, &last, TOKEN_WORD, word);
-			i += ft_strlen(word);
+			i += ft_strlen(word) + 2;
 			free(word);
 		}
 		else
