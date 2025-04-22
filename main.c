@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/22 13:18:35 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:18:09 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	error_fun(void)
 {
-	printf("Error !\n");
+	printf("Error: Unclosed quotes!\n");
 	exit(EXIT_FAILURE);
 }
 
-void free_tokens(t_token *tokens)
+void	free_tokens(t_token *tokens)
 {
 	t_token	*tmp;
-	
+
 	while (tokens)
 	{
 		tmp = tokens;
@@ -79,7 +79,7 @@ int	main(int ac, char **av)
 		while (tmp)
 		{
 			printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-            tmp = tmp->next;
+			tmp = tmp->next;
 		}
 		free_tokens(tokens);
 		free(line);

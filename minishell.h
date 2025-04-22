@@ -6,28 +6,28 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/22 13:28:00 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:39:10 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <readline/readline.h>
 
 typedef enum e_token_type
 {
 	TOKEN_WORD,
 	TOKEN_PIPE,
+	TOKEN_SINGLE_QUOTE,
+	TOKEN_DOUBLE_QUOTE,
 	TOKEN_REDIR_IN,
 	TOKEN_REDIR_OUT,
 	TOKEN_HEREDOC,
 	TOKEN_APPEND,
-	TOKEN_AND,
-	TOKEN_OR,
 	TOKEN_LPAREN,
 	TOKEN_RPAREN,
 	TOKEN_EOF
@@ -41,12 +41,17 @@ typedef struct s_token
 }					t_token;
 
 void				error_fun(void);
+char				*ft_itoa(int n);
+int					ft_isdigit(int c);
+int					ft_isalpha(int c);
+int					ft_isalnum(int c);
 void				malloc_error(void);
 char				*add_word(char *str);
 void				one_space(char **line);
 t_token				*tokeniser(char *input);
 void				check_quotes(char *line);
 void				check_unprint(char **line);
+char				*extract_env(char *input);
 int					ft_strlen(const char *str);
 char				*ft_strdup(const char *s1);
 void				free_tokens(t_token *tokens);

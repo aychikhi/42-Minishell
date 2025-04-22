@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/22 13:42:52 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:48:35 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	*add_word(char *str)
 
 	i = 0;
 	l = 0;
-	while (str[l] && str[l] != ' ' && str[l] != '|' && str[l] != '<'
-		&& str[l] != '>' && str[l] != '&' && str[l] != '(' && str[l] != ')')
+	while (str[l] && str[l] != ' ' && str[l] != '<' && str[l] != '>'
+		&& str[l] != '(' && str[l] != ')')
 		l++;
 	ptr = malloc(l + 1);
 	if (!ptr)
@@ -60,30 +60,23 @@ char	*add_word_inside_quote(char c, char *str)
 t_token	*tokeniser(char *input)
 {
 	int		i;
+	int		flag;
 	char	*word;
 	t_token	*tokens;
 	t_token	*last;
 
 	i = 0;
+	flag = 0;
 	last = NULL;
 	tokens = NULL;
 	if (!input)
 		return (NULL);
+	// input = expand_env(input);
 	while (input[i])
 	{
 		if (input[i] == ' ')
 			i++;
-		else if (input[i] == '&' && input[i + 1] == '&')
-		{
-			add_token(&tokens, &last, TOKEN_AND, "&&");
-			i += 2;
-		}
-		else if (input[i] == '|' && input[i + 1] == '|')
-		{
-			add_token(&tokens, &last, TOKEN_OR, "||");
-			i += 2;
-		}
-		else if (input[i] == '|')
+		else if (input[i] == '|' && !flag)
 		{
 			add_token(&tokens, &last, TOKEN_PIPE, "|");
 			i++;
@@ -124,8 +117,16 @@ t_token	*tokeniser(char *input)
 				i++;
 			}
 		}
-		else if (input[i] == '\'' || input[i] == '\"')
+		else if (input[i] == '\'' && !flag)
 		{
+			word = add_word_inside_quote(input[i], input + (i + 1));
+			add_token(&tokens, &last, TOKEN_SINGLE_QUOTE, word);
+			i += ft_strlen(word) + 2;
+			free(word);
+		}
+		else if (input[i] == '\"')
+		{
+			flag = !flag;
 			word = add_word_inside_quote(input[i], input + (i + 1));
 			add_token(&tokens, &last, TOKEN_WORD, word);
 			i += ft_strlen(word) + 2;

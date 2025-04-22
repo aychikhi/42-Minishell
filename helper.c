@@ -6,11 +6,13 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/22 12:39:06 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:43:15 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		g_exit_status = 0;
 
 void	malloc_error(void)
 {
@@ -39,4 +41,42 @@ void	add_token(t_token **tokens, t_token **last, t_token_type type,
 		(*last)->next = new_token;
 		*last = new_token;
 	}
+}
+
+// char	*expand_env(char *input)
+// {
+// 	char	*env_name;
+// 	char	*env_value;
+// 	int		i;
+
+// 	i = 0;
+// 	while (input[i])
+// 	{
+// 		if (input[i] == '$' && input[i + 1] == '?')
+// 		{
+// 			env_value = ft_itoa(g_exit_status);
+// 		}
+// 	}
+// }
+
+char	*extract_env(char *input)
+{
+	int		i;
+	int		l;
+	char	*name;
+
+	i = 0;
+	l = 0;
+	while (input[l] && (ft_isalnum(input[l]) || input[l] == '_'))
+		l++;
+	name = malloc(l + 1);
+	if (!name)
+		malloc_error();
+	while (i < l)
+	{
+		name[i] = input[i];
+		i++;
+	}
+	name[i] = '\0';
+	return (name);
 }
