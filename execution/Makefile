@@ -3,13 +3,13 @@ NAME = minishell
 FLAGS = -Wall -Wextra -Werror
 
 SRCS = main.c \
-        builtins/echo.c \
-        builtins/env.c \
-        builtins/export.c \
-        builtins/pwd.c \
-        builtins/unset.c \
-        builtins/cd.c \
-        builtins/exit.c \
+        builtins/ft_echo.c \
+        builtins/ft_env.c \
+        builtins/ft_export.c \
+        builtins/ft_pwd.c \
+        builtins/ft_unset.c \
+        builtins/ft_cd.c \
+        builtins/ft_exit.c \
 
 OBJ=$(SRCS:.c=.o)
 

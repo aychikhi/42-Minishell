@@ -17,5 +17,8 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include "Libft/libft.h"
+# include "builtins/builtins.h"
 
 #endif

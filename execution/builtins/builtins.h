@@ -15,4 +15,6 @@
 
 # include "../execution.h"
 
+int	ft_pwd(void);
+
 #endif

@@ -14,10 +14,56 @@
 
 //TODO handle the signal ctrl+C and exit
 
-void	signal_handler(int sig)
-{
-}
+// void	signal_handler(int sig)
+// {
+// }
 
+
+// builins helper
+
+void helper(char  *cmd)
+{
+	char **args;
+
+	args = ft_split(cmd , ' ');
+	if (!args || !args[0])
+	{
+		free(args);
+		return ;
+	}
+	if (ft_strncmp(args[0], "echo", 4) == 0)
+	{
+		/* code */
+	}
+	else if (ft_strncmp(args[0], "cd", 2) == 0)
+	{
+		/* code */
+	}
+	else if (ft_strncmp(args[0], "pwd", 4) == 0)
+	{
+		ft_pwd();
+	}
+	else if (ft_strncmp(args[0], "env", 3) == 0)
+	{
+		/* code */
+	}
+	else if (ft_strncmp(args[0], "exit", 4) == 0)
+	{
+		/* code */
+	}
+	else if (ft_strncmp(args[0], "export", 6) == 0)
+	{
+		/* code */
+	}
+	else if (ft_strncmp(args[0], "unset", 5) == 0)
+	{
+		/* code */
+	}
+	else 
+	{
+		printf("%s command not found\n", cmd);
+	}	
+}
 int	main(void)
 {
 	char	*line;
@@ -28,11 +74,13 @@ int	main(void)
 		if (!line)
 		{
 			printf("exit\n");
-			break ;
+			break;
 		}
 		if (*line)
+		{
+			helper(line);
 			add_history(line);
-		printf("You typed: %s\n", line);
+		}
 		free(line);
 	}
 	return (0);
