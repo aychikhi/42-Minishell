@@ -6,17 +6,17 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/22 13:09:06 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 13:28:00 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <readline/readline.h>
 
 typedef enum e_token_type
 {
@@ -49,11 +49,11 @@ void				check_quotes(char *line);
 void				check_unprint(char **line);
 int					ft_strlen(const char *str);
 char				*ft_strdup(const char *s1);
+void				free_tokens(t_token *tokens);
 int					skip_fun(char *line, int flag);
 char				**ft_split(char const *s, char c);
-int					ft_isspecial(const char *str, int i);
 char				*add_word_inside_quote(char c, char *str);
-void	add_token(t_token **tokens, t_token **last, t_token_type type,
-		const char *value);
+void				add_token(t_token **tokens, t_token **last,
+						t_token_type type, const char *value);
 
 #endif

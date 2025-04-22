@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/22 13:05:08 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 13:18:35 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,18 @@ void	error_fun(void)
 	exit(EXIT_FAILURE);
 }
 
-
+void free_tokens(t_token *tokens)
+{
+	t_token	*tmp;
+	
+	while (tokens)
+	{
+		tmp = tokens;
+		tokens = tokens->next;
+		free(tmp->value);
+		free(tmp);
+	}
+}
 
 void	one_space(char **line)
 {
@@ -52,6 +63,8 @@ void	one_space(char **line)
 int	main(int ac, char **av)
 {
 	char	*line;
+	t_token	*tokens;
+	t_token	*tmp;
 
 	(void)av;
 	(void)ac;
@@ -61,8 +74,15 @@ int	main(int ac, char **av)
 		check_unprint(&line);
 		one_space(&line);
 		check_quotes(line);
-		free (line);
-		// printf("%s\n", line);
+		tokens = tokeniser(line);
+		tmp = tokens;
+		while (tmp)
+		{
+			printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+            tmp = tmp->next;
+		}
+		free_tokens(tokens);
+		free(line);
 	}
 	return (0);
 }
