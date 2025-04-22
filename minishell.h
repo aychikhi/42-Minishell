@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/15 17:16:40 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:56:40 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,13 @@ typedef enum e_token_type {
     TOKEN_REDIR_IN,    // <
     TOKEN_REDIR_OUT,   // >
     TOKEN_HEREDOC,     // <<
-    TOKEN_APPEND,      // >>
+    TOKEN_APPEND,    // >>
 	TOKEN_AND,
 	TOKEN_OR,
 	TOKEN_LPAREN,
 	TOKEN_RPAREN,
     TOKEN_EOF
 } t_token_type;
-
-// typedef struct s_cmd
-// {
-// 	void			*cmd;
-// 	struct s_cmd	*next;
-// }			t_cmd;
 
 typedef struct s_token
 {
@@ -48,12 +42,10 @@ typedef struct s_token
 void	error_fun(void);
 int		ft_strlen(char	*str);
 void	one_space(char **line);
-// t_cmd	*ft_lstnew(void *cmd1);
 void	check_quotes(char *line);
 void	check_unprint(char **line);
 char	*ft_strdup(const char *s1);
 int		ft_isspecial(char *str, int i);
 char	**ft_split(char const *s, char c);
-// void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
 
 #endif
