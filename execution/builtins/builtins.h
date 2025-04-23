@@ -16,5 +16,6 @@
 # include "../execution.h"
 
 int	ft_pwd(void);
+int ft_env(char **env);
 
 #endif

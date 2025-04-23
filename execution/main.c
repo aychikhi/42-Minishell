@@ -21,7 +21,7 @@
 
 // builins helper
 
-void helper(char  *cmd)
+void helper(char  *cmd, char **env)
 {
 	char **args;
 
@@ -31,11 +31,11 @@ void helper(char  *cmd)
 		free(args);
 		return ;
 	}
-	if (ft_strncmp(args[0], "echo", 4) == 0)
+	if (ft_strncmp(args[0], "echo", 5) == 0)
 	{
 		/* code */
 	}
-	else if (ft_strncmp(args[0], "cd", 2) == 0)
+	else if (ft_strncmp(args[0], "cd", 3) == 0)
 	{
 		/* code */
 	}
@@ -43,19 +43,19 @@ void helper(char  *cmd)
 	{
 		ft_pwd();
 	}
-	else if (ft_strncmp(args[0], "env", 3) == 0)
+	else if (ft_strncmp(args[0], "env", 4) == 0)
+	{
+		ft_env(env);
+	}
+	else if (ft_strncmp(args[0], "exit", 5) == 0)
 	{
 		/* code */
 	}
-	else if (ft_strncmp(args[0], "exit", 4) == 0)
+	else if (ft_strncmp(args[0], "export", 7) == 0)
 	{
 		/* code */
 	}
-	else if (ft_strncmp(args[0], "export", 6) == 0)
-	{
-		/* code */
-	}
-	else if (ft_strncmp(args[0], "unset", 5) == 0)
+	else if (ft_strncmp(args[0], "unset", 6) == 0)
 	{
 		/* code */
 	}
@@ -64,8 +64,10 @@ void helper(char  *cmd)
 		printf("%s command not found\n", cmd);
 	}	
 }
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
+	(void)argv;
+	(void)argc;
 	char	*line;
 
 	while (1)
@@ -78,7 +80,7 @@ int	main(void)
 		}
 		if (*line)
 		{
-			helper(line);
+			helper(line , env);
 			add_history(line);
 		}
 		free(line);

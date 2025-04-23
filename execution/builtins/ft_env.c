@@ -10,3 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
+
+int ft_env(char **env)
+{
+	int i;
+
+	i = 0;
+	if (!env || env[0] == NULL)
+	{
+		printf("env: No such file or directory\n");
+		return (1);
+	}
+	while (env[i])
+	{
+		if (env[i][0] != '\0')
+			printf("%s\n", env[i]);
+		i++;
+	}
+	return (0);
+}
