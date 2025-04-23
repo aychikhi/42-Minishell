@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/23 12:46:57 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:05:54 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef enum e_token_type
 	TOKEN_REDIR_OUT,
 	TOKEN_HEREDOC,
 	TOKEN_APPEND,
-	TOKEN_EOF
+	TOKEN_EOF,
 }					t_token_type;
 
 typedef struct s_file
@@ -67,7 +67,7 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-void				error_fun(void);
+int					error_fun(void);
 char				*ft_itoa(int n);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);
@@ -77,7 +77,7 @@ char				*add_word(char *str);
 void				one_space(char **line);
 char				*extract_var(char *var);
 t_token				*tokeniser(char *input);
-void				check_quotes(char *line);
+int					check_quotes(char *line);
 char				*extract_env(char *input);
 void				check_unprint(char **line);
 int					ft_strlen(const char *str);

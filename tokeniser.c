@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/23 13:55:04 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:20:39 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,21 @@ char	*add_word_inside_quote(char c, char *str)
 t_token	*tokeniser(char *input)
 {
 	int		i;
-	int		flag;
 	char	*word;
 	t_token	*tokens;
 	t_token	*last;
 
 	i = 0;
-	flag = 0;
 	last = NULL;
 	tokens = NULL;
 	if (!input)
 		return (NULL);
-	input = expand_env(input);/
+	// input = expand_env(input);
 	while (input[i])
 	{
 		if (input[i] == ' ')
 			i++;
-		else if (input[i] == '|' && !flag)
+		else if (input[i] == '|')
 		{
 			add_token(&tokens, &last, TOKEN_PIPE, "|");
 			i++;
@@ -107,7 +105,7 @@ t_token	*tokeniser(char *input)
 				i++;
 			}
 		}
-		else if (input[i] == '\'' && !flag)
+		else if (input[i] == '\'')
 		{
 			word = add_word_inside_quote(input[i], input + (i + 1));
 			add_token(&tokens, &last, TOKEN_SINGLE_QUOTE, word);
@@ -116,9 +114,8 @@ t_token	*tokeniser(char *input)
 		}
 		else if (input[i] == '\"')
 		{
-			flag = !flag;
 			word = add_word_inside_quote(input[i], input + (i + 1));
-			add_token(&tokens, &last, TOKEN_WORD, word);
+			add_token(&tokens, &last, TOKEN_DOUBLE_QUOTE, word);
 			i += ft_strlen(word) + 2;
 			free(word);
 		}

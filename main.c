@@ -6,16 +6,16 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/23 13:51:54 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:36:17 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_fun(void)
+int	error_fun(void)
 {
 	printf("Error: Unclosed quotes!\n");
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
 void	free_tokens(t_token *tokens)
@@ -63,7 +63,7 @@ void	one_space(char **line)
 static void	print_token(t_token *tokens)
 {
 	t_token	*tmp;
-	
+
 	tmp = tokens;
 	while (tmp)
 	{
@@ -105,19 +105,23 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 	t_token	*tokens;
 	t_env	*new_env;
+	int		flag;
 
 	(void)av;
 	(void)ac;
 	new_env = env_init(env);
-	while (1337)
+	while (22)
 	{
 		line = readline("minishell :");
-		check_unprint(&line);
-		one_space(&line);
-		check_quotes(line);
-		tokens = tokeniser(line);
-		print_token(tokens);
-		free_tokens(tokens);
+		// check_unprint(&line);
+		// one_space(&line);
+		flag = check_quotes(line);
+		if (flag)
+		{
+			tokens = tokeniser(line);
+			print_token(tokens);
+			free_tokens(tokens);
+		}
 		free(line);
 	}
 	return (0);

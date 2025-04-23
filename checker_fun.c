@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checke_fun.c                                       :+:      :+:    :+:   */
+/*   checker_fun.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:05:10 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/22 13:05:28 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:06:06 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	skip_fun(char *line, int flag)
 	return (0);
 }
 
-void	check_quotes(char *line)
+int	check_quotes(char *line)
 {
 	int	i;
 	int	j;
@@ -77,11 +77,12 @@ void	check_quotes(char *line)
 			i++;
 			j = skip_fun(line + i, f);
 			if (j == 0)
-				error_fun();
+				return (error_fun());
 			f = 0;
 			i += j;
 		}
 		else
 			i++;
 	}
+	return (1);
 }
