@@ -17,19 +17,19 @@ OBJB = $(SRCB:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
 
 bonus: $(OBJB)
-	ar rcs $(NAME) $(OBJB)
+	@ar rcs $(NAME) $(OBJB)
 
 %.o : %.c libft.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ) $(OBJB)
+	@rm -rf $(OBJ) $(OBJB)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
