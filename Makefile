@@ -1,9 +1,9 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
-SRCS = ./utils/ft_split.c ./utils/ft_strlen.c ./utils/ft_strdup.c ./utils/ft_isalnum.c ./utils/ft_isalpha.c ./utils/ft_isdigit.c ./utils/ft_itoa.c\
-		 checker_fun.c helper.c tokeniser.c main.c\
+SRCS = ./utils/ft_split.c ./utils/ft_strlen.c ./utils/ft_strdup.c ./utils/ft_isalnum.c ./utils/ft_isalpha.c ./utils/ft_isdigit.c ./utils/ft_itoa.c ./utils/ft_lstnew.c\
+		 ./utils/ft_lstadd_back.c checker_fun.c helper1.c helper.c tokeniser.c main.c\
 
 OBJS = $(SRCS:.c=.o)
 
