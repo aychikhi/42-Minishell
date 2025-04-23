@@ -10,15 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "builtins.h"
 
-void echo(char **args)
+void ft_echo(char **args)
 {
-	int i = 0;
-	while (args[i] != NULL)
+	int i;
+	int nl;
+
+	i = 1;
+	nl = 1;
+	while(args[i] && ft_strncmp(args[i], "-n" , 3) == 0)
 	{
-		write(1, args[i], sizeof(args[i]));
-		write(1, "\n", 1);
+		nl = 0;
 		i++;
 	}
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (nl)
+		printf("\n");
+	
 }

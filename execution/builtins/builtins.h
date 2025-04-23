@@ -17,5 +17,7 @@
 
 int	ft_pwd(void);
 int ft_env(char **env);
+void ft_echo(char **args);
+
 
 #endif

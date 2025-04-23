@@ -17,11 +17,8 @@ int ft_env(char **env)
 	int i;
 
 	i = 0;
-	if (!env || env[0] == NULL)
-	{
-		printf("env: No such file or directory\n");
-		return (1);
-	}
+	if (!env)
+		return (0);
 	while (env[i])
 	{
 		if (env[i][0] != '\0')

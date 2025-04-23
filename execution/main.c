@@ -33,7 +33,7 @@ void helper(char  *cmd, char **env)
 	}
 	if (ft_strncmp(args[0], "echo", 5) == 0)
 	{
-		/* code */
+		ft_echo(args);
 	}
 	else if (ft_strncmp(args[0], "cd", 3) == 0)
 	{
