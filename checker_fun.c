@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:05:10 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/23 17:06:06 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:00:39 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,12 @@ int	skip_fun(char *line, int flag)
 	int	i;
 
 	i = 0;
-	// if (flag == 1)
-	// 	line[i - 1] = 31;
-	// else
-	// 	line[i - 1] = 30;
 	while (line[i])
 	{
 		if (flag == 1 && line[i] == '\'')
-		{
-			// line[i] = 31;
 			return (i + 1);
-		}
 		else if (flag == 2 && line[i] == '\"')
-		{
-			// line[i] = 30;
 			return (i + 1);
-		}
 		i++;
 	}
 	return (0);

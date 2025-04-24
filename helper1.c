@@ -6,11 +6,24 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:31:53 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/23 13:47:15 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:03:54 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_tokens(t_token *tokens)
+{
+	t_token	*tmp;
+
+	while (tokens)
+	{
+		tmp = tokens;
+		tokens = tokens->next;
+		free(tmp->value);
+		free(tmp);
+	}
+}
 
 char	*extract_var(char *var)
 {

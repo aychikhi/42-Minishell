@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/23 17:36:17 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:03:44 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,6 @@ int	error_fun(void)
 {
 	printf("Error: Unclosed quotes!\n");
 	return (0);
-}
-
-void	free_tokens(t_token *tokens)
-{
-	t_token	*tmp;
-
-	while (tokens)
-	{
-		tmp = tokens;
-		tokens = tokens->next;
-		free(tmp->value);
-		free(tmp);
-	}
 }
 
 void	one_space(char **line)
@@ -110,15 +97,15 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	(void)ac;
 	new_env = env_init(env);
-	while (22)
+	while (07)
 	{
 		line = readline("minishell :");
-		// check_unprint(&line);
-		// one_space(&line);
+		if (!line)
+			return (2);
 		flag = check_quotes(line);
 		if (flag)
 		{
-			tokens = tokeniser(line);
+			tokens = tokeniser(line, new_env);
 			print_token(tokens);
 			free_tokens(tokens);
 		}

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/23 17:05:54 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:37:40 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_tokenize_state
+{
+	int				*i;
+	t_token			**tokens;
+	t_token			**last;
+}					t_tokenize_state;
+
 int					error_fun(void);
 char				*ft_itoa(int n);
 int					ft_isdigit(int c);
@@ -76,7 +83,6 @@ void				malloc_error(void);
 char				*add_word(char *str);
 void				one_space(char **line);
 char				*extract_var(char *var);
-t_token				*tokeniser(char *input);
 int					check_quotes(char *line);
 char				*extract_env(char *input);
 void				check_unprint(char **line);
@@ -87,9 +93,20 @@ void				free_tokens(t_token *tokens);
 int					skip_fun(char *line, int flag);
 char				**ft_split(char const *s, char c);
 t_env				*ft_lstnew(void *var, void *value);
+t_token				*tokeniser(char *input, t_env *env);
 void				ft_lstadd_back(t_env **lst, t_env *new);
 char				*add_word_inside_quote(char c, char *str);
+void				handle_out_redirection(char *input, int *i,
+						t_token **tokens, t_token **last);
 void				add_token(t_token **tokens, t_token **last,
 						t_token_type type, const char *value);
+void				handle_word(char *input, int *i, t_token **tokens,
+						t_token **last);
+void				handle_quotes(char *input, int *i, t_token **tokens,
+						t_token **last);
+void				handle_redirection(char *input, int *i, t_token **tokens,
+						t_token **last);
+void				handle_in_redirection(char *input, int *i, t_token **tokens,
+						t_token **last);
 
 #endif
