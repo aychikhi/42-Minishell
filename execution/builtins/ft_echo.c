@@ -19,9 +19,20 @@ void ft_echo(char **args)
 
 	i = 1;
 	nl = 1;
-	while(args[i] && ft_strncmp(args[i], "-n" , 3) == 0)
+	while(args[i] && ft_strncmp(args[i], "-n" , 2) == 0)
 	{
-		nl = 0;
+		//TODO hadnling the -nnnnnnnnn fjdskj
+		//result should be : fjdskj$
+		int j = 2;
+		while (args[i][j] && args[i][j] == 'n')
+			j++;
+		// if(args[i][j] != '\0')
+		// 	break;
+		if (args[i][j] == '\0')
+			nl = 0;
+		else
+			break;
+		
 		i++;
 	}
 	while (args[i])
