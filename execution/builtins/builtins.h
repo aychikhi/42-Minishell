@@ -15,9 +15,11 @@
 
 # include "../execution.h"
 
+extern int g_exit_status;
+
 int	ft_pwd(void);
 int ft_env(char **env);
 void ft_echo(char **args);
-
+void ft_exit(char **args);
 
 #endif

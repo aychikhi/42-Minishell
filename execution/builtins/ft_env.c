@@ -14,16 +14,17 @@
 
 int ft_env(char **env)
 {
-	int i;
+    int i = 0;
 
-	i = 0;
-	if (!env)
-		return (0);
-	while (env[i])
-	{
-		if (env[i][0] != '\0')
-			printf("%s\n", env[i]);
-		i++;
+    if (!env || !env[0])
+    {
+        fprintf(stderr, "minishell: env: environment is empty\n");
+        return (1);
 	}
-	return (0);
+    while (env[i])
+    {
+        printf("%s\n", env[i]);
+        i++;
+    }
+    return (0);
 }

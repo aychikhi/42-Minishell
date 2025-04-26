@@ -12,15 +12,15 @@
 
 #include "builtins.h"
 
-int	ft_pwd(void)
+int ft_pwd(void)
 {
-	char *path = getcwd(NULL , 0);
-	if (!path)
-	{
-		perror("getcwd");
-		return (1);
-	}
-	printf("%s\n", path);
-	free(path);
-	return (0);
+    char *path = getcwd(NULL, 0);
+    if (!path)
+    {
+        perror("minishell: pwd");
+        return (1);
+    }
+    printf("%s\n", path);
+    free(path);
+    return (0);
 }
