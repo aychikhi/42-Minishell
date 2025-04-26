@@ -42,5 +42,5 @@ void ft_echo(char **args)
 	}
 	if (nl)
 		printf("\n");
-	
+	g_exit_status = 0; 
 }
