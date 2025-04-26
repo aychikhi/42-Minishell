@@ -43,6 +43,7 @@ void ft_exit(char **args)
 		{
 			fprintf(stderr, "minishell: exit: too many arguments\n");
 			g_exit_status = 1;
+			return ;
 		}
 		else
         {
@@ -54,5 +55,6 @@ void ft_exit(char **args)
     {
         exit_code = g_exit_status;
     }
+	rl_clear_history();
     exit(exit_code);
 }
