@@ -10,7 +10,7 @@ SRCS = main.c \
        builtins/ft_unset.c \
        builtins/ft_cd.c \
        builtins/ft_exit.c \
-	   builtins/ft_builtins.c \
+	   builtins/builtins.c \
 
 OBJ = $(SRCS:.c=.o)
 

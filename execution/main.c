@@ -12,13 +12,30 @@
 
 #include "execution.h"
 
-int	g_exit_status;
+int g_exit_status;
 
-int	main(int argc, char **argv, char **env)
+int main(int argc, char **argv, char **env)
 {
-	(void)argc;
-	(void)
+    char *line;
+
+    (void)argc;
+    (void)argv;
 	g_exit_status = 0;
-	helper_builtins(cmd, env);
-	return (0);
+    while (1)
+    {
+        line = readline("minishell$ ");
+        if (!line)
+        {
+            printf("exit\n");
+            break;
+        }
+        if (*line)
+        {
+            add_history(line);
+            helper_builtins(line, env);
+        }
+        free(line);
+    }
+    clear_history();
+    return (g_exit_status);
 }
