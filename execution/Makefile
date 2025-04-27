@@ -10,6 +10,7 @@ SRCS = main.c \
        builtins/ft_unset.c \
        builtins/ft_cd.c \
        builtins/ft_exit.c \
+	   builtins/ft_builtins.c \
 
 OBJ = $(SRCS:.c=.o)
 
@@ -17,6 +18,8 @@ LIBFT_DIR = ./Libft
 READLINE_DIR = ../libraries/readline
 
 LIBFT = $(LIBFT_DIR)/libft.a
+
+#LINUX FLAGS 
 READLINE_FLAGS = -lreadline -L/usr/lib -I/usr/include
 
 CYAN = \033[1;36m
@@ -33,7 +36,6 @@ all: $(NAME)
 	@echo "$(GREEN)🎉 Build complete! $(NAME) is ready to shine! ✨$(RESET)"
 
 $(LIBFT):
-	@echo "$(CYAN)📚 Building Libft...$(RESET)"
 	@make -C $(LIBFT_DIR) --no-print-directory
 	@echo "$(GREEN)✅ Libft built successfully!$(RESET)"
 
@@ -53,13 +55,11 @@ COUNT = 0
 	fi
 
 clean:
-	@echo "$(RED)Cleaning object files...$(RESET)"
 	@rm -f $(OBJ)
 	@make -C $(LIBFT_DIR) clean --no-print-directory
 	@echo "$(GREEN)Object files cleaned!$(RESET)"
 
 fclean: clean
-	@echo "$(RED)🗑️ Removing $(NAME)...$(RESET)"
 	@rm -f $(NAME)
 	@make -C $(LIBFT_DIR) fclean --no-print-directory
 	@echo "$(GREEN)Full clean complete!$(RESET)"
@@ -71,3 +71,6 @@ re: fclean all
 
 love:
 	@echo "$(GREEN)💖 Made with love for minishell enthusiasts! 💖$(RESET)"
+
+ballas:
+	@echo "$(BLUE)💎 Ballas! GANG  💎$(RESET)"
