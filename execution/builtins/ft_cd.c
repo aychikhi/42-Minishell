@@ -36,11 +36,18 @@ int	ft_cd(char **args, char **env)
 	char	*path;
 	int		ret;
 
-	if (args[1] == NULL)
+	if (args[1] == NULL || args[1][0] == '~')
+	
 	{
 		path = get_env_value("HOME", env);
 		if (path == NULL)
 			return (ft_putstr_fd("cd: HOME not set\n", 2), 1);
+	}	
+	else if (args[1][0] == '-')
+	{
+		path = get_env_value("OLDPWD", env);
+		if (!path)
+			return (ft_putstr_fd("cd: OLDPWD not set\n", 2), 1);
 	}
 	else
 		path = args[1];
