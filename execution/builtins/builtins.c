@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:55:14 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/27 15:58:01 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/04/27 16:45:38 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static void	handle_builtin(char **args, char **env)
 	if (ft_strncmp(args[0], "echo", 5) == 0)
 		ft_echo(args);
 	else if (ft_strncmp(args[0], "cd", 3) == 0)
-	{
-	}
+		ft_cd(args, env);
 	else if (ft_strncmp(args[0], "pwd", 4) == 0)
 		g_exit_status = ft_pwd();
 	else if (ft_strncmp(args[0], "env", 4) == 0)

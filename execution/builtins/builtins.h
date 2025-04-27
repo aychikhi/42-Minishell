@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:54:55 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/27 15:57:34 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/04/27 16:46:13 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ int			ft_pwd(void);
 int			ft_env(char **env);
 void		ft_echo(char **args);
 void		ft_exit(char **args);
+int			ft_cd(char **args, char **env);
 void		helper_builtins(char *cmd, char **env);
+
 #endif
