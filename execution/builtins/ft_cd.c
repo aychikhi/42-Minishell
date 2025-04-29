@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:55:57 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/27 17:24:05 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/04/29 16:17:35 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int	ft_cd(char **args, char **env)
 	int		ret;
 
 	if (args[1] == NULL || args[1][0] == '~')
-	
 	{
 		path = get_env_value("HOME", env);
 		if (path == NULL)
 			return (ft_putstr_fd("cd: HOME not set\n", 2), 1);
-	}	
+	}
+	//todo oldpwd must be updated before calling cd -
 	else if (args[1][0] == '-')
 	{
 		path = get_env_value("OLDPWD", env);
