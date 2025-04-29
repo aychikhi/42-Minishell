@@ -12,50 +12,29 @@
 
 #include "builtins.h"
 
-static char	*get_env_value(const char *name, char **env)
+int ft_cd(char **args, t_env **env)
 {
-	int		i;
-	char	*value;
+    char    *oldpwd = get_env_value(*env, "PWD");
+    char    *path;
+    char    *newpwd;
+    int     ret;
 
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], name, ft_strlen(name)) == 0
-			&& env[i][ft_strlen(name)] == '=')
-		{
-			value = ft_strdup(env[i] + ft_strlen(name) + 1);
-			return (value);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-int	ft_cd(char **args, char **env)
-{
-	char	*path;
-	int		ret;
-
-	if (args[1] == NULL || args[1][0] == '~')
-	{
-		path = get_env_value("HOME", env);
-		if (path == NULL)
-			return (ft_putstr_fd("cd: HOME not set\n", 2), 1);
-	}
-	//todo oldpwd must be updated before calling cd -
-	else if (args[1][0] == '-')
-	{
-		path = get_env_value("OLDPWD", env);
-		if (!path)
-			return (ft_putstr_fd("cd: OLDPWD not set\n", 2), 1);
-	}
-	else
-		path = args[1];
-	ret = chdir(path);
-	if (ret == -1)
-	{
-		perror("cd");
-		return (1);
-	}
-	return (0);
+    if (!oldpwd)
+        oldpwd = getcwd(NULL, 0);
+    if (!args[1] || args[1][0] == '~')
+        path = get_env_value(*env, "HOME");
+    else if (args[1][0] == '-')
+        path = get_env_value(*env, "OLDPWD");
+    else
+        path = args[1];
+    if (!path)
+        return (ft_putstr_fd("cd: path not set\n", 2), 1);
+    ret = chdir(path);
+    if (ret == -1)
+        return (perror("cd"), 1);
+    newpwd = getcwd(NULL, 0);
+    update_env_var(env, "OLDPWD", oldpwd);
+    update_env_var(env, "PWD", newpwd);
+    free(newpwd);
+    return (0);
 }

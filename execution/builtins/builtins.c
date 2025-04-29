@@ -12,7 +12,7 @@
 
 #include "builtins.h"
 
-static void	handle_builtin(char **args, char **env)
+static void	handle_builtin(char **args, t_env **env)
 {
 	if (ft_strncmp(args[0], "echo", 5) == 0)
 		ft_echo(args);
@@ -21,7 +21,7 @@ static void	handle_builtin(char **args, char **env)
 	else if (ft_strncmp(args[0], "pwd", 4) == 0)
 		g_exit_status = ft_pwd();
 	else if (ft_strncmp(args[0], "env", 4) == 0)
-		g_exit_status = ft_env(env);
+		g_exit_status = ft_env(*env);
 	else if (ft_strncmp(args[0], "exit", 5) == 0)
 		ft_exit(args);
 	else if (ft_strncmp(args[0], "export", 7) == 0)
@@ -34,7 +34,7 @@ static void	handle_builtin(char **args, char **env)
 		fprintf(stderr, "minishell: %s: command not found\n", args[0]);
 }
 
-void	helper_builtins(char *cmd, char **env)
+void	helper_builtins(char *cmd, t_env **env)
 {
 	char	**args;
 	int		i;

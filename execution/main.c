@@ -17,10 +17,12 @@ int	g_exit_status;
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
+	t_env	*env_list;
 
 	(void)argc;
 	(void)argv;
 	g_exit_status = 0;
+	env_list = env_to_list(env);
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -32,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 		if (*line)
 		{
 			add_history(line);
-			helper_builtins(line, env);
+			helper_builtins(line, &env_list);
 		}
 		free(line);
 	}
