@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:56:10 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/27 15:46:57 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/05/06 11:17:51 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	handel_args(char **args)
 	}
 	exit_code = ft_atoi(args[1]);
 	exit_code %= 256;
-	return (1);
+	return (exit_code);
 }
 
 void	ft_exit(char **args)
