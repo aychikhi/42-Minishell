@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/29 15:20:27 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:58:27 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,15 @@ static void	add_file_to_cmd(t_cmd *tmp, t_token **tokens, int type, int *flag)
 static void	add_arg_to_cmd(t_cmd *tmp, t_token **tokens, int *i)
 {
 	if (!tmp->cmd)
+	{
 		tmp->cmd = ft_strdup((*tokens)->value);
-	tmp->args[*i] = ft_strdup((*tokens)->value);
-	(*i)++;
+		*tokens = (*tokens)->next;
+	}
+	else if ((*tokens)->type != 2 && (*tokens)->type != 9)
+	{
+		tmp->args[*i] = ft_strdup((*tokens)->value);
+		(*i)++;
+	}
 	*tokens = (*tokens)->next;
 }
 
