@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/24 15:37:40 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:07:47 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 
 typedef enum e_token_type
 {
 	TOKEN_WORD,
 	TOKEN_PIPE,
-	TOKEN_SINGLE_QUOTE,
-	TOKEN_DOUBLE_QUOTE,
+	TOKEN_SPACE,
+	TOKEN_APPEND,
+	TOKEN_HEREDOC,
 	TOKEN_REDIR_IN,
 	TOKEN_REDIR_OUT,
-	TOKEN_HEREDOC,
-	TOKEN_APPEND,
+	TOKEN_SINGLE_QUOTE,
+	TOKEN_DOUBLE_QUOTE,
 	TOKEN_EOF,
 }					t_token_type;
 
@@ -38,13 +38,6 @@ typedef struct s_file
 	struct s_file	*next;
 }					t_file;
 
-typedef struct s_env
-{
-	char			*var;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
-
 typedef struct s_cmd
 {
 	char			*cmd;
@@ -53,11 +46,17 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+typedef struct s_env
+{
+	char			*var;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_command
 {
 	t_env			*env;
 	t_cmd			*cmd;
-	unsigned char	exit_status;
 }					t_command;
 
 typedef struct s_token
@@ -74,39 +73,71 @@ typedef struct s_tokenize_state
 	t_token			**last;
 }					t_tokenize_state;
 
+typedef struct s_exp_data
+{
+	int				i;
+	int				in_sq;
+	int				in_dq;
+	t_env			*env;
+	char			*expanded;
+	int				flag;
+}					t_exp_data;
+
 int					error_fun(void);
-char				*ft_itoa(int n);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 void				malloc_error(void);
+t_cmd				*add_new(int size);
+void				free_env(t_env *env);
+void				free_cmd(t_cmd *cmd);
 char				*add_word(char *str);
-void				one_space(char **line);
+t_env				*env_init(char **env);
+void				free_file(t_file *file);
 char				*extract_var(char *var);
 int					check_quotes(char *line);
-char				*extract_env(char *input);
-void				check_unprint(char **line);
-int					ft_strlen(const char *str);
 char				*ft_strdup(const char *s1);
+int					ft_strlen(const char *str);
+void				check_unprint(char **line);
 char				*extract_value(char *value);
 void				free_tokens(t_token *tokens);
 int					skip_fun(char *line, int flag);
-char				**ft_split(char const *s, char c);
+int					check_tokens(t_token **tokens);
+int					skip_spaces(char *input, int *i);
+int					process_exp_char(t_exp_data *data);
+t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
-t_token				*tokeniser(char *input, t_env *env);
+char				*expand_env(char *input, t_env *env);
+void				init_cmd(t_cmd **cmd, t_token *tokens);
+void				check_and_join_token(t_token ***token);
+void				add_backfile(t_file **lst, t_file *new);
 void				ft_lstadd_back(t_env **lst, t_env *new);
+char				*ft_strcpy(char *dest, const char *src);
+int					ft_strcmp(const char *s1, const char *s2);
 char				*add_word_inside_quote(char c, char *str);
 void				handle_out_redirection(char *input, int *i,
 						t_token **tokens, t_token **last);
 void				add_token(t_token **tokens, t_token **last,
 						t_token_type type, const char *value);
+char				*ft_strjoin(char const *s1, char const *s2);
+t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
+						t_token **last);
+char				*ft_substr(char const *s, int start, int len);
+char				*ft_strncpy(char *dest, const char *src, int n);
+int					check_red(char *input, t_tokenize_state *state);
+int					check_pipe(char *input, t_tokenize_state *state);
 void				handle_word(char *input, int *i, t_token **tokens,
 						t_token **last);
+void				tokeniser(char *input, t_env *env, t_command *cmd);
 void				handle_quotes(char *input, int *i, t_token **tokens,
 						t_token **last);
+char				*extract_env(char *input, t_env *env, int dollar_pos,
+						char *var_name);
+char				*handle_env_expansion(char *input, int i, t_env *env);
 void				handle_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				handle_in_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
+void				init_command(t_command **cmd, t_token *tokens, t_env **env);
 
 #endif

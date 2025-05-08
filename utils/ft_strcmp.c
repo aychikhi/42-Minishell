@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 12:30:44 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:07:57 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/25 13:00:34 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/04/25 13:01:09 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strlen(const char	*str)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	i;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
 	i = 0;
-	while (str && str[i])
+	while (str1[i] || str2[i])
+	{
+		if (str1[i] < str2[i])
+			return (-1);
+		else if (str1[i] > str2[i])
+			return (1);
 		i++;
-	return (i);
+	}
+	return (0);
 }

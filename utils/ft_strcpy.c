@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 12:30:44 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:07:57 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/25 13:05:45 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/04/25 13:20:54 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strlen(const char	*str)
+char	*ft_strcpy(char *dest, const char *src)
 {
 	int	i;
 
 	i = 0;
-	while (str && str[i])
+	while (src[i])
+	{
+		dest[i] = src[i];
 		i++;
-	return (i);
+	}
+	dest[i] = '\0';
+	return (dest);
 }

@@ -1,23 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   add_backfile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 12:30:44 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:07:57 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/29 14:33:51 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/04/29 14:35:12 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strlen(const char	*str)
+static t_file	*ft_lstlast(t_file *lst)
 {
-	int	i;
+	t_file	*current;
 
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
+	if (!lst)
+		return (NULL);
+	current = lst;
+	while (current->next != NULL)
+	{
+		current = current->next;
+	}
+	return (current);
+}
+
+void	add_backfile(t_file **lst, t_file *new)
+{
+	t_file	*last;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		(*lst) = new;
+		return ;
+	}
+	last = ft_lstlast(*lst);
+	last->next = new;
 }

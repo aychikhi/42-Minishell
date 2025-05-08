@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   add_newfile.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 12:30:44 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:07:57 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/28 11:29:04 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/04/28 11:32:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strlen(const char	*str)
+t_file	*add_newfile(void *name, int type)
 {
-	int	i;
+	t_file	*tmp;
 
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
+	tmp = malloc(sizeof(t_file));
+	if (!tmp)
+		malloc_error();
+	tmp->name = name;
+	tmp->type = type;
+	tmp->next = NULL;
+	return (tmp);
 }
