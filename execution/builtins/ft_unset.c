@@ -12,16 +12,28 @@
 
 #include "builtins.h"
 
-void	remove_env_var(t_env **env, char *key)
+int	is_valid_key(char *key)
 {
-	t_env	*prev;
-	t_env	*curr;
+	
+	if (!ft_isalpha(key[0]) && key[0] != '_')
+		return (0);
+	while (*key)
+	{
+		if (!ft_isalnum(*key) && *key != '_')
+			return (0);
+		key++;
+	}
+	return (1);
+}
 
-	prev = NULL;
-	curr = *env;
+static void	remove_env_var(t_env **env, char *key)
+{
+	t_env	*prev = NULL;
+	t_env	*curr = *env;
+
 	while (curr)
 	{
-		if (ft_strcmp(curr->key, key) == 0)
+		if (!ft_strcmp(curr->key, key))
 		{
 			if (prev)
 				prev->next = curr->next;
@@ -37,26 +49,11 @@ void	remove_env_var(t_env **env, char *key)
 	}
 }
 
-int	is_valid_key(char *key)
-{
-	if (!ft_isalpha(key[0]) && key[0] != '_')
-		return (0);
-	while (*key)
-	{
-		if (!ft_isalnum(*key) && *key != '_')
-			return (0);
-		key++;
-	}
-	return (1);
-}
-
 int	ft_unset(char **args, t_env **env)
 {
-	int	status;
-	int	i;
+	int	status = 0;
+	int	i = 1;
 
-	i = 0;
-	status = 0;
 	if (!args[1])
 		return (0);
 	while (args[i])
