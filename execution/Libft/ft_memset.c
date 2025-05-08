@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 20:02:01 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:31:55 by aychikhi         ###   ########.fr       */
+/*   Created: 2024/10/22 15:09:43 by ayaarab           #+#    #+#             */
+/*   Updated: 2024/11/05 17:00:33 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	ft_isdigit(int c)
+void	*ft_memset(void *pointer, int value, size_t count)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	unsigned char	*ptr;
+	size_t			i;
+
+	ptr = (unsigned char *)pointer;
+	i = 0;
+	while (i < count)
+	{
+		ptr[i++] = (unsigned char)value;
+	}
+	return (pointer);
 }

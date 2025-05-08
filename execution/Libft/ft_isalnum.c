@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 20:02:01 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:31:55 by aychikhi         ###   ########.fr       */
+/*   Created: 2024/10/22 15:00:27 by ayaarab           #+#    #+#             */
+/*   Updated: 2024/11/03 10:43:19 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	ft_isdigit(int c)
+int	ft_isalnum(int character)
 {
-	if (c >= '0' && c <= '9')
+	if (ft_isalpha(character) || ft_isdigit(character))
 		return (1);
 	return (0);
 }

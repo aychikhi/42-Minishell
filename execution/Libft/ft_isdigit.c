@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 20:02:01 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:31:55 by aychikhi         ###   ########.fr       */
+/*   Created: 2024/10/22 15:00:35 by ayaarab           #+#    #+#             */
+/*   Updated: 2024/10/28 15:56:15 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	ft_isdigit(int c)
+int	ft_isdigit(int character)
 {
-	if (c >= '0' && c <= '9')
+	if (character >= '0' && character <= '9')
 		return (1);
 	return (0);
 }

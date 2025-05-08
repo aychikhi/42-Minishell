@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 20:02:01 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:31:55 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/18 16:55:55 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/04/27 14:00:45 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "builtins.h"
 
-int	ft_isdigit(int c)
+int	ft_pwd(void)
 {
-	if (c >= '0' && c <= '9')
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	if (!path)
+	{
+		perror("minishell: pwd");
 		return (1);
+	}
+	printf("%s\n", path);
+	free(path);
 	return (0);
 }
