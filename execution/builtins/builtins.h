@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:54:55 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/29 22:42:17 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/05/08 15:31:08 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ char				*get_env_value(t_env *env, const char *key);
 void				update_env_var(t_env **env, const char *key,
 						const char *value);
 void				helper_builtins(char *cmd, t_env **env);
-int	is_valid_key(char *key);
+int					is_valid_key(char *key);
 
 #endif

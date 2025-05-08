@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:56:03 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/29 22:41:49 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/05/08 15:31:58 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_env	*env_to_list(char **env)
 		if (!node)
 			return (NULL);
 		equal = ft_strchr(*env, '=');
-		node->key = ft_substr(*env, 0, equal - *env); 
+		node->key = ft_substr(*env, 0, equal - *env);
 		node->value = ft_strdup(equal + 1);
 		node->next = head;
 		head = node;
@@ -96,17 +96,17 @@ void	update_env_var(t_env **env, const char *key, const char *value)
 	*env = new_node;
 }
 
-int ft_env(t_env *env)
+int	ft_env(t_env *env)
 {
-    if (!env)
-    {
-        ft_putstr_fd("env: environment is empty\n", 2);
-        return (1);
-    }
-    while (env)
-    {
-        printf("%s=%s\n", env->key, env->value);
-        env = env->next;
-    }
-    return (0);
+	if (!env)
+	{
+		ft_putstr_fd("env: environment is empty\n", 2);
+		return (1);
+	}
+	while (env)
+	{
+		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
+	return (0);
 }
