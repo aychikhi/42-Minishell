@@ -25,11 +25,9 @@ static void	handle_builtin(char **args, t_env **env)
 	else if (ft_strncmp(args[0], "exit", 5) == 0)
 		ft_exit(args);
 	else if (ft_strncmp(args[0], "export", 7) == 0)
-	{
-	}
+		ft_export(args, env);
 	else if (ft_strncmp(args[0], "unset", 6) == 0)
-	{
-	}
+		ft_unset(args, env);
 	else
 		fprintf(stderr, "minishell: %s: command not found\n", args[0]);
 }
