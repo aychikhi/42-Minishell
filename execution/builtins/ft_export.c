@@ -1,52 +1,71 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:56:13 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/08 15:12:26 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/04/18 16:56:14 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void print_exported_env(t_env *env)
+int	is_valid_key(const char *key)
 {
-    while (env) {
-        if (env->value)
-            printf("declare -x %s=\"%s\"\n", env->key, env->value);
-        else
-            printf("declare -x %s\n", env->key);
-        env = env->next;
-    }
+	int  i = 0;
+	if(!ft_isalpha(key[i]) && key[i] != '_')
+		return (0);
+	while (key[i])
+	{
+		if (!ft_isalnum(key[i]) && key[i] != '_')
+			return (0);
+		i++;
+	}
+	return 1;
 }
-
-int ft_export(char **args, t_env **env)
+int			ft_export(char **args, t_env **env)
 {
-    if (!args[1]) {
-        print_exported_env(*env);
-        return (0);
-    }
-
-    int status = 0;
-    for (int i = 1; args[i]; i++) {
-        char *eq = ft_strchr(args[i], '=');
-        char *key = eq ? ft_substr(args[i], 0, eq - args[i]) : ft_strdup(args[i]);
-        
-        if (!is_valid_key(key)) {
-            ft_putstr_fd("export: `", 2);
-            ft_putstr_fd(args[i], 2);
-            ft_putstr_fd("': not a valid identifier\n", 2);
-            status = 1;
-        }
-        else if (eq)
-            update_env_var(env, key, eq + 1);
-        else
-            update_env_var(env, key, "");
-        
-        free(key);
-    }
-    return (status);
+	int i;
+	
+	i = 0;
+	
+	while (args[i])
+	{
+		if (ft_strchr(args[i], '='))
+		{
+			if (!is_valid_key(args[i]))
+			{
+				ft_putstr_fd("export: `", 2);
+				ft_putstr_fd(args[i], 2);
+				ft_putstr_fd("': not a valid identifier\n", 2);
+				return (1);
+			}
+			else
+			{
+				char *key = ft_substr(args[i], 0, ft_strchr(args[i], '=') - args[i]);
+				char *value = ft_strdup(ft_strchr(args[i], '=') + 1);
+				update_env_var(env, key, value);
+				free(key);
+				free(value);
+			}
+		}
+		else
+			update_env_var(env, args[i], NULL);
+		i++;
+	}
+	if (i == 0)
+	{
+		t_env *tmp = *env;
+		while (tmp)
+		{
+			if (tmp->value)
+				printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+			else
+				printf("declare -x %s\n", tmp->key);
+			tmp = tmp->next;
+		}
+	}
+	return (0);
 }
