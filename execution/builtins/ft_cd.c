@@ -17,24 +17,26 @@ int	ft_cd(char **args, t_env **env)
 	char	*path;
 	char	*oldpwd;
 	char	*newpwd;
+	int		ret;
 
 	oldpwd = getcwd(NULL, 0);
-	if (!args[1] || ft_strcmp(args[1], "~") == 0)
+	if (!args[1] || !ft_strcmp(args[1], "~"))
 		path = get_env_value(*env, "HOME");
-	else if (ft_strcmp(args[1], "-") == 0)
+	else if (!ft_strcmp(args[1], "-"))
 		path = get_env_value(*env, "OLDPWD");
 	else
 		path = args[1];
 	if (!path || chdir(path) == -1)
 	{
 		free(oldpwd);
-		perror("cd");
+		ft_putstr_fd("minishell: cd: ", 2);
+		perror(path ? path : "HOME not set");
 		return (1);
 	}
-	update_env_var(env, "OLDPWD", oldpwd);
-	free(oldpwd);
 	newpwd = getcwd(NULL, 0);
+	update_env_var(env, "OLDPWD", oldpwd);
 	update_env_var(env, "PWD", newpwd);
+	free(oldpwd);
 	free(newpwd);
 	return (0);
 }
