@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 int	is_valid_key(char *key)
 {
@@ -33,13 +33,13 @@ static void	remove_env_var(t_env **env, char *key)
 
 	while (curr)
 	{
-		if (!ft_strcmp(curr->key, key))
+		if (!ft_strcmp(curr->var, key))
 		{
 			if (prev)
 				prev->next = curr->next;
 			else
 				*env = curr->next;
-			free(curr->key);
+			free(curr->var);
 			free(curr->value);
 			free(curr);
 			return ;

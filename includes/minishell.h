@@ -16,6 +16,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include "builtins.h" // Ensure this is included for t_env
 
 typedef enum e_token_type
 {
@@ -46,12 +47,12 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef struct s_env
-{
-	char			*var;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
+// typedef struct s_env
+// {
+// 	char			*var;
+// 	char			*value;
+// 	struct s_env	*next;
+// }					t_env;
 
 typedef struct s_command
 {
@@ -104,6 +105,7 @@ void				free_tokens(t_token *tokens);
 int					skip_fun(char *line, int flag);
 int					check_tokens(t_token **tokens);
 int					skip_spaces(char *input, int *i);
+char				**ft_split(char const *s, char c);
 int					process_exp_char(t_exp_data *data);
 t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
@@ -139,5 +141,6 @@ void				handle_redirection(char *input, int *i, t_token **tokens,
 void				handle_in_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				init_command(t_command **cmd, t_token *tokens, t_env **env);
+void				execute_builtin(t_command *cmd, t_env **env);
 
 #endif

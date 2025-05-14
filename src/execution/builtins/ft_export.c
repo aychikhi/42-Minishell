@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 static void	print_export(t_env *env)
 {
@@ -19,9 +19,9 @@ static void	print_export(t_env *env)
 	while (env)
 	{
 		if (env->value)
-			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+			printf("declare -x %s=\"%s\"\n", env->var, env->value);
 		else
-			printf("declare -x %s\n", env->key);
+			printf("declare -x %s\n", env->var);
 		env = env->next;
 	}
 }

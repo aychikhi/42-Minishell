@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 t_env	*env_to_list(char **env)
 {
@@ -25,7 +25,7 @@ t_env	*env_to_list(char **env)
 		if (!node)
 			return (NULL);
 		equal = ft_strchr(*env, '=');
-		node->key = ft_substr(*env, 0, equal - *env);
+		node->var = ft_substr(*env, 0, equal - *env);
 		node->value = ft_strdup(equal + 1);
 		node->next = head;
 		head = node;
@@ -51,7 +51,7 @@ char	**list_to_env(t_env *list)
 	count = 0;
 	while (list)
 	{
-		entry = ft_strjoin(list->key, "=");
+		entry = ft_strjoin(list->var, "=");
 		env[count++] = ft_strjoin(entry, list->value);
 		free(entry);
 		list = list->next;
@@ -64,7 +64,7 @@ char	*get_env_value(t_env *env, const char *key)
 {
 	while (env)
 	{
-		if (ft_strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->var, key) == 0)
 			return (env->value);
 		env = env->next;
 	}
@@ -79,7 +79,7 @@ void	update_env_var(t_env **env, const char *key, const char *value)
 	tmp = *env;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key) == 0)
+		if (ft_strcmp(tmp->var, key) == 0)
 		{
 			free(tmp->value);
 			tmp->value = ft_strdup(value);
@@ -90,7 +90,7 @@ void	update_env_var(t_env **env, const char *key, const char *value)
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return ;
-	new_node->key = ft_strdup(key);
+	new_node->var = ft_strdup(key);
 	new_node->value = ft_strdup(value);
 	new_node->next = *env;
 	*env = new_node;
@@ -105,7 +105,7 @@ int	ft_env(t_env *env)
 	}
 	while (env)
 	{
-		printf("%s=%s\n", env->key, env->value);
+		printf("%s=%s\n", env->var, env->value);
 		env = env->next;
 	}
 	return (0);

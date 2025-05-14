@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 21:46:57 by ayaarab           #+#    #+#             */
-/*   Updated: 2024/10/30 19:32:44 by ayaarab          ###   ########.fr       */
+/*   Created: 2024/10/23 21:03:43 by ayaarab           #+#    #+#             */
+/*   Updated: 2024/11/04 16:36:12 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strrchr(const char *string, int searchedChar)
+char	*ft_strchr(const char *string, int searchedChar)
 {
-	size_t	len;
-
-	len = ft_strlen(string);
-	while (len > 0)
+	while (*string)
 	{
-		if (string[len] == (char)searchedChar)
-			return ((char *)string + len);
-		len--;
+		if (*string == (char)searchedChar)
+			return ((char *)string);
+		string++;
 	}
-	if (string[0] == (char)searchedChar)
+	if (*string == (char)searchedChar)
 		return ((char *)string);
 	return (NULL);
 }

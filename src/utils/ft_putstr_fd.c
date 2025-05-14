@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 15:00:35 by ayaarab           #+#    #+#             */
-/*   Updated: 2024/10/28 15:56:15 by ayaarab          ###   ########.fr       */
+/*   Created: 2024/10/26 16:07:38 by ayaarab           #+#    #+#             */
+/*   Updated: 2024/11/04 12:46:27 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-int	ft_isdigit(int character)
+void	ft_putstr_fd(char *s, int fd)
 {
-	if (character >= '0' && character <= '9')
-		return (1);
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+		write(fd, &s[i++], 1);
 }
