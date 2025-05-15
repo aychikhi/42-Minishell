@@ -16,8 +16,8 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "builtins.h" // Ensure this is included for t_env
-
+# include "builtins.h"
+# include <limits.h>
 typedef enum e_token_type
 {
 	TOKEN_WORD,
@@ -141,6 +141,9 @@ void				handle_redirection(char *input, int *i, t_token **tokens,
 void				handle_in_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				init_command(t_command **cmd, t_token *tokens, t_env **env);
-void				execute_builtin(t_command *cmd, t_env **env);
+
+
+
+void				execute_builtin(t_cmd *cmd, t_env **env);
 
 #endif

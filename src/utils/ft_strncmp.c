@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_strncmp(const char *first, const char *second, size_t length)
+int	ft_strncmp(char *first, char *second, size_t length)
 {
 	size_t	i;
 

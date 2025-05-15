@@ -64,9 +64,9 @@ static void	add_arg_to_cmd(t_cmd *tmp, t_token **tokens, int *i)
 	if (!tmp->cmd)
 	{
 		tmp->cmd = ft_strdup((*tokens)->value);
-		*tokens = (*tokens)->next;
+		// *tokens = (*tokens)->next;
 	}
-	else if ((*tokens)->type != 2 && (*tokens)->type != 9)
+	if ((*tokens)->type != 2 && (*tokens)->type != 9)
 	{
 		tmp->args[*i] = ft_strdup((*tokens)->value);
 		(*i)++;

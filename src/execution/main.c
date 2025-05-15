@@ -14,11 +14,24 @@
 
 int g_exit_status;
 
+int	error_fun(void)
+{
+	printf("Error: Unclosed quotes!\n");
+	return (0);
+}
+
+void	malloc_error(void)
+{
+	printf("malloc Error !\n");
+	exit(EXIT_FAILURE);
+}
 static void handle_sigint(int sig) 
 {
     if (sig == SIGINT) 
     {
         write(1, "\n", 1);
+        rl_replace_line("", 0);
+        rl_on_new_line();
         g_exit_status = 130;
     }
     else if (sig == SIGQUIT)
@@ -31,12 +44,13 @@ static void handle_sigint(int sig)
 int main(int argc, char **argv, char **env) {
     char *line;
     t_env *env_list;
-    t_command *cmd = NULL;
+    t_command cmd;
 
     (void)argc;
     (void)argv;
     g_exit_status = 0;
     env_list = env_to_list(env);
+    // cmd = NULL;
     signal(SIGINT, handle_sigint);
     signal(SIGQUIT, handle_sigint);
     while (1) 
@@ -50,8 +64,19 @@ int main(int argc, char **argv, char **env) {
         if (*line) 
         {
             add_history(line);
-            tokeniser(line, env_list, cmd);
-            execute_builtin(cmd, &env_list);
+            // cmd = malloc(sizeof(t_command));
+            // if(!cmd)
+            //     malloc_error();
+            // cmd->cmd = NULL;
+            tokeniser(line, env_list, &cmd);
+            if(cmd.cmd != NULL)
+            {
+                // printf("cmd->cmd, %s ,args %s \n", cmd.cmd->cmd,cmd.cmd->args[0]);
+                execute_builtin(cmd.cmd, &env_list);
+            }
+            if(cmd.cmd)
+                free_cmd(cmd.cmd);
+            // free(cmd);
         }
         free(line);
     }
