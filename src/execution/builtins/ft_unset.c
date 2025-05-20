@@ -12,20 +12,6 @@
 
 #include "../../../includes/minishell.h"
 
-int	is_valid_key(char *key)
-{
-	
-	if (!ft_isalpha(key[0]) && key[0] != '_')
-		return (0);
-	while (*key)
-	{
-		if (!ft_isalnum(*key) && *key != '_')
-			return (0);
-		key++;
-	}
-	return (1);
-}
-
 static void	remove_env_var(t_env **env, char *key)
 {
 	t_env	*prev = NULL;

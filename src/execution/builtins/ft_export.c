@@ -14,7 +14,7 @@
 
 static void	print_export(t_env *env)
 {
-	if(!env)
+	if (!env)
 		return ;
 	while (env)
 	{
@@ -25,16 +25,22 @@ static void	print_export(t_env *env)
 		env = env->next;
 	}
 }
-int check_len(char *arg)
+
+int	is_valid_key(char *key)
 {
-	int i = 0;
-	while (arg[i])
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(key[i]) && key[i] != '_')
+		return (0);
+	i++;
+	while (key[i] && key[i] != '=')
 	{
-		if (arg[i] == '=')
-			return (i);
+		if (!ft_isalnum(key[i]) && key[i] != '_')
+			return (0);
 		i++;
 	}
-	return (i);
+	return (1);
 }
 
 static int	process_export_arg(char *arg, t_env **env)
@@ -43,14 +49,14 @@ static int	process_export_arg(char *arg, t_env **env)
 	char	*key;
 	char	*value;
 
-	eq = ft_strchr(arg, '=');
-	if (!is_valid_key(arg) )
+	if (!is_valid_key(arg))
 	{
-		ft_putstr_fd("export: `", 2);
+		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
 		return (1);
 	}
+	eq = ft_strchr(arg, '=');
 	if (eq)
 	{
 		key = ft_substr(arg, 0, eq - arg);
@@ -66,12 +72,22 @@ static int	process_export_arg(char *arg, t_env **env)
 
 int	ft_export(char **args, t_env **env)
 {
-    int	status = 0;
-    int	i = 1;
+	int	i;
+	int	status;
 
-    if (!args || !args[1])
-        return (print_export(*env), 0);
-    while (args[i])
-        status |= process_export_arg(args[i++], env);
-    return (status);
+	i = 1;
+	status = 0;
+	if (!args[1])
+	{
+		print_export(*env);
+		return (0);
+	}
+	while (args[i])
+	{
+		if (process_export_arg(args[i], env))
+			status = 1;
+		i++;
+	}
+	g_exit_status = status;
+	return (status);
 }

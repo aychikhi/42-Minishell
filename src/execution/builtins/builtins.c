@@ -32,18 +32,18 @@
 // 		fprintf(stderr, "minishell: %s: command not found\n", args[0]);
 // }
 
-void print_args(char **args)
-{
-    for (int i = 0;args[i]; i++)
-        printf("args %d, %s\n", i+1, args[i]);
-}
+// void print_args(char **args)
+// {
+//     for (int i = 0;args[i]; i++)
+//         printf("args %d, %s\n", i+1, args[i]);
+// }
 
 void execute_builtin(t_cmd *cmd, t_env **env)
 {
     if (!cmd || !cmd->cmd) 
         return;
     // printf("cmd %s , args %s \n",cmd->cmd , cmd->args[0]);
-    print_args(cmd->args);
+    // print_args(cmd->args);
     if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
         ft_echo(cmd->args);
     else if (ft_strncmp(cmd->cmd, "cd", 3) == 0)
