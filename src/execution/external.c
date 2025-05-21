@@ -20,14 +20,16 @@ char *get_cmd_path(char *cmd ,t_env *env)
 	char *full;
 
 	path_env = get_env_value(env ,"PATH");
-	if (!path_env || !cmd)
+	if (!path_env)
 		return NULL;
 	i = 0;
 	path = ft_split(path_env , ':');
+	if (!path)
+		return NULL;
 	while (path[i])
 	{
 		full = join_paths(path[i],cmd);
-		if (access(full , X_OK))
+		if (access(full , X_OK) == 0)
 		{
 			free_2d_arr(path);
 			return full;
