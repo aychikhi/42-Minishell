@@ -41,6 +41,40 @@ char *get_cmd_path(char *cmd ,t_env *env)
 	return (NULL);
 }
 
+// void redir(t_file *file)
+// {
+//     int fd;
+
+//     while (file)
+//     {
+//         if (file->type == TOKEN_REDIR_IN)
+//             fd = open(file->name, O_RDONLY);
+//         else if (file->type == TOKEN_REDIR_OUT)
+//             fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+//         else if (file->type == TOKEN_APPEND)
+//             fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+//         else
+//         {
+//             file = file->next;
+//             continue;
+//         }
+
+//         if (fd < 0)
+//         {
+//             perror(file->name);
+//             exit(1);
+//         }
+
+//         if (file->type == TOKEN_REDIR_IN)
+//             dup2(fd, STDIN_FILENO);
+//         else
+//             dup2(fd, STDOUT_FILENO);
+//         close(fd);
+
+//         file = file->next;
+//     }
+// }
+
 void	exec_externals(t_cmd *cmd ,t_env *env)
 {
 	pid_t pid;
@@ -60,6 +94,7 @@ void	exec_externals(t_cmd *cmd ,t_env *env)
 	pid = fork();
 	if (pid == 0)
 	{
+		redir(cmd->file);
 		execve(path , cmd->args ,envp);
 		perror("execve");
 		exit(1);
