@@ -14,11 +14,12 @@ SRCS = execution/main.c \
        utils/ft_isalpha.c utils/ft_isdigit.c utils/ft_lstnew.c \
        utils/ft_strcmp.c utils/ft_strjoin.c utils/add_backfile.c \
        utils/ft_strchr.c utils/ft_putstr_fd.c utils/ft_strncmp.c \
-       utils/ft_atoi.c \
+       utils/ft_atoi.c utils/ft_split.c \
        execution/builtins/ft_echo.c execution/builtins/ft_env.c \
        execution/builtins/ft_export.c execution/builtins/ft_pwd.c \
        execution/builtins/ft_unset.c execution/builtins/ft_cd.c \
-       execution/builtins/ft_exit.c execution/builtins/builtins.c
+       execution/builtins/ft_exit.c execution/builtins/builtins.c \
+       execution/external.c
 
 OBJS = $(SRCS:.c=.o)
 

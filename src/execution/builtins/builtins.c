@@ -59,7 +59,10 @@ void execute_builtin(t_cmd *cmd, t_env **env)
     else if (ft_strncmp(cmd->cmd, "unset", 6) == 0)
         ft_unset(cmd->args, env);
     else
+    {
         ft_putstr_fd("minishell: command not found\n", 2);
+        g_exit_status = 127;
+    }
 }
 // void	helper_builtins(char *cmd, t_env **env)
 // {

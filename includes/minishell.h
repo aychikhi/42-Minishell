@@ -145,5 +145,6 @@ void				init_command(t_command **cmd, t_token *tokens, t_env **env);
 
 
 void				execute_builtin(t_cmd *cmd, t_env **env);
+void				exec_externals(t_cmd *cmd ,t_env *env);
 
 #endif

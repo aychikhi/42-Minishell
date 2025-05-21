@@ -41,6 +41,14 @@ static void handle_sigint(int sig)
     }
 }
 
+static int	is_builtin(char *cmd)
+{
+	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
+			!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "env") ||
+			!ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "export") ||
+			!ft_strcmp(cmd, "unset"));
+}
+
 int main(int argc, char **argv, char **env) {
     char *line;
     t_env *env_list;
@@ -64,19 +72,16 @@ int main(int argc, char **argv, char **env) {
         if (*line) 
         {
             add_history(line);
-            // cmd = malloc(sizeof(t_command));
-            // if(!cmd)
-            //     malloc_error();
-            // cmd->cmd = NULL;
             tokeniser(line, env_list, &cmd);
-            if(cmd.cmd != NULL)
+            if (cmd.cmd != NULL)
             {
-                // printf("cmd->cmd, %s ,args %s \n", cmd.cmd->cmd,cmd.cmd->args[0]);
-                execute_builtin(cmd.cmd, &env_list);
+                if (is_builtin(cmd.cmd->cmd))
+                    execute_builtin(cmd.cmd, &env_list);
+                else
+                    exec_externals(cmd.cmd, env_list);
             }
             if(cmd.cmd)
                 free_cmd(cmd.cmd);
-            // free(cmd);
         }
         free(line);
     }

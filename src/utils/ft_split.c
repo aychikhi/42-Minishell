@@ -44,21 +44,7 @@ static int	len(const char *str, char c, int i)
 	return (j);
 }
 
-static char	*ft_strncpy(char *dest, const char *src, int n)
-{
-	int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-static void	free_2d_arr(char **ptr)
+void	free_2d_arr(char **ptr)
 {
 	int	i;
 

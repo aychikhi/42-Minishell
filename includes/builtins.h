@@ -19,7 +19,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
-
+# include <fcntl.h>
+# include <sys/wait.h>
 typedef struct s_env
 {
 	char			*var;
@@ -37,7 +38,7 @@ int					ft_cd(char **args, t_env **env);
 int					ft_unset(char **args, t_env **env);
 int					ft_export(char **args, t_env **env);
 
-
+void				free_2d_arr(char **ptr);
 int					is_valid_key(char *key);
 int					ft_atoi(const char *str);
 t_env				*env_to_list(char **env);
@@ -48,4 +49,5 @@ char				*ft_strchr(const char *string, int searchedChar);
 void				update_env_var(t_env **env, const char *key, const char *value);
 int					ft_strncmp(char *first, char *second, size_t length);
 
+char 				*get_cmd_path(char *cmd ,t_env *env);
 #endif
