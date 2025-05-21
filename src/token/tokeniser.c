@@ -116,9 +116,7 @@ void	tokeniser(char *input, t_env *env, t_command *cmd)
 	}
 	finalize_tokens(&tokens, &last);
 	init_command(&cmd, tokens, &env);
-	// free_tokens(tokens);
-	// if(cmd && cmd->cmd)
-	// free_cmd(cmd->cmd);
+	free_tokens(tokens);
 	free(new_input);
 }
 	// print_command(cmd);

@@ -58,7 +58,6 @@ int main(int argc, char **argv, char **env) {
     (void)argv;
     g_exit_status = 0;
     env_list = env_to_list(env);
-    // cmd = NULL;
     signal(SIGINT, handle_sigint);
     signal(SIGQUIT, handle_sigint);
     while (1) 
@@ -86,5 +85,6 @@ int main(int argc, char **argv, char **env) {
         free(line);
     }
     clear_history();
+    free_env(env_list);
     return (g_exit_status);
 }

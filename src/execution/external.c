@@ -67,5 +67,5 @@ void	exec_externals(t_cmd *cmd ,t_env *env)
 	else
 		waitpid(pid ,&g_exit_status , 0);
 	free(path);
-	free_2d_arr(envp);	
+	free_2d_arr(envp);
 }

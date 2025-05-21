@@ -46,11 +46,14 @@ static int	len(const char *str, char c, int i)
 
 void	free_2d_arr(char **ptr)
 {
-	int	i;
+    int	i;
 
-	i = 0;
-	while (ptr[i])
-		free(ptr[i++]);
+    if (!ptr)
+        return;
+    i = 0;
+    while (ptr[i])
+        free(ptr[i++]);
+    free(ptr);
 }
 
 char	**ft_split(char const *s, char c)
