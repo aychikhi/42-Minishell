@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:55:14 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/04/27 16:45:38 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/05/22 18:48:35 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,29 @@
 //         printf("args %d, %s\n", i+1, args[i]);
 // }
 
-void execute_builtin(t_cmd *cmd, t_env **env)
+void	execute_builtin(t_cmd *cmd, t_env **env)
 {
-    if (!cmd || !cmd->cmd) 
-        return;
-    // printf("cmd %s , args %s \n",cmd->cmd , cmd->args[0]);
-    // print_args(cmd->args);
-    if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
-        ft_echo(cmd->args);
-    else if (ft_strncmp(cmd->cmd, "cd", 3) == 0)
-        ft_cd(cmd->args, env);
-    else if (ft_strncmp(cmd->cmd, "pwd", 4) == 0)
-        g_exit_status = ft_pwd();
-    else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
-        g_exit_status = ft_env(*env);
-    else if (ft_strncmp(cmd->cmd, "exit", 5) == 0)
-        ft_exit(cmd->args);
-    else if (ft_strncmp(cmd->cmd, "export", 7) == 0)
-        ft_export(cmd->args, env);
-    else if (ft_strncmp(cmd->cmd, "unset", 6) == 0)
-        ft_unset(cmd->args, env);
-    else
-    {
-        ft_putstr_fd("minishell: command not found\n", 2);
-        g_exit_status = 127;
-    }
+	if (!cmd || !cmd->cmd)
+		return ;
+	if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
+		ft_echo(cmd->args);
+	else if (ft_strncmp(cmd->cmd, "cd", 3) == 0)
+		ft_cd(cmd->args, env);
+	else if (ft_strncmp(cmd->cmd, "pwd", 4) == 0)
+		g_exit_status = ft_pwd();
+	else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
+		g_exit_status = ft_env(*env);
+	else if (ft_strncmp(cmd->cmd, "exit", 5) == 0)
+		ft_exit(cmd->args);
+	else if (ft_strncmp(cmd->cmd, "export", 7) == 0)
+		ft_export(cmd->args, env);
+	else if (ft_strncmp(cmd->cmd, "unset", 6) == 0)
+		ft_unset(cmd->args, env);
+	else
+	{
+		ft_putstr_fd("minishell: command not found\n", 2);
+		g_exit_status = 127;
+	}
 }
 // void	helper_builtins(char *cmd, t_env **env)
 // {

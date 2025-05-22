@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:55:57 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/08 15:31:53 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/05/22 18:41:19 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*cd_oldpwd_error(char *oldpwd)
 
 static char	*get_cd_path(char **args, t_env **env, char *oldpwd)
 {
-	char *path;
+	char	*path;
 
 	if (!args[1] || !ft_strcmp(args[1], "~"))
 	{
@@ -75,4 +75,3 @@ int	ft_cd(char **args, t_env **env)
 	g_exit_status = 0;
 	return (0);
 }
-

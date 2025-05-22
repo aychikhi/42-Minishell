@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:16:39 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/10 12:18:03 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:39:51 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ static int	len(const char *str, char c, int i)
 
 void	free_2d_arr(char **ptr)
 {
-    int	i;
+	int	i;
 
-    if (!ptr)
-        return;
-    i = 0;
-    while (ptr[i])
-        free(ptr[i++]);
-    free(ptr);
+	if (!ptr)
+		return ;
+	i = 0;
+	while (ptr[i])
+		free(ptr[i++]);
+	free(ptr);
 }
 
 char	**ft_split(char const *s, char c)

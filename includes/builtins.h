@@ -6,21 +6,22 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:54:55 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/08 15:31:08 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/05/22 18:37:40 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
-# include <signal.h>
-# include <fcntl.h>
 # include <sys/wait.h>
+# include <unistd.h>
+
 typedef struct s_env
 {
 	char			*var;
@@ -46,8 +47,9 @@ char				**list_to_env(t_env *list);
 void				ft_putstr_fd(char *s, int fd);
 char				*get_env_value(t_env *env, const char *key);
 char				*ft_strchr(const char *string, int searchedChar);
-void				update_env_var(t_env **env, const char *key, const char *value);
+void				update_env_var(t_env **env, const char *key,
+						const char *value);
 int					ft_strncmp(char *first, char *second, size_t length);
 
-char 				*get_cmd_path(char *cmd ,t_env *env);
+char				*get_cmd_path(char *cmd, t_env *env);
 #endif

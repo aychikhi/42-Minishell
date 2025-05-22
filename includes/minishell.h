@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/08 16:07:47 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:37:57 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "builtins.h"
+# include <limits.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "builtins.h"
-# include <limits.h>
+
 typedef enum e_token_type
 {
 	TOKEN_WORD,
@@ -142,10 +143,8 @@ void				handle_in_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				init_command(t_command **cmd, t_token *tokens, t_env **env);
 
-
-
 void				execute_builtin(t_cmd *cmd, t_env **env);
-void				exec_externals(t_cmd *cmd ,t_env *env);
-void 				redir(t_file *file);
+void				exec_externals(t_cmd *cmd, t_env *env);
+// void 				redir(t_file *file);
 
 #endif

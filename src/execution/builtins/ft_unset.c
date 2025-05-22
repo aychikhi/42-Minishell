@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:56:15 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/08 15:34:59 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/05/22 18:40:13 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static void	remove_env_var(t_env **env, char *key)
 {
-	t_env	*prev = NULL;
-	t_env	*curr = *env;
+	t_env	*prev;
+	t_env	*curr;
 
+	prev = NULL;
+	curr = *env;
 	while (curr)
 	{
 		if (!ft_strcmp(curr->var, key))
@@ -37,9 +39,11 @@ static void	remove_env_var(t_env **env, char *key)
 
 int	ft_unset(char **args, t_env **env)
 {
-	int	status = 0;
-	int	i = 1;
+	int	status;
+	int	i;
 
+	status = 0;
+	i = 1;
 	if (!args[1])
 		return (0);
 	while (args[i])
