@@ -51,40 +51,33 @@ char	*get_cmd_path(char *cmd, t_env *env)
 	free_2d_arr(path);
 	return (NULL);
 }
+void apply_redirection(t_cmd *cmd)
+{
+    t_file *f = cmd->file;
+    int fd;
 
-// void redir(t_file *file)
-// {
-//     int fd;
-
-//     while (file)
-//     {
-//         if (file->type == TOKEN_REDIR_IN)
-//             fd = open(file->name, O_RDONLY);
-//         else if (file->type == TOKEN_REDIR_OUT)
-//             fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-//         else if (file->type == TOKEN_APPEND)
-//             fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-//         else
-//         {
-//             file = file->next;
-//             continue ;
-//         }
-
-//         if (fd < 0)
-//         {
-//             perror(file->name);
-//             exit(1);
-//         }
-
-//         if (file->type == TOKEN_REDIR_IN)
-//             dup2(fd, STDIN_FILENO);
-//         else
-//             dup2(fd, STDOUT_FILENO);
-//         close(fd);
-
-//         file = file->next;
-//     }
-// }
+    while (f)
+    {
+        if (f->type == TOKEN_REDIR_IN) {
+            fd = open(f->name, O_RDONLY);
+            dup2(fd, STDIN_FILENO);
+        }
+        else if (f->type == TOKEN_REDIR_OUT) {
+            fd = open(f->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            dup2(fd, STDOUT_FILENO);
+        }
+        else if (f->type == TOKEN_APPEND) {
+            fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+            dup2(fd, STDOUT_FILENO);
+        }
+        // TODO: heredoc 
+        if (fd < 0)
+            perror(f->name);
+        else
+            close(fd);
+        f = f->next;
+    }
+}
 
 void	exec_externals(t_cmd *cmd, t_env *env)
 {
@@ -105,6 +98,7 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 	pid = fork();
 	if (pid == 0)
 	{
+		apply_redirection(cmd);
 		execve(path, cmd->args, envp);
 		perror("execve");
 		exit(1);
