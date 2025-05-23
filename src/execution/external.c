@@ -58,15 +58,18 @@ void apply_redirection(t_cmd *cmd)
 
     while (f)
     {
-        if (f->type == TOKEN_REDIR_IN) {
+        if (f->type == TOKEN_REDIR_IN) 
+		{
             fd = open(f->name, O_RDONLY);
             dup2(fd, STDIN_FILENO);
         }
-        else if (f->type == TOKEN_REDIR_OUT) {
+        else if (f->type == TOKEN_REDIR_OUT) 
+		{
             fd = open(f->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
             dup2(fd, STDOUT_FILENO);
         }
-        else if (f->type == TOKEN_APPEND) {
+        else if (f->type == TOKEN_APPEND) 
+		{
             fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
             dup2(fd, STDOUT_FILENO);
         }
