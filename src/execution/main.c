@@ -41,7 +41,7 @@ static void	handle_sigint(int sig)
 	}
 }
 
-static int	is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
 			!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "env") ||
@@ -75,10 +75,15 @@ int	main(int argc, char **argv, char **env)
 			tokeniser(line, env_list, &cmd);
 			if (cmd.cmd != NULL)
 			{
-				if (is_builtin(cmd.cmd->cmd))
-					execute_builtin(cmd.cmd, &env_list);
-				else
-					exec_externals(cmd.cmd, env_list);
+				if (cmd.cmd && cmd.cmd->next)
+					execute_pipeline(cmd.cmd, env_list);
+				else if (cmd.cmd)
+				{
+					if (is_builtin(cmd.cmd->cmd))
+						execute_builtin(cmd.cmd, &env_list);
+					else
+						exec_externals(cmd.cmd, env_list);
+				}
 			}
 			if (cmd.cmd)
 				free_cmd(cmd.cmd);

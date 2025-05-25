@@ -61,13 +61,13 @@ static void	run_builtin(t_cmd *cmd, t_env **env)
     }
 }
 
-void	execute_builtin(t_cmd *cmd, t_env **env)
+int execute_builtin(t_cmd *cmd, t_env **env)
 {
     int	stdin_copy;
     int	stdout_copy;
 
     if (!cmd || !cmd->cmd)
-        return ;
+        return (1);
     stdin_copy = dup(STDIN_FILENO);
     stdout_copy = dup(STDOUT_FILENO);
     apply_redirection(cmd);
@@ -76,6 +76,7 @@ void	execute_builtin(t_cmd *cmd, t_env **env)
     dup2(stdout_copy, STDOUT_FILENO);
     close(stdin_copy);
     close(stdout_copy);
+    return (g_exit_status);
 }
 // void	helper_builtins(char *cmd, t_env **env)
 // {
