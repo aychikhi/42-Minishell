@@ -51,6 +51,7 @@ char	*get_cmd_path(char *cmd, t_env *env)
 	free_2d_arr(path);
 	return (NULL);
 }
+
 void apply_redirection(t_cmd *cmd)
 {
     t_file *f = cmd->file;
@@ -73,7 +74,14 @@ void apply_redirection(t_cmd *cmd)
             fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
             dup2(fd, STDOUT_FILENO);
         }
-        // TODO: heredoc 
+        else if (f->type == TOKEN_HEREDOC)
+		{
+			fd = handle_heredoc(f);
+			if (fd < 0)
+				perror("heredoc");
+			else
+				dup2(fd, STDIN_FILENO);
+		}
         if (fd < 0)
             perror(f->name);
         else
