@@ -1,83 +1,67 @@
 #include "../../includes/minishell.h"
 
-int count_cmd(t_cmd *cmd)
+static void	free_pipes(int **pipes, int count)
 {
-	int count = 0;
-	while (cmd)
-	{
-		count++;
-		cmd = cmd->next;
-	}
-	return count;
+    int	i;
+
+    i = 0;
+    while (i < count)
+    {
+        free(pipes[i]);
+        i++;
+    }
+    free(pipes);
 }
 
-static void close_pipes(int  **pipe, int count)
+static void	wait_all(pid_t *pids, int count)
 {
-	int i = 0;
-	while (i < count)
-	{
-		close(pipe[i][0]);
-		close(pipe[i][1]);
-		i++;
-	}
-}
-static int **create_pipes(int count)
-{
-	int **pipe = malloc(sizeof(int *) * count);
-	int i =0;
-	while (i < count)
-	{
-		pipe[i] = malloc(sizeof(int) * 2);
-		if (!pipe[i])
-		{
-			ft_putstr_fd("minishell: malloc: allocation error\n", 2);
-			exit(EXIT_FAILURE);
-		}
-		i++;
-	}
-	return pipe;
+    int	i;
+
+    i = 0;
+    while (i < count)
+    {
+        waitpid(pids[i], NULL, 0);
+        i++;
+    }
 }
 
-void execute_pipeline(t_cmd *cmds, t_env *env)
+static void	child_proc(t_cmd *cur, t_env *env, int **pipes, int i, int cmd_count)
 {
-	int cmd_count = count_cmd(cmds);
-	int **pipes = create_pipes(cmd_count - 1);
-	pid_t *pids = malloc(sizeof(pid_t) * cmd_count);
-	t_cmd *current = cmds;
-	int i = 0;
+    if (i != 0)
+        dup2(pipes[i - 1][0], STDIN_FILENO);
+    if (i != cmd_count - 1)
+        dup2(pipes[i][1], STDOUT_FILENO);
+    close_pipes(pipes, cmd_count - 1);
+    apply_redirection(cur);
+    if (is_builtin(cur->cmd))
+        exit(execute_builtin(cur, &env));
+    exec_externals(cur, env);
+    exit(EXIT_FAILURE);
+}
 
-	while (current)
-	{
-		pids[i] = fork();
-		if (pids[i] == 0)
-		{
-			// Connect pipes
-			if (i != 0) // not first
-				dup2(pipes[i - 1][0], STDIN_FILENO);
-			if (i != cmd_count - 1) // not last
-				dup2(pipes[i][1], STDOUT_FILENO);
+void	execute_pipeline(t_cmd *cmds, t_env *env)
+{
+    int		cmd_count;
+    int		**pipes;
+    pid_t	*pids;
+    t_cmd	*cur;
+    int		i;
 
-			close_pipes(pipes, cmd_count - 1);
-			apply_redirection(current); // if you have it
-
-			if (is_builtin(current->cmd))
-				exit(execute_builtin(current, &env));
-			else
-				exec_externals(current, env); // should call execve
-
-			exit(EXIT_FAILURE);
-		}
-		current = current->next;
-		i++;
-	}
-
-	close_pipes(pipes, cmd_count - 1);
-	for (int j = 0; j < cmd_count; j++)
-		waitpid(pids[j], NULL, 0);
-
-	// Free pipes and pids
-	for (int k = 0; k < cmd_count - 1; k++)
-		free(pipes[k]);
-	free(pipes);
-	free(pids);
+    cmd_count = count_cmd(cmds);
+    pipes = create_pipes(cmd_count - 1);
+    pids = malloc(sizeof(pid_t) * cmd_count);
+    cur = cmds;
+    i = 0;
+    while (cur)
+    {
+        pids[i] = fork();
+        if (pids[i] == 0)
+            child_proc(cur, env, pipes, i, cmd_count);
+        cur = cur->next;
+        i++;
+    }
+    close_pipes(pipes, cmd_count - 1);
+    wait_all(pids, cmd_count);
+    free_pipes(pipes, cmd_count - 1);
+    free(pids);
 }

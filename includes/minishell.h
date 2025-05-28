@@ -150,6 +150,8 @@ void 				apply_redirection(t_cmd *cmd);
 int					count_cmd(t_cmd *cmd);
 int					is_builtin(char *cmd);
 
+void				close_pipes(int  **pipe, int count);
+int					**create_pipes(int count);
 // void 				redir(t_file *file);
 
 #endif

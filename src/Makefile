@@ -19,7 +19,7 @@ SRCS = execution/main.c \
        execution/builtins/ft_export.c execution/builtins/ft_pwd.c \
        execution/builtins/ft_unset.c execution/builtins/ft_cd.c \
        execution/builtins/ft_exit.c execution/builtins/builtins.c \
-       execution/external.c execution/bibex.c 
+       execution/external.c execution/bibex.c execution/help.c
 
 OBJS = $(SRCS:.c=.o)
 
