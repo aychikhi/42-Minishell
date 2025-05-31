@@ -16,17 +16,20 @@ static void	free_pipes(int **pipes, int count)
 static void	wait_all(pid_t *pids, int count)
 {
     int	i;
+    int status;
 
     i = 0;
     while (i < count)
     {
-        waitpid(pids[i], NULL, 0);
+        waitpid(pids[i], &status, 0);
+        update_exit_status(status);
         i++;
     }
 }
 
 static void	child_proc(t_cmd *cur, t_env *env, int **pipes, int i, int cmd_count)
 {
+    set_signals_in_child();
     if (i != 0)
         dup2(pipes[i - 1][0], STDIN_FILENO);
     if (i != cmd_count - 1)

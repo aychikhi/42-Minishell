@@ -63,7 +63,9 @@ int	ft_cd(char **args, t_env **env)
 	{
 		free(oldpwd);
 		ft_putstr_fd("minishell: cd: ", 2);
-		perror(path);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		
 		g_exit_status = 1;
 		return (1);
 	}

@@ -25,21 +25,6 @@ void	malloc_error(void)
 	printf("malloc Error !\n");
 	exit(EXIT_FAILURE);
 }
-static void	handle_sigint(int sig)
-{
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		g_exit_status = 130;
-	}
-	else if (sig == SIGQUIT)
-	{
-		write(1, "Quit: 3\n", 8);
-		g_exit_status = 131;
-	}
-}
 
 int	is_builtin(char *cmd)
 {
@@ -59,15 +44,14 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	g_exit_status = 0;
 	env_list = env_to_list(env);
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigint);
+	set_signals_interactive();
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (!line)
 		{
-			printf("exit\n");
-			break ;
+			write(1, "exit\n", 5);
+    		exit(g_exit_status);
 		}
 		if (*line)
 		{

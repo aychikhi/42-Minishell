@@ -74,16 +74,16 @@ void apply_redirection(t_cmd *cmd)
             fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
             dup2(fd, STDOUT_FILENO);
         }
-        else if (f->type == TOKEN_HEREDOC)
-		{
-			fd = handle_heredoc(f);
-			if (fd < 0)
-				perror("heredoc");
-			else
-				dup2(fd, STDIN_FILENO);
-		}
+        // else if (f->type == TOKEN_HEREDOC)
+		// {
+		// 	fd = handle_heredoc(f);
+		// 	if (fd < 0)
+		// 		ft_putstr_fd("Error in heredoc\n", 2);
+		// 	else
+		// 		dup2(fd, STDIN_FILENO);
+		// }
         if (fd < 0)
-            perror(f->name);
+			ft_putstr_fd("Error opening file: ", 2);
         else
             close(fd);
         f = f->next;
@@ -95,6 +95,7 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 	pid_t	pid;
 	char	*path;
 	char	**envp;
+	int status;
 
 	path = get_cmd_path(cmd->cmd, env);
 	if (!path)
@@ -110,12 +111,16 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 	if (pid == 0)
 	{
 		apply_redirection(cmd);
+		set_signals_in_child();
 		execve(path, cmd->args, envp);
-		perror("execve");
+		ft_putstr_fd("minishell: execve failed: ", 2);
 		exit(1);
 	}
 	else
-		waitpid(pid, &g_exit_status, 0);
+	{
+		waitpid(pid, &status, 0);
+		update_exit_status(status);
+	}
 	free(path);
 	free_2d_arr(envp);
 }

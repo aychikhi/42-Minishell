@@ -149,6 +149,10 @@ void				exec_externals(t_cmd *cmd, t_env *env);
 void 				apply_redirection(t_cmd *cmd);
 int					count_cmd(t_cmd *cmd);
 int					is_builtin(char *cmd);
+void				set_signals_interactive(void);
+void				set_signals_in_child(void);
+void				update_exit_status(int status);
+char				*ft_itoa(int n);
 
 void				close_pipes(int  **pipe, int count);
 int					**create_pipes(int count);

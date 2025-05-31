@@ -56,21 +56,37 @@ static int	handle_dollar(char *input)
 
 char	*handle_env_expansion(char *input, int i, t_env *env)
 {
-	int		l;
-	char	*result;
-	char	*var_name;
+    int		l;
+    char	*result;
+    char	*var_name;
 
-	l = handle_dollar(input + i);
-	if (l > 0)
-	{
-		var_name = ft_substr(input, i + 1, l);
-		if (!var_name)
-			return (NULL);
-		result = extract_env(input, env, i, var_name);
-		free(var_name);
-		return (result);
-	}
-	return (NULL);
+    // Handle $?
+    if (input[i + 1] == '?')
+    {
+        char *exit_str = ft_itoa(g_exit_status);
+        int new_len = ft_strlen(input) - 2 + ft_strlen(exit_str) + 1;
+        char *new_input = malloc(new_len);
+        if (!new_input)
+            malloc_error();
+        ft_strncpy(new_input, input, i);
+        new_input[i] = '\0';
+        ft_strcpy(new_input + i, exit_str);
+        ft_strcpy(new_input + i + ft_strlen(exit_str), input + i + 2);
+        free(exit_str);
+        return new_input;
+    }
+
+    l = handle_dollar(input + i);
+    if (l > 0)
+    {
+        var_name = ft_substr(input, i + 1, l);
+        if (!var_name)
+            return (NULL);
+        result = extract_env(input, env, i, var_name);
+        free(var_name);
+        return (result);
+    }
+    return (NULL);
 }
 
 static void	init_exp_data(t_exp_data *data, char *input, t_env *env)

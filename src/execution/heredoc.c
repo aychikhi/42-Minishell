@@ -11,7 +11,10 @@ int	handle_heredoc(t_file *file)
 	{
 		line = readline("> ");
 		if (!line || !ft_strcmp(line, file->name))
+		{
+			free(line);
 			break;
+		}
 		write(pipe_fd[1], line, ft_strlen(line));
 		write(pipe_fd[1], "\n", 1);
 		free(line);
