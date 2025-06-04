@@ -22,5 +22,6 @@ t_file	*add_newfile(void *name, int type)
 	tmp->name = name;
 	tmp->type = type;
 	tmp->next = NULL;
+	tmp->h_fd = -1;
 	return (tmp);
 }

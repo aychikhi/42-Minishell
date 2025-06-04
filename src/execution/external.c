@@ -74,14 +74,16 @@ void apply_redirection(t_cmd *cmd)
             fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
             dup2(fd, STDOUT_FILENO);
         }
-        // else if (f->type == TOKEN_HEREDOC)
-		// {
-		// 	fd = handle_heredoc(f);
-		// 	if (fd < 0)
-		// 		ft_putstr_fd("Error in heredoc\n", 2);
-		// 	else
-		// 		dup2(fd, STDIN_FILENO);
-		// }
+        else if (f->type == TOKEN_HEREDOC)
+		{
+			if(f->h_fd > 0)
+			{
+				dup2(f->h_fd , STDIN_FILENO);
+				close(f->h_fd);
+			}
+			else
+				ft_putstr_fd("error in the heredoc\n", 2);
+		}
         if (fd < 0)
 			ft_putstr_fd("Error opening file: ", 2);
         else

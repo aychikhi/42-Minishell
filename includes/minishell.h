@@ -37,6 +37,7 @@ typedef struct s_file
 {
 	char			*name;
 	int				type;
+	int				h_fd;
 	struct s_file	*next;
 }					t_file;
 
@@ -157,5 +158,6 @@ char				*ft_itoa(int n);
 void				close_pipes(int  **pipe, int count);
 int					**create_pipes(int count);
 int					handle_heredoc(t_file *file);
+void 				collecting_heredoc(t_cmd *cmd);
 
 #endif
