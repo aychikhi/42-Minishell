@@ -68,6 +68,7 @@ int execute_builtin(t_cmd *cmd, t_env **env)
 
     if (!cmd || !cmd->cmd)
         return (1);
+    collecting_heredoc(cmd);
     stdin_copy = dup(STDIN_FILENO);
     stdout_copy = dup(STDOUT_FILENO);
     apply_redirection(cmd);
