@@ -51,7 +51,6 @@ void	execute_pipeline(t_cmd *cmds, t_env *env)
     int		i;
 
     cmd_count = count_cmd(cmds);
-    collecting_heredoc(cmds);
     pipes = create_pipes(cmd_count - 1);
     pids = malloc(sizeof(pid_t) * cmd_count);
     cur = cmds;

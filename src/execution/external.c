@@ -76,7 +76,8 @@ void apply_redirection(t_cmd *cmd)
         }
         else if (f->type == TOKEN_HEREDOC)
 		{
-			if(f->h_fd > 0)
+			printf("[DEBUG] Processing heredoc for file: %d\n", f->h_fd );
+			if(f->h_fd != -1)
 			{
 				dup2(f->h_fd , STDIN_FILENO);
 				close(f->h_fd);

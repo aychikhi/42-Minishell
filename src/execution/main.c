@@ -61,6 +61,7 @@ int	main(int argc, char **argv, char **env)
 			tokeniser(line, env_list, &cmd);
 			if (cmd.cmd != NULL)
 			{
+				collecting_heredoc(cmd.cmd);
 				if (cmd.cmd && cmd.cmd->next)
 					execute_pipeline(cmd.cmd, env_list);
 				else if (cmd.cmd)

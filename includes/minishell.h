@@ -159,6 +159,6 @@ char				*ft_itoa(int n);
 void				close_pipes(int  **pipe, int count);
 int					**create_pipes(int count);
 // int					handle_heredoc(t_file *file);
-void 				collecting_heredoc(t_cmd *cmd);
+int 				collecting_heredoc(t_cmd *cmd);
 
 #endif
