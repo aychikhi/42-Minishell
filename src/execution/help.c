@@ -12,6 +12,18 @@
 
 #include "../../includes/minishell.h"
 
+int	error_fun(void)
+{
+	printf("Error: Unclosed quotes!\n");
+	return (0);
+}
+
+void	malloc_error(void)
+{
+	printf("malloc Error !\n");
+	exit(EXIT_FAILURE);
+}
+
 int	count_cmd(t_cmd *cmd)
 {
 	int	count;

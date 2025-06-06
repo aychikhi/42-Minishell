@@ -12,86 +12,56 @@
 
 #include "../../includes/minishell.h"
 
-static char	*join_paths(char *dir, char *cmd)
+static void	handle_file_redirection(t_file *f)
 {
-	char	*tmp;
-	char	*path;
+    int	fd;
 
-	tmp = ft_strjoin(dir, "/");
-	path = ft_strjoin(tmp, cmd);
-	free(tmp);
-	return (path);
-}
-
-char	*get_cmd_path(char *cmd, t_env *env)
-{
-	char	**path;
-	char	*path_env;
-	int		i;
-	char	*full;
-
-	path_env = get_env_value(env, "PATH");
-	if (!path_env)
-		return (NULL);
-	i = 0;
-	path = ft_split(path_env, ':');
-	if (!path)
-		return (NULL);
-	while (path[i])
-	{
-		full = join_paths(path[i], cmd);
-		if (access(full, X_OK) == 0)
-		{
-			free_2d_arr(path);
-			return (full);
-		}
-		free(full);
-		i++;
-	}
-	free_2d_arr(path);
-	return (NULL);
+    fd = -1;
+    if (f->type == TOKEN_REDIR_IN)
+        fd = open(f->name, O_RDONLY);
+    else if (f->type == TOKEN_REDIR_OUT)
+        fd = open(f->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    else if (f->type == TOKEN_APPEND)
+        fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    else if (f->type == TOKEN_HEREDOC)
+    {
+        if (f->h_fd != -1)
+        {
+            dup2(f->h_fd, STDIN_FILENO);
+            close(f->h_fd);
+            return;
+        }
+        else
+            ft_putstr_fd("error in the heredoc\n", 2);
+    }
+    if (fd < 0)
+        ft_putstr_fd("Error opening file: ", 2);
+    else
+    {
+        dup2(fd, (f->type == TOKEN_REDIR_IN) ? STDIN_FILENO : STDOUT_FILENO);
+        close(fd);
+    }
 }
 
 void	apply_redirection(t_cmd *cmd)
 {
 	t_file	*f;
-	int		fd;
 
 	f = cmd->file;
 	while (f)
 	{
-		if (f->type == TOKEN_REDIR_IN)
-		{
-			fd = open(f->name, O_RDONLY);
-			dup2(fd, STDIN_FILENO);
-		}
-		else if (f->type == TOKEN_REDIR_OUT)
-		{
-			fd = open(f->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			dup2(fd, STDOUT_FILENO);
-		}
-		else if (f->type == TOKEN_APPEND)
-		{
-			fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			dup2(fd, STDOUT_FILENO);
-		}
-		else if (f->type == TOKEN_HEREDOC)
-		{
-			printf("[DEBUG] Processing heredoc for file: %d\n", f->h_fd);
-			if (f->h_fd != -1)
-			{
-				dup2(f->h_fd, STDIN_FILENO);
-				close(f->h_fd);
-			}
-			else
-				ft_putstr_fd("error in the heredoc\n", 2);
-		}
-		if (fd < 0)
-			ft_putstr_fd("Error opening file: ", 2);
-		else
-			close(fd);
+		handle_file_redirection(f);
 		f = f->next;
 	}
+}
+
+static void	execute_child_process(t_cmd *cmd, char *path, char **envp)
+{
+    apply_redirection(cmd);
+    set_signals_in_child();
+    execve(path, cmd->args, envp);
+    ft_putstr_fd("minishell: execve failed: ", 2);
+    exit(1);
 }
 
 void	exec_externals(t_cmd *cmd, t_env *env)
@@ -113,13 +83,7 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 	envp = list_to_env(env);
 	pid = fork();
 	if (pid == 0)
-	{
-		apply_redirection(cmd);
-		set_signals_in_child();
-		execve(path, cmd->args, envp);
-		ft_putstr_fd("minishell: execve failed: ", 2);
-		exit(1);
-	}
+		execute_child_process(cmd, path, envp);
 	else
 	{
 		waitpid(pid, &status, 0);

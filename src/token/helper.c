@@ -59,6 +59,7 @@ char	*handle_env_expansion(char *input, int i, t_env *env)
 	int		l;
 	char	*result;
 	char	*var_name;
+
 	if (input[i + 1] == '?')
 		return (expand_exit_status(input, i));
 	l = handle_dollar(input + i);
