@@ -59,25 +59,8 @@ char	*handle_env_expansion(char *input, int i, t_env *env)
 	int		l;
 	char	*result;
 	char	*var_name;
-	char	*exit_str;
-	int		new_len;
-	char	*new_input;
-
-	// Handle $?
 	if (input[i + 1] == '?')
-	{
-		exit_str = ft_itoa(g_exit_status);
-		new_len = ft_strlen(input) - 2 + ft_strlen(exit_str) + 1;
-		new_input = malloc(new_len);
-		if (!new_input)
-			malloc_error();
-		ft_strncpy(new_input, input, i);
-		new_input[i] = '\0';
-		ft_strcpy(new_input + i, exit_str);
-		ft_strcpy(new_input + i + ft_strlen(exit_str), input + i + 2);
-		free(exit_str);
-		return (new_input);
-	}
+		return (expand_exit_status(input, i));
 	l = handle_dollar(input + i);
 	if (l > 0)
 	{

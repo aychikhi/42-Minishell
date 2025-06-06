@@ -156,6 +156,7 @@ void				set_signals_in_child(void);
 void				set_signals_heredoc(void);
 void				update_exit_status(int status);
 char				*ft_itoa(int n);
+char				*expand_exit_status(char *input, int i);
 
 void				close_pipes(int **pipe, int count);
 int					**create_pipes(int count);
