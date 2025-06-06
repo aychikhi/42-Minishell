@@ -6,11 +6,29 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 18:13:28 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:26:13 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+typedef struct s_child_ctx
+{
+	t_cmd	*cur;
+	t_env	*env;
+	int		**pipes;
+	int		i;
+	int		cmd_count;
+}			t_child_ctx;
+
+typedef struct s_pipes_ctx
+{
+	int		cmd_count;
+	int		**pipes;
+	pid_t	*pids;
+	t_cmd	*cur;
+	int		i;
+}			t_pipes_ctx;
 
 static void	free_pipes(int **pipes, int count)
 {
@@ -39,44 +57,43 @@ static void	wait_all(pid_t *pids, int count)
 	}
 }
 
-static void	child_proc(t_cmd *cur, t_env *env, int **pipes, int i, int cmd_count)
+static void	child_proc(t_child_ctx *ctx)
 {
 	set_signals_in_child();
-	if (i != 0)
-		dup2(pipes[i - 1][0], STDIN_FILENO);
-	if (i != cmd_count - 1)
-		dup2(pipes[i][1], STDOUT_FILENO);
-	close_pipes(pipes, cmd_count - 1);
-	apply_redirection(cur);
-	if (is_builtin(cur->cmd))
-		exit(execute_builtin(cur, &env));
-	exec_externals(cur, env);
+	if (ctx->i != 0)
+		dup2(ctx->pipes[ctx->i - 1][0], STDIN_FILENO);
+	if (ctx->i != ctx->cmd_count - 1)
+		dup2(ctx->pipes[ctx->i][1], STDOUT_FILENO);
+	close_pipes(ctx->pipes, ctx->cmd_count - 1);
+	apply_redirection(ctx->cur);
+	if (is_builtin(ctx->cur->cmd))
+		exit(execute_builtin(ctx->cur, &ctx->env));
+	exec_externals(ctx->cur, ctx->env);
 	exit(EXIT_FAILURE);
 }
 
 void	execute_pipeline(t_cmd *cmds, t_env *env)
 {
-	int		cmd_count;
-	int		**pipes;
-	pid_t	*pids;
-	t_cmd	*cur;
-	int		i;
+	t_child_ctx	ctx;
+	t_pipes_ctx	p_ctx;
 
-	cmd_count = count_cmd(cmds);
-	pipes = create_pipes(cmd_count - 1);
-	pids = malloc(sizeof(pid_t) * cmd_count);
-	cur = cmds;
-	i = 0;
-	while (cur)
+	p_ctx.cmd_count = count_cmd(cmds);
+	p_ctx.pipes = create_pipes(p_ctx.cmd_count - 1);
+	p_ctx.pids = malloc(sizeof(pid_t) * p_ctx.cmd_count);
+	p_ctx.cur = cmds;
+	p_ctx.i = 0;
+	while (p_ctx.cur)
 	{
-		pids[i] = fork();
-		if (pids[i] == 0)
-			child_proc(cur, env, pipes, i, cmd_count);
-		cur = cur->next;
-		i++;
+		ctx = (t_child_ctx){p_ctx.cur, env, p_ctx.pipes, p_ctx.i,
+			p_ctx.cmd_count};
+		p_ctx.pids[p_ctx.i] = fork();
+		if (p_ctx.pids[p_ctx.i] == 0)
+			child_proc(&ctx);
+		p_ctx.cur = p_ctx.cur->next;
+		p_ctx.i++;
 	}
-	close_pipes(pipes, cmd_count - 1);
-	wait_all(pids, cmd_count);
-	free_pipes(pipes, cmd_count - 1);
-	free(pids);
+	close_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
+	wait_all(p_ctx.pids, p_ctx.cmd_count);
+	free_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
+	free(p_ctx.pids);
 }
