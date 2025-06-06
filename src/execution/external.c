@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:39:05 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 22:14:17 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 23:49:57 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	handle_heredoc(t_file *f)
 {
 	if (f->h_fd != -1)
 	{
+	 
 		dup2(f->h_fd, STDIN_FILENO);
 		close(f->h_fd);
 	}
@@ -27,7 +28,7 @@ static void	handle_redir(t_file *f)
 {
 	int	fd;
 
-	fd = -1;
+	fd = 0;
 	if (f->type == TOKEN_REDIR_IN)
 		fd = open(f->name, O_RDONLY);
 	else if (f->type == TOKEN_REDIR_OUT)
@@ -36,6 +37,7 @@ static void	handle_redir(t_file *f)
 		fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (f->type == TOKEN_HEREDOC)
 	{
+		printf("Redirecting stdin from heredoc FD = %d\n", f->h_fd);
 		handle_heredoc(f);
 		return ;
 	}
@@ -65,7 +67,7 @@ void	apply_redirection(t_cmd *cmd)
 
 static void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 {
-	apply_redirection(cmd);
+	// apply_redirection(cmd);
 	set_signals_in_child();
 	execve(path, cmd->args, envp);
 	ft_putstr_fd("minishell: execve failed: ", 2);

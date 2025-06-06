@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:54 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 18:11:09 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 22:41:03 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ static int	process_heredoc(t_file *file)
 	if (!setup_heredoc_pipe(pipe_fd))
 		return (1);
 	pid = fork();
+	if (pid < 0)
+	{
+		ft_putstr_fd("minishell: fork error\n", 2);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		return (1);
+	}
 	if (pid == 0)
 		handle_heredoc_child(pipe_fd, file->name);
 	else

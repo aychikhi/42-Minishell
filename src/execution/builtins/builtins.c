@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:55:14 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 18:12:15 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 23:49:48 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	execute_builtin(t_cmd *cmd, t_env **env)
 	collecting_heredoc(cmd);
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
-	apply_redirection(cmd);
+	// apply_redirection(cmd);
 	run_builtin(cmd, env);
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);

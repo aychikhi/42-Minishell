@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 21:42:19 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 22:53:46 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	is_builtin(char *cmd)
 
 static void	execute_command(t_command *cmd, t_env **env_list)
 {
+	collecting_heredoc(cmd->cmd);
 	if (cmd->cmd && cmd->cmd->next)
 		execute_pipeline(cmd->cmd, *env_list);
 	else if (cmd->cmd)
@@ -45,10 +46,7 @@ static void	process_line(char *line, t_env *env_list)
 		add_history(line);
 		tokeniser(line, env_list, &cmd);
 		if (cmd.cmd != NULL)
-		{
-			collecting_heredoc(cmd.cmd);
 			execute_command(&cmd, &env_list);
-		}
 		if (cmd.cmd)
 			free_cmd(cmd.cmd);
 	}

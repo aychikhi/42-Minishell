@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 18:26:13 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 23:56:52 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ static void	wait_all(pid_t *pids, int count)
 static void	child_proc(t_child_ctx *ctx)
 {
 	set_signals_in_child();
+	apply_redirection(ctx->cur);
 	if (ctx->i != 0)
 		dup2(ctx->pipes[ctx->i - 1][0], STDIN_FILENO);
 	if (ctx->i != ctx->cmd_count - 1)
 		dup2(ctx->pipes[ctx->i][1], STDOUT_FILENO);
-	close_pipes(ctx->pipes, ctx->cmd_count - 1);
-	apply_redirection(ctx->cur);
 	if (is_builtin(ctx->cur->cmd))
 		exit(execute_builtin(ctx->cur, &ctx->env));
 	exec_externals(ctx->cur, ctx->env);
+	close_pipes(ctx->pipes, ctx->cmd_count - 1);
 	exit(EXIT_FAILURE);
 }
 
