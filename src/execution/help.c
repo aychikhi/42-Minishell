@@ -1,20 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/06 18:10:26 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/06/06 18:10:27 by ayaarab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-
-int count_cmd(t_cmd *cmd)
+int	count_cmd(t_cmd *cmd)
 {
-	int count = 0;
+	int	count;
+
+	count = 0;
 	while (cmd)
 	{
 		count++;
 		cmd = cmd->next;
 	}
-	return count;
+	return (count);
 }
 
-void close_pipes(int  **pipe, int count)
+void	close_pipes(int **pipe, int count)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (i < count)
 	{
 		close(pipe[i][0]);
@@ -22,10 +37,14 @@ void close_pipes(int  **pipe, int count)
 		i++;
 	}
 }
-int **create_pipes(int count)
+
+int	**create_pipes(int count)
 {
-	int **pipe = malloc(sizeof(int *) * count);
-	int i =0;
+	int	**pipe;
+	int	i;
+
+	pipe = malloc(sizeof(int *) * count);
+	i = 0;
 	while (i < count)
 	{
 		pipe[i] = malloc(sizeof(int) * 2);
@@ -36,5 +55,5 @@ int **create_pipes(int count)
 		}
 		i++;
 	}
-	return pipe;
+	return (pipe);
 }

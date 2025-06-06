@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:39:05 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/22 18:39:22 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:06:37 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,45 +52,46 @@ char	*get_cmd_path(char *cmd, t_env *env)
 	return (NULL);
 }
 
-void apply_redirection(t_cmd *cmd)
+void	apply_redirection(t_cmd *cmd)
 {
-    t_file *f = cmd->file;
-    int fd;
+	t_file	*f;
+	int		fd;
 
-    while (f)
-    {
-        if (f->type == TOKEN_REDIR_IN) 
+	f = cmd->file;
+	while (f)
+	{
+		if (f->type == TOKEN_REDIR_IN)
 		{
-            fd = open(f->name, O_RDONLY);
-            dup2(fd, STDIN_FILENO);
-        }
-        else if (f->type == TOKEN_REDIR_OUT) 
+			fd = open(f->name, O_RDONLY);
+			dup2(fd, STDIN_FILENO);
+		}
+		else if (f->type == TOKEN_REDIR_OUT)
 		{
-            fd = open(f->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-            dup2(fd, STDOUT_FILENO);
-        }
-        else if (f->type == TOKEN_APPEND) 
+			fd = open(f->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			dup2(fd, STDOUT_FILENO);
+		}
+		else if (f->type == TOKEN_APPEND)
 		{
-            fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-            dup2(fd, STDOUT_FILENO);
-        }
-        else if (f->type == TOKEN_HEREDOC)
+			fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			dup2(fd, STDOUT_FILENO);
+		}
+		else if (f->type == TOKEN_HEREDOC)
 		{
-			printf("[DEBUG] Processing heredoc for file: %d\n", f->h_fd );
-			if(f->h_fd != -1)
+			printf("[DEBUG] Processing heredoc for file: %d\n", f->h_fd);
+			if (f->h_fd != -1)
 			{
-				dup2(f->h_fd , STDIN_FILENO);
+				dup2(f->h_fd, STDIN_FILENO);
 				close(f->h_fd);
 			}
 			else
 				ft_putstr_fd("error in the heredoc\n", 2);
 		}
-        if (fd < 0)
+		if (fd < 0)
 			ft_putstr_fd("Error opening file: ", 2);
-        else
-            close(fd);
-        f = f->next;
-    }
+		else
+			close(fd);
+		f = f->next;
+	}
 }
 
 void	exec_externals(t_cmd *cmd, t_env *env)
@@ -98,7 +99,7 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 	pid_t	pid;
 	char	*path;
 	char	**envp;
-	int status;
+	int		status;
 
 	path = get_cmd_path(cmd->cmd, env);
 	if (!path)

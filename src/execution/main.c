@@ -6,13 +6,13 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/22 18:47:56 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:11:42 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int			g_exit_status;
+int		g_exit_status;
 
 int	error_fun(void)
 {
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **env)
 		if (!line)
 		{
 			write(1, "exit\n", 5);
-    		exit(g_exit_status);
+			exit(g_exit_status);
 		}
 		if (*line)
 		{

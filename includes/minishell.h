@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/22 18:37:57 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:09:42 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "builtins.h"
 # include <limits.h>
+# include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -147,7 +148,7 @@ void				init_command(t_command **cmd, t_token *tokens, t_env **env);
 void				execute_pipeline(t_cmd *cmds, t_env *env);
 int					execute_builtin(t_cmd *cmd, t_env **env);
 void				exec_externals(t_cmd *cmd, t_env *env);
-void 				apply_redirection(t_cmd *cmd);
+void				apply_redirection(t_cmd *cmd);
 int					count_cmd(t_cmd *cmd);
 int					is_builtin(char *cmd);
 void				set_signals_interactive(void);
@@ -156,9 +157,9 @@ void				set_signals_heredoc(void);
 void				update_exit_status(int status);
 char				*ft_itoa(int n);
 
-void				close_pipes(int  **pipe, int count);
+void				close_pipes(int **pipe, int count);
 int					**create_pipes(int count);
 // int					handle_heredoc(t_file *file);
-int 				collecting_heredoc(t_cmd *cmd);
+int					collecting_heredoc(t_cmd *cmd);
 
 #endif

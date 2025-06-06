@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:55:57 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/22 18:41:19 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:12:33 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	ft_cd(char **args, t_env **env)
 		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		
 		g_exit_status = 1;
 		return (1);
 	}
