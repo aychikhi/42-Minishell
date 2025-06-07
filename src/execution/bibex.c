@@ -59,16 +59,32 @@ static void	wait_all(pid_t *pids, int count)
 
 static void	child_proc(t_child_ctx *ctx)
 {
+	int	i;
+
+	i = 0;
 	set_signals_in_child();
 	apply_redirection(ctx->cur);
+	while (i < ctx->cmd_count - 1)
+	{
+		if (i != ctx->i - 1)
+			close(ctx->pipes[i][0]);
+		if (i != ctx->i)
+			close(ctx->pipes[i][1]);
+		i++;
+	}
 	if (ctx->i != 0)
+	{
 		dup2(ctx->pipes[ctx->i - 1][0], STDIN_FILENO);
+		close(ctx->pipes[ctx->i - 1][0]);
+	}
 	if (ctx->i != ctx->cmd_count - 1)
+	{
 		dup2(ctx->pipes[ctx->i][1], STDOUT_FILENO);
+		close(ctx->pipes[ctx->i][1]);
+	}	
 	if (is_builtin(ctx->cur->cmd))
 		exit(execute_builtin(ctx->cur, &ctx->env));
 	exec_externals(ctx->cur, ctx->env);
-	close_pipes(ctx->pipes, ctx->cmd_count - 1);
 	exit(EXIT_FAILURE);
 }
 
