@@ -34,13 +34,12 @@ static int	handel_args(char **args)
 
 	if (!is_num(args[1]))
 	{
-		fprintf(stderr, "minishell: exit: %s: numeric argument required\n",
-			args[1]);
-		return (2);
+		ft_putstr_fd("minishell: exit: %s: numeric argument required\n", 2);
+		exit(2);
 	}
 	else if (args[2])
 	{
-		fprintf(stderr, "minishell: exit: too many arguments\n");
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		g_exit_status = 1;
 		return (-1);
 	}
