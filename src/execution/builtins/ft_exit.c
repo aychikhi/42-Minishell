@@ -36,7 +36,7 @@ static int	handel_args(char **args)
 	{
 		fprintf(stderr, "minishell: exit: %s: numeric argument required\n",
 			args[1]);
-		exit(255);
+		return (2);
 	}
 	else if (args[2])
 	{

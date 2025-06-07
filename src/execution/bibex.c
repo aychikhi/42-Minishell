@@ -81,7 +81,7 @@ static void	child_proc(t_child_ctx *ctx)
 	{
 		dup2(ctx->pipes[ctx->i][1], STDOUT_FILENO);
 		close(ctx->pipes[ctx->i][1]);
-	}	
+	}
 	if (is_builtin(ctx->cur->cmd))
 		exit(execute_builtin(ctx->cur, &ctx->env));
 	exec_externals(ctx->cur, ctx->env);
