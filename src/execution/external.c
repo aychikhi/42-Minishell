@@ -41,7 +41,13 @@ static void	handle_redir(t_file *f)
 		return ;
 	}
 	if (fd < 0)
-		ft_putstr_fd("Error opening file: ", 2);
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(f->name, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		g_exit_status = 1;
+		exit(1);
+	}
 	else
 	{
 		if (f->type == TOKEN_REDIR_IN)
@@ -67,8 +73,11 @@ void	apply_redirection(t_cmd *cmd)
 static void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 {
 	set_signals_in_child();
+	apply_redirection(cmd);
 	execve(path, cmd->args, envp);
 	ft_putstr_fd("minishell: execve failed: ", 2);
+	ft_putstr_fd(cmd->cmd, 2);
+	ft_putstr_fd("\n", 2);
 	exit(1);
 }
 

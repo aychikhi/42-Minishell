@@ -162,5 +162,6 @@ void				close_pipes(int **pipe, int count);
 int					**create_pipes(int count);
 // int					handle_heredoc(t_file *file);
 int					collecting_heredoc(t_cmd *cmd);
+int					ft_file_exists(char *filename);
 
 #endif

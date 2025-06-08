@@ -15,6 +15,7 @@ SRCS = src/execution/main.c \
        src/utils/ft_strcmp.c src/utils/ft_strjoin.c src/utils/add_backfile.c \
        src/utils/ft_strchr.c src/utils/ft_putstr_fd.c src/utils/ft_strncmp.c \
        src/utils/ft_atoi.c src/utils/ft_split.c src/utils/ft_itoa.c \
+       src/utils/ft_file_exists.c \
        src/execution/builtins/ft_echo.c src/execution/builtins/ft_env.c \
        src/execution/builtins/ft_export.c src/execution/builtins/ft_pwd.c \
        src/execution/builtins/ft_unset.c src/execution/builtins/ft_cd.c \
