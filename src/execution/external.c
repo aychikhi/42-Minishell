@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:39:05 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 23:49:57 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/08 12:45:19 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	handle_heredoc(t_file *f)
 {
 	if (f->h_fd != -1)
 	{
-	 
 		dup2(f->h_fd, STDIN_FILENO);
 		close(f->h_fd);
 	}
@@ -67,7 +66,6 @@ void	apply_redirection(t_cmd *cmd)
 
 static void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 {
-	// apply_redirection(cmd);
 	set_signals_in_child();
 	execve(path, cmd->args, envp);
 	ft_putstr_fd("minishell: execve failed: ", 2);
