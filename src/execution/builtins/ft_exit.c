@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:56:10 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/08 15:32:33 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/08 12:58:23 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	handel_args(char **args)
 	if (!is_num(args[1]))
 	{
 		ft_putstr_fd("minishell: exit: %s: numeric argument required\n", 2);
-		exit(2);
+		exit(255);
 	}
 	else if (args[2])
 	{
