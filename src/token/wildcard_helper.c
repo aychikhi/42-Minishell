@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 18:30:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/13 17:08:34 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/13 22:05:11 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,24 @@ void	process_wildcards(t_token **tokens)
 	}
 	free_tokens(*tokens);
 	*tokens = new_tokens;
+}
+
+int	has_wildcard(const char *str)
+{
+	int	i;
+	int	in_quotes;
+
+	if (!str)
+		return (0);
+	i = 0;
+	in_quotes = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			in_quotes = !in_quotes;
+		if (str[i] == '*' && !in_quotes)
+			return (1);
+		i++;
+	}
+	return (0);
 }
