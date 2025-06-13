@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <dirent.h>
 
 typedef enum e_token_type
 {
@@ -163,5 +164,10 @@ int					**create_pipes(int count);
 // int					handle_heredoc(t_file *file);
 int					collecting_heredoc(t_cmd *cmd);
 int					ft_file_exists(char *filename);
+
+/* Wildcard expansion */
+int					has_wildcard(const char *str);
+void				expand_wildcard(t_token **tokens, t_token **last, t_token *current);
+void				process_wildcards(t_token **tokens);
 
 #endif

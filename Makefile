@@ -5,10 +5,11 @@ CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 SRCS = src/execution/main.c \
        src/utils/ft_strcpy.c src/utils/ft_strncpy.c src/utils/ft_substr.c \
        src/utils/ft_lstadd_back.c src/utils/add_new.c src/utils/add_newfile.c \
+       src/utils/ft_wildcard.c \
        src/init/init_fun.c src/init/init_fun1.c \
        src/token/helper.c src/token/helper1.c src/token/helper2.c \
        src/token/helper3.c src/token/helper4.c src/token/helper5.c \
-       src/token/helper6.c src/token/tokeniser.c \
+       src/token/helper6.c src/token/tokeniser.c src/token/wildcard_helper.c \
        src/parser/parser.c src/parser/parser1.c \
        src/utils/ft_strlen.c src/utils/ft_strdup.c src/utils/ft_isalnum.c \
        src/utils/ft_isalpha.c src/utils/ft_isdigit.c src/utils/ft_lstnew.c \
