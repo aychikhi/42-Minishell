@@ -6,12 +6,11 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 18:30:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/08 18:30:17 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/13 17:08:34 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	process_wildcards(t_token **tokens)
 {
@@ -22,12 +21,10 @@ void	process_wildcards(t_token **tokens)
 
 	new_tokens = NULL;
 	new_last = NULL;
-
 	current = *tokens;
 	while (current)
 	{
 		next = current->next;
-
 		if (current->type == TOKEN_WORD && has_wildcard(current->value))
 			expand_wildcard(&new_tokens, &new_last, current);
 		else

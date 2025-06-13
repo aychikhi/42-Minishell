@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/06 23:57:05 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/13 17:09:32 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define MINISHELL_H
 
 # include "builtins.h"
+# include <dirent.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <dirent.h>
 
 typedef enum e_token_type
 {
@@ -167,7 +167,8 @@ int					ft_file_exists(char *filename);
 
 /* Wildcard expansion */
 int					has_wildcard(const char *str);
-void				expand_wildcard(t_token **tokens, t_token **last, t_token *current);
+void				expand_wildcard(t_token **tokens, t_token **last,
+						t_token *current);
 void				process_wildcards(t_token **tokens);
 
 #endif
