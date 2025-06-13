@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:39:05 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/08 12:45:19 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/13 17:46:03 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 	if (!path)
 	{
 		ft_putstr_fd("minishell: command not found", 2);
-		ft_putstr_fd(cmd->cmd, 2);
 		ft_putstr_fd("\n", 2);
 		g_exit_status = 127;
 		return ;

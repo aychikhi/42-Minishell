@@ -1,0 +1,118 @@
+———————————— builtinsest  41: ✅⚠️  cd 123123 
+mini error = ( Permission denied)
+bash error = ( No such file or directory)
+———————————— pipes
+Test  53: ❌ env | sort | grep -v SHLVL | grep -v ^_ 
+mini exit code = 1
+bash exit code = 0
+
+———————————— redirects
+*************** Test  65: ❌ echo <"./test_files/infile" <missing <"./test_files/infile" ***************
+mini exit code = 0
+bash exit code = 1
+mini error = ()
+bash error = ( No such file or directory)
+*************** Test  66: ❌ echo <missing <"./test_files/infile" <missing ***************
+mini exit code = 0
+bash exit code = 1
+mini error = ()
+bash error = ( No such file or directory)
+
+****************Test  77: ❌ cat <missing | cat ****************
+mini exit code = 1
+bash exit code = 0
+
+****************Test  83: ❌ echo hi >         ./outfiles/outfile01 bye ****************
+Only in ./bash_outfiles: outfile01
+mini outfiles:
+cat: ./mini_outfiles/*: No such file or directory
+bash outfiles:
+hi bye
+mini output = (hi bye)
+bash output = ()
+Test  85: ✅⚠️  ls >./outfiles/outfile01 >./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test  88: ✅⚠️  ls >"./outfiles/outfile01" >./test_files/invalid_permission >"./outfiles/outfile02" 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test  89: ✅⚠️  ls >./test_files/invalid_permission >"./outfiles/outfile01" >./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+
+Test  96: ✅⚠️  echo hi >./outfiles/outfile01 >./test_files/invalid_permission | echo bye 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test  97: ✅⚠️  echo hi >./test_files/invalid_permission | echo bye 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test  98: ✅⚠️  echo hi >./test_files/invalid_permission >./outfiles/outfile01 | echo bye 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test  99: ✅⚠️  echo hi | echo bye >./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 100: ✅⚠️  echo hi | >./outfiles/outfile01 echo bye >./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 101: ✅⚠️  echo hi | echo bye >./test_files/invalid_permission >./outfiles/outfile01 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 102: ✅⚠️  cat <"./test_files/infile" >./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 103: ✅⚠️  cat >./test_files/invalid_permission <"./test_files/infile" 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 107: ✅⚠️  cat >./test_files/invalid_permission <missing 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 115: ✅⚠️  ls >>./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 116: ✅⚠️  ls >>./test_files/invalid_permission >>./outfiles/outfile01 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 117: ✅⚠️  ls >>./outfiles/outfile01 >>./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 118: ✅⚠️  ls >./outfiles/outfile01 >>./test_files/invalid_permission >>./outfiles/outfile02 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 119: ✅ ls <missing >>./test_files/invalid_permission >>./outfiles/outfile02 
+Test 120: ✅⚠️  ls >>./test_files/invalid_permission >>./outfiles/outfile02 <missing 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 126: ✅⚠️  echo hi >>./test_files/invalid_permission | echo bye 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 127: ✅⚠️  echo hi >>./test_files/invalid_permission >./outfiles/outfile01 | echo bye 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 128: ✅⚠️  echo hi | echo bye >>./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+Test 129: ✅⚠️  echo hi | echo >>./outfiles/outfile01 bye >./test_files/invalid_permission 
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+**************Test 131: ❌ cat <minishell.h|ls **************
+mini exit code = 1
+bash exit code = 0
+———————————— extras
+**************Test 133: ❌ $PWD******************
+mini exit code = 127
+bash exit code = 126
+mini error = ( command not found)
+bash error = ( is a directory)
+Test 136: ❌ ./test_files/invalid_permission 
+mini error = ( command not found)
+bash error = ( Permission denied)
+Test 137: ✅⚠️  ./missing.out 
+mini error = ( command not found)
+bash error = ( No such file or directory)
+Test 141: ❌ ./test_files 
+mini error = ( command not found)
+bash error = ( is a directory)
+Test 142: ✅⚠️  /test_files 
+mini error = ( command not found)
+bash error = ( No such file or directory)
