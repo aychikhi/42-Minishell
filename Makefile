@@ -5,7 +5,6 @@ CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 SRCS = src/execution/main.c \
        src/utils/ft_strcpy.c src/utils/ft_strncpy.c src/utils/ft_substr.c \
        src/utils/ft_lstadd_back.c src/utils/add_new.c src/utils/add_newfile.c \
-       src/utils/ft_wildcard.c \
        src/init/init_fun.c src/init/init_fun1.c \
        src/token/helper.c src/token/helper1.c src/token/helper2.c \
        src/token/helper3.c src/token/helper4.c src/token/helper5.c \
@@ -21,6 +20,7 @@ SRCS = src/execution/main.c \
        src/execution/builtins/ft_export.c src/execution/builtins/ft_pwd.c \
        src/execution/builtins/ft_unset.c src/execution/builtins/ft_cd.c \
        src/execution/builtins/ft_exit.c src/execution/builtins/builtins.c \
+       src/execution/ft_wildcard.c \
        src/execution/external.c src/execution/bibex.c src/execution/help.c src/execution/heredoc.c src/execution/signals.c src/token/helpeer.c src/execution/external_helper.c
 
 OBJS = $(SRCS:.c=.o)
