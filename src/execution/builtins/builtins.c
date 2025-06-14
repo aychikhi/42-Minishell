@@ -42,7 +42,7 @@ int	execute_builtin(t_cmd *cmd, t_env **env)
 
 	if (!cmd || !cmd->cmd)
 		return (1);
-	collecting_heredoc(cmd);
+	collecting_heredoc(cmd, *env);
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
 	run_builtin(cmd, env);

@@ -162,7 +162,7 @@ char				*expand_exit_status(char *input, int i);
 void				close_pipes(int **pipe, int count);
 int					**create_pipes(int count);
 // int					handle_heredoc(t_file *file);
-int					collecting_heredoc(t_cmd *cmd);
+int					collecting_heredoc(t_cmd *cmd, t_env *env);
 int					ft_file_exists(char *filename);
 
 /* Wildcard expansion */

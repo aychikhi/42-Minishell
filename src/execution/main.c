@@ -25,7 +25,7 @@ int	is_builtin(char *cmd)
 
 static void	execute_command(t_command *cmd, t_env **env_list)
 {
-	collecting_heredoc(cmd->cmd);
+	collecting_heredoc(cmd->cmd, *env_list);
 	if (cmd->cmd && cmd->cmd->next)
 		execute_pipeline(cmd->cmd, *env_list);
 	else if (cmd->cmd)

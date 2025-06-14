@@ -12,9 +12,10 @@
 
 #include "../../includes/minishell.h"
 
-static void	handle_heredoc_child(int pipe_fd[2], char *delimiter)
+static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env, int expand)
 {
 	char	*line;
+	char	*expanded_line;
 
 	set_signals_heredoc();
 	close(pipe_fd[0]);
@@ -26,7 +27,14 @@ static void	handle_heredoc_child(int pipe_fd[2], char *delimiter)
 			free(line);
 			break ;
 		}
-		write(pipe_fd[1], line, ft_strlen(line));
+		if (expand && ft_strchr(line, '$'))
+		{
+			expanded_line = expand_env(line, env);
+			write(pipe_fd[1], expanded_line, ft_strlen(expanded_line));
+			free(expanded_line);
+		}
+		else
+			write(pipe_fd[1], line, ft_strlen(line));
 		write(pipe_fd[1], "\n", 1);
 		free(line);
 	}
@@ -59,13 +67,15 @@ static int	setup_heredoc_pipe(int pipe_fd[2])
 	return (1);
 }
 
-static int	process_heredoc(t_file *file)
+static int	process_heredoc(t_file *file, t_env *env)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
+	int		expand;
 
 	if (!setup_heredoc_pipe(pipe_fd))
 		return (1);
+	expand = 1;		
 	pid = fork();
 	if (pid < 0)
 	{
@@ -75,7 +85,7 @@ static int	process_heredoc(t_file *file)
 		return (1);
 	}
 	if (pid == 0)
-		handle_heredoc_child(pipe_fd, file->name);
+		handle_heredoc_child(pipe_fd, file->name, env, expand);
 	else
 	{
 		handle_heredoc_parent(pipe_fd, file, pid);
@@ -85,7 +95,7 @@ static int	process_heredoc(t_file *file)
 	return (0);
 }
 
-int	collecting_heredoc(t_cmd *cmd)
+int	collecting_heredoc(t_cmd *cmd, t_env *env)
 {
 	t_cmd	*cur;
 	t_file	*file;
@@ -98,7 +108,7 @@ int	collecting_heredoc(t_cmd *cmd)
 		{
 			if (file->type == TOKEN_HEREDOC)
 			{
-				if (process_heredoc(file))
+				if (process_heredoc(file, env))
 					return (1);
 			}
 			file = file->next;
