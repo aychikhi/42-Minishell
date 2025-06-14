@@ -97,8 +97,6 @@ static void	add_matches_to_tokens(t_token **tokens, t_token **last,
 			i++;
 		}
 	}
-	else
-		add_token(tokens, last, TOKEN_WORD, matches[0]);
 }
 
 void	expand_wildcard(t_token **tokens, t_token **last, t_token *current)
@@ -112,5 +110,7 @@ void	expand_wildcard(t_token **tokens, t_token **last, t_token *current)
 	if (!matches)
 		return ;
 	add_matches_to_tokens(tokens, last, matches, count);
+	if (count == 0)
+		add_token(tokens, last, TOKEN_WORD, current->value);
 	free(matches);
 }
