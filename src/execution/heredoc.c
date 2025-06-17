@@ -6,13 +6,14 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:54 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 22:41:03 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 17:29:54 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env, int expand)
+static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env,
+		int expand)
 {
 	char	*line;
 	char	*expanded_line;
@@ -78,7 +79,6 @@ static int	process_heredoc(t_file *file, t_env *env)
 
 	if (!setup_heredoc_pipe(pipe_fd))
 		return (1);
-
 	expand = !file->quoted;
 	pid = fork();
 	if (pid < 0)

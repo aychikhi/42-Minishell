@@ -23,7 +23,8 @@ SRCS = src/execution/main.c \
        src/execution/builtins/ft_exit.c src/execution/builtins/builtins.c \
        src/execution/ft_wildcard.c src/execution/external.c \
        src/execution/bibex.c src/execution/help.c src/execution/heredoc.c \
-       src/execution/signals.c src/execution/external_helper.c
+       src/execution/signals.c src/execution/signals_help.c \
+       src/execution/external_helper.c
 
 OBJS = $(SRCS:.c=.o)
 

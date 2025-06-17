@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/05/22 18:47:46 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 17:29:00 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	add_file_to_cmd(t_cmd *tmp, t_token **tokens, int type, int *flag)
 		*tokens = (*tokens)->next;
 	if ((*tokens)->next && (*tokens)->next->type != 9)
 	{
-		is_quoted = ((*tokens)->next->type == TOKEN_SINGLE_QUOTE || 
-					 (*tokens)->next->type == TOKEN_DOUBLE_QUOTE);
+		is_quoted = ((*tokens)->next->type == TOKEN_SINGLE_QUOTE
+				|| (*tokens)->next->type == TOKEN_DOUBLE_QUOTE);
 		new_file = add_newfile(ft_strdup((*tokens)->next->value), type);
 		if (type == TOKEN_HEREDOC)
 			new_file->quoted = is_quoted;

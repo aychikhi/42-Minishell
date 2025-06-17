@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 21:42:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 21:43:00 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 17:35:53 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,22 @@ char	*get_cmd_path(char *cmd, t_env *env)
 	}
 	free_2d_arr(path);
 	return (NULL);
+}
+
+void	exec_externals_in_child(t_cmd *cmd, t_env *env)
+{
+	char	*path;
+	char	**envp;
+
+	path = get_cmd_path(cmd->cmd, env);
+	if (!path)
+	{
+		ft_putstr_fd("minishell: command not found", 2);
+		ft_putstr_fd("\n", 2);
+		exit(127);
+	}
+	envp = list_to_env(env);
+	execute_child_process(cmd, path, envp);
+	free(path);
+	free_2d_arr(envp);
 }

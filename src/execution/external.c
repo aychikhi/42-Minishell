@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:39:05 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/13 17:46:03 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 17:35:43 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,24 +78,6 @@ static void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 	ft_putstr_fd(cmd->cmd, 2);
 	ft_putstr_fd("\n", 2);
 	exit(1);
-}
-
-void	exec_externals_in_child(t_cmd *cmd, t_env *env)
-{
-	char	*path;
-	char	**envp;
-
-	path = get_cmd_path(cmd->cmd, env);
-	if (!path)
-	{
-		ft_putstr_fd("minishell: command not found", 2);
-		ft_putstr_fd("\n", 2);
-		exit(127);
-	}
-	envp = list_to_env(env);
-	execute_child_process(cmd, path, envp);
-	free(path);
-	free_2d_arr(envp);
 }
 
 void	exec_externals(t_cmd *cmd, t_env *env)
