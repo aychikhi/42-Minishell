@@ -19,6 +19,8 @@ static void	handle_heredoc(t_file *f)
 		dup2(f->h_fd, STDIN_FILENO);
 		close(f->h_fd);
 	}
+	else
+		ft_putstr_fd("error in the heredoc\n", 2);
 }
 
 static void	handle_redir(t_file *f)
@@ -78,7 +80,7 @@ static void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 	exit(1);
 }
 
-void	exec_externals(t_cmd *cmd, t_env *env)
+void	exec_externals_in_child(t_cmd *cmd, t_env *env)
 {
 	char	*path;
 	char	**envp;
@@ -88,12 +90,46 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 	{
 		ft_putstr_fd("minishell: command not found", 2);
 		ft_putstr_fd("\n", 2);
-		g_exit_status = 127;
-		return ;
+		exit(127);
 	}
 	envp = list_to_env(env);
 	execute_child_process(cmd, path, envp);
 	free(path);
 	free_2d_arr(envp);
-	exit(EXIT_FAILURE);
+}
+
+void	exec_externals(t_cmd *cmd, t_env *env)
+{
+	pid_t	pid;
+	char	*path;
+	char	**envp;
+	int		status;
+
+	path = get_cmd_path(cmd->cmd, env);
+	if (!path)
+	{
+		ft_putstr_fd("minishell: command not found ", 2);
+		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd("\n", 2);
+		g_exit_status = 127;
+		return ;
+	}
+	envp = list_to_env(env);
+	pid = fork();
+	if (pid == 0)
+	{
+		execute_child_process(cmd, path, envp);
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		update_exit_status(status);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: fork failed\n", 2);
+		g_exit_status = 1;
+	}
+	free(path);
+	free_2d_arr(envp);
 }

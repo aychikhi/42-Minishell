@@ -84,7 +84,7 @@ static void	child_proc(t_child_ctx *ctx)
 	}
 	if (is_builtin(ctx->cur->cmd))
 		exit(execute_builtin(ctx->cur, &ctx->env));
-	exec_externals(ctx->cur, ctx->env);
+	exec_externals_in_child(ctx->cur, ctx->env);
 	exit(EXIT_FAILURE);
 }
 

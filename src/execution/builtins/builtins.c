@@ -30,7 +30,8 @@ static void	run_builtin(t_cmd *cmd, t_env **env)
 		ft_unset(cmd->args, env);
 	else
 	{
-		ft_putstr_fd("minishell: command not found\n", 2);
+		ft_putstr_fd("minishell: command not found ", 2);
+		ft_putstr_fd(cmd->cmd, 2);
 		g_exit_status = 127;
 	}
 }
@@ -45,6 +46,7 @@ int	execute_builtin(t_cmd *cmd, t_env **env)
 	collecting_heredoc(cmd, *env);
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
+	apply_redirection(cmd);
 	run_builtin(cmd, env);
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
