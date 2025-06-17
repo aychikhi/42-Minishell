@@ -37,16 +37,16 @@ static void	execute_command(t_command *cmd, t_env **env_list)
 	}
 }
 
-static void	process_line(char *line, t_env *env_list)
+static void	process_line(char *line, t_env **env_list)
 {
 	t_command	cmd;
 
 	if (*line)
 	{
 		add_history(line);
-		tokeniser(line, env_list, &cmd);
+		tokeniser(line, *env_list, &cmd);
 		if (cmd.cmd != NULL)
-			execute_command(&cmd, &env_list);
+			execute_command(&cmd, env_list);
 		if (cmd.cmd)
 			free_cmd(cmd.cmd);
 	}
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 			write(1, "exit\n", 5);
 			exit(g_exit_status);
 		}
-		process_line(line, env_list);
+		process_line(line, &env_list);
 		free(line);
 	}
 	clear_history();

@@ -82,7 +82,10 @@ void	update_env_var(t_env **env, const char *key, const char *value)
 		if (ft_strcmp(tmp->var, key) == 0)
 		{
 			free(tmp->value);
-			tmp->value = ft_strdup(value);
+			if (value)
+				tmp->value = ft_strdup(value);
+			else
+				tmp->value = NULL;
 			return ;
 		}
 		tmp = tmp->next;
@@ -91,7 +94,10 @@ void	update_env_var(t_env **env, const char *key, const char *value)
 	if (!new_node)
 		return ;
 	new_node->var = ft_strdup(key);
-	new_node->value = ft_strdup(value);
+	if (value)
+		new_node->value = ft_strdup(value);
+	else
+		new_node->value = NULL;
 	new_node->next = *env;
 	*env = new_node;
 }
@@ -105,7 +111,8 @@ int	ft_env(t_env *env)
 	}
 	while (env)
 	{
-		printf("%s=%s\n", env->var, env->value);
+		if (env->value)
+			printf("%s=%s\n", env->var, env->value);
 		env = env->next;
 	}
 	return (0);

@@ -36,9 +36,16 @@ void	set_signals_in_child(void)
 	signal(SIGQUIT, SIG_DFL);
 }
 
+void	handle_sigint_heredoc(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	exit(130);
+}
+
 void	set_signals_heredoc(void)
 {
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, handle_sigint_heredoc);
 	signal(SIGQUIT, SIG_IGN);
 }
 

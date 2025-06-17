@@ -23,5 +23,6 @@ t_file	*add_newfile(void *name, int type)
 	tmp->type = type;
 	tmp->next = NULL;
 	tmp->h_fd = -1;
+	tmp->quoted = 0;
 	return (tmp);
 }

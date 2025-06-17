@@ -22,12 +22,14 @@ static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env, in
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || !ft_strcmp(line, delimiter))
+		if (!line)
+			break ;
+		if (!ft_strcmp(line, delimiter))
 		{
 			free(line);
 			break ;
 		}
-		if (expand && ft_strchr(line, '$'))
+		if (expand && line && ft_strchr(line, '$'))
 		{
 			expanded_line = expand_env(line, env);
 			write(pipe_fd[1], expanded_line, ft_strlen(expanded_line));
@@ -51,7 +53,8 @@ static void	handle_heredoc_parent(int pipe_fd[2], t_file *file, pid_t pid)
 	if (WIFSIGNALED(status))
 	{
 		close(pipe_fd[0]);
-		g_exit_status = 1;
+		g_exit_status = 130;
+		file->h_fd = -1;
 	}
 	else
 		file->h_fd = pipe_fd[0];
@@ -75,7 +78,8 @@ static int	process_heredoc(t_file *file, t_env *env)
 
 	if (!setup_heredoc_pipe(pipe_fd))
 		return (1);
-	expand = 1;		
+
+	expand = !file->quoted;
 	pid = fork();
 	if (pid < 0)
 	{
@@ -89,7 +93,7 @@ static int	process_heredoc(t_file *file, t_env *env)
 	else
 	{
 		handle_heredoc_parent(pipe_fd, file, pid);
-		if (g_exit_status == 1)
+		if (g_exit_status == 130)
 			return (1);
 	}
 	return (0);

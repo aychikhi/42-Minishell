@@ -1,0 +1,14 @@
+{
+	"files.associations": {
+		"*.embeddedhtml": "html",
+		"array": "cpp",
+		"charconv": "cpp",
+		"compare": "cpp",
+		"complex": "cpp",
+		"functional": "cpp",
+		"tuple": "cpp",
+		"type_traits": "cpp",
+		"utility": "cpp",
+		"variant": "cpp"
+	}
+}

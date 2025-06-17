@@ -1,6 +1,6 @@
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g #-fsanitize=address
 
 SRCS = src/execution/main.c \
        src/utils/ft_strcpy.c src/utils/ft_strncpy.c src/utils/ft_substr.c \
@@ -9,6 +9,7 @@ SRCS = src/execution/main.c \
        src/token/helper.c src/token/helper1.c src/token/helper2.c \
        src/token/helper3.c src/token/helper4.c src/token/helper5.c \
        src/token/helper6.c src/token/tokeniser.c src/token/wildcard_helper.c \
+       src/token/helpeer.c \
        src/parser/parser.c src/parser/parser1.c \
        src/utils/ft_strlen.c src/utils/ft_strdup.c src/utils/ft_isalnum.c \
        src/utils/ft_isalpha.c src/utils/ft_isdigit.c src/utils/ft_lstnew.c \
@@ -20,8 +21,9 @@ SRCS = src/execution/main.c \
        src/execution/builtins/ft_export.c src/execution/builtins/ft_pwd.c \
        src/execution/builtins/ft_unset.c src/execution/builtins/ft_cd.c \
        src/execution/builtins/ft_exit.c src/execution/builtins/builtins.c \
-       src/execution/ft_wildcard.c \
-       src/execution/external.c src/execution/bibex.c src/execution/help.c src/execution/heredoc.c src/execution/signals.c src/token/helpeer.c src/execution/external_helper.c
+       src/execution/ft_wildcard.c src/execution/external.c \
+       src/execution/bibex.c src/execution/help.c src/execution/heredoc.c \
+       src/execution/signals.c src/execution/external_helper.c
 
 OBJS = $(SRCS:.c=.o)
 

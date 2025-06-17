@@ -39,20 +39,27 @@ static int	arg_size(t_token *tokens)
 
 static void	add_file_to_cmd(t_cmd *tmp, t_token **tokens, int type, int *flag)
 {
+	t_file	*new_file;
+	int		is_quoted;
+
 	if ((*tokens)->next->type == 1)
 		*tokens = (*tokens)->next;
 	while ((*tokens)->next->type == 2)
 		*tokens = (*tokens)->next;
 	if ((*tokens)->next && (*tokens)->next->type != 9)
 	{
+		is_quoted = ((*tokens)->next->type == TOKEN_SINGLE_QUOTE || 
+					 (*tokens)->next->type == TOKEN_DOUBLE_QUOTE);
+		new_file = add_newfile(ft_strdup((*tokens)->next->value), type);
+		if (type == TOKEN_HEREDOC)
+			new_file->quoted = is_quoted;
 		if (!(*flag))
 		{
 			*flag = 1;
-			tmp->file = add_newfile(ft_strdup((*tokens)->next->value), type);
+			tmp->file = new_file;
 		}
 		else
-			add_backfile(&tmp->file,
-				add_newfile(ft_strdup((*tokens)->next->value), type));
+			add_backfile(&tmp->file, new_file);
 		*tokens = (*tokens)->next->next;
 	}
 	else

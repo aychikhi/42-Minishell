@@ -40,6 +40,7 @@ typedef struct s_file
 	char			*name;
 	int				type;
 	int				h_fd;
+	int				quoted;
 	struct s_file	*next;
 }					t_file;
 

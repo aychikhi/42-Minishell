@@ -14,19 +14,19 @@
 
 static void	run_builtin(t_cmd *cmd, t_env **env)
 {
-	if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
+	if (ft_strcmp(cmd->cmd, "echo") == 0)
 		ft_echo(cmd->args);
-	else if (ft_strncmp(cmd->cmd, "cd", 3) == 0)
+	else if (ft_strcmp(cmd->cmd, "cd") == 0)
 		ft_cd(cmd->args, env);
-	else if (ft_strncmp(cmd->cmd, "pwd", 4) == 0)
+	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		g_exit_status = ft_pwd();
-	else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
+	else if (ft_strcmp(cmd->cmd, "env") == 0)
 		g_exit_status = ft_env(*env);
-	else if (ft_strncmp(cmd->cmd, "exit", 5) == 0)
+	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 		ft_exit(cmd->args);
-	else if (ft_strncmp(cmd->cmd, "export", 7) == 0)
+	else if (ft_strcmp(cmd->cmd, "export") == 0)
 		ft_export(cmd->args, env);
-	else if (ft_strncmp(cmd->cmd, "unset", 6) == 0)
+	else if (ft_strcmp(cmd->cmd, "unset") == 0)
 		ft_unset(cmd->args, env);
 	else
 	{

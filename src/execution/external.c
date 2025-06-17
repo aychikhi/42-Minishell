@@ -19,8 +19,6 @@ static void	handle_heredoc(t_file *f)
 		dup2(f->h_fd, STDIN_FILENO);
 		close(f->h_fd);
 	}
-	else
-		ft_putstr_fd("error in the heredoc\n", 2);
 }
 
 static void	handle_redir(t_file *f)
@@ -36,7 +34,6 @@ static void	handle_redir(t_file *f)
 		fd = open(f->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (f->type == TOKEN_HEREDOC)
 	{
-		printf("Redirecting stdin from heredoc FD = %d\n", f->h_fd);
 		handle_heredoc(f);
 		return ;
 	}
