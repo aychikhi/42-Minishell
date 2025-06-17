@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/13 22:32:11 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 19:41:43 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ static char	**get_matches(t_token *current, int *count, int max_matches)
 	while (entry != NULL && *count < max_matches)
 	{
 		if (entry->d_name[0] != '.' || current->value[0] == '.')
-		{
 			if (match_pattern(current->value, entry->d_name))
 				matches[(*count)++] = ft_strdup(entry->d_name);
-		}
 		entry = readdir(dir);
 	}
 	closedir(dir);

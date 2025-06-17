@@ -6,20 +6,20 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/17 18:38:20 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 19:40:42 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include <stdlib.h>
+# include "builtins.h"
 # include <dirent.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include "builtins.h"
+# include <stdio.h>
+# include <stdlib.h>
 
 typedef enum e_token_type
 {
@@ -151,9 +151,6 @@ void				execute_pipeline(t_cmd *cmds, t_env *env);
 int					execute_builtin(t_cmd *cmd, t_env **env);
 void				exec_externals(t_cmd *cmd, t_env *env);
 void				exec_externals_in_child(t_cmd *cmd, t_env *env);
-<<<<<<< Updated upstream
-void				execute_child_process(t_cmd *cmd, char *path, char **envp);
-=======
 void				handle_fork_error(char *path, char **envp);
 void				handle_path_not_found(t_cmd *cmd);
 void				execute_child_process(t_cmd *cmd, char *path, char **envp);
@@ -162,11 +159,8 @@ void				handle_redir(t_file *f);
 int					open_file_by_type(t_file *f);
 void				handle_heredoc(t_file *f);
 
-
-
 void				free_pipes(int **pipes, int count);
 void				wait_all(pid_t *pids, int count);
->>>>>>> Stashed changes
 
 void				apply_redirection(t_cmd *cmd);
 int					count_cmd(t_cmd *cmd);
