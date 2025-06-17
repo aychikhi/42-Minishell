@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:54:55 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/22 18:37:40 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 18:37:12 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define BUILTINS_H
 
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 typedef struct s_env
 {

@@ -1,6 +1,8 @@
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror #-g #-fsanitize=address
+# CFLAGS = -Wall -Wextra -Werror #-g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include
+LDFLAGS = -L/goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
 
 SRCS = src/execution/main.c \
        src/utils/ft_strcpy.c src/utils/ft_strncpy.c src/utils/ft_substr.c \
@@ -28,17 +30,17 @@ SRCS = src/execution/main.c \
 
 OBJS = $(SRCS:.c=.o)
 
-INCLUDES = -Iincludes
+# INCLUDES = -Iincludes
 
 READLINE_FLAGS = -lreadline
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(READLINE_FLAGS)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

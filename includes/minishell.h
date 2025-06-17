@@ -6,20 +6,20 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/13 17:09:32 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 18:38:20 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "builtins.h"
+# include <stdio.h>
+# include <stdlib.h>
 # include <dirent.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+# include "builtins.h"
 
 typedef enum e_token_type
 {
@@ -151,7 +151,8 @@ void				execute_pipeline(t_cmd *cmds, t_env *env);
 int					execute_builtin(t_cmd *cmd, t_env **env);
 void				exec_externals(t_cmd *cmd, t_env *env);
 void				exec_externals_in_child(t_cmd *cmd, t_env *env);
-// void				exec_external_direct(t_cmd *cmd, t_env *env);
+void				execute_child_process(t_cmd *cmd, char *path, char **envp);
+
 void				apply_redirection(t_cmd *cmd);
 int					count_cmd(t_cmd *cmd);
 int					is_builtin(char *cmd);

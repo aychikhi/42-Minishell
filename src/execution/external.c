@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:39:05 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/17 17:35:43 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/17 18:38:09 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	apply_redirection(t_cmd *cmd)
 	}
 }
 
-static void	execute_child_process(t_cmd *cmd, char *path, char **envp)
+void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 {
 	set_signals_in_child();
 	apply_redirection(cmd);
