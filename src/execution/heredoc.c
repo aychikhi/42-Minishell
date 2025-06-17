@@ -17,7 +17,6 @@ static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env,
 {
 	char	*line;
 
-	(void)expand;
 	set_signals_heredoc();
 	close(pipe_fd[0]);
 	while (1)
@@ -30,7 +29,7 @@ static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env,
 			free(line);
 			break ;
 		}
-		write_line_to_pipe(pipe_fd[1], line, env);
+		write_line_to_pipe(pipe_fd[1], line, env, expand);
 		free(line);
 	}
 	close(pipe_fd[1]);

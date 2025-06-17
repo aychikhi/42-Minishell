@@ -12,11 +12,11 @@
 
 #include "../../includes/minishell.h"
 
-void	write_line_to_pipe(int pipe_fd, char *line, t_env *env)
+void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
 {
 	char	*expanded_line;
 
-	if (line && ft_strchr(line, '$'))
+	if (expand && line && ft_strchr(line, '$'))
 	{
 		expanded_line = expand_env(line, env);
 		write(pipe_fd, expanded_line, ft_strlen(expanded_line));

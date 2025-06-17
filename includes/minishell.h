@@ -154,7 +154,7 @@ void				exec_externals_in_child(t_cmd *cmd, t_env *env);
 void				handle_fork_error(char *path, char **envp);
 void				handle_path_not_found(t_cmd *cmd);
 void				execute_child_process(t_cmd *cmd, char *path, char **envp);
-void				write_line_to_pipe(int pipe_fd, char *line, t_env *env);
+void				write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand);
 void				handle_redir(t_file *f);
 int					open_file_by_type(t_file *f);
 void				handle_heredoc(t_file *f);
