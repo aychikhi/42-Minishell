@@ -150,6 +150,7 @@ void				init_command(t_command **cmd, t_token *tokens, t_env **env);
 void				execute_pipeline(t_cmd *cmds, t_env *env);
 int					execute_builtin(t_cmd *cmd, t_env **env);
 void				exec_externals(t_cmd *cmd, t_env *env);
+// void				exec_external_direct(t_cmd *cmd, t_env *env);
 void				apply_redirection(t_cmd *cmd);
 int					count_cmd(t_cmd *cmd);
 int					is_builtin(char *cmd);

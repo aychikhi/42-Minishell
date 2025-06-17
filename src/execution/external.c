@@ -80,10 +80,8 @@ static void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 
 void	exec_externals(t_cmd *cmd, t_env *env)
 {
-	pid_t	pid;
 	char	*path;
 	char	**envp;
-	int		status;
 
 	path = get_cmd_path(cmd->cmd, env);
 	if (!path)
@@ -94,14 +92,8 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 		return ;
 	}
 	envp = list_to_env(env);
-	pid = fork();
-	if (pid == 0)
-		execute_child_process(cmd, path, envp);
-	else
-	{
-		waitpid(pid, &status, 0);
-		update_exit_status(status);
-	}
+	execute_child_process(cmd, path, envp);
 	free(path);
 	free_2d_arr(envp);
+	exit(EXIT_FAILURE);
 }
