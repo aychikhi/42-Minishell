@@ -16,8 +16,8 @@ static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env,
 		int expand)
 {
 	char	*line;
-	char	*expanded_line;
 
+	(void)expand;
 	set_signals_heredoc();
 	close(pipe_fd[0]);
 	while (1)
@@ -30,15 +30,7 @@ static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env,
 			free(line);
 			break ;
 		}
-		if (expand && line && ft_strchr(line, '$'))
-		{
-			expanded_line = expand_env(line, env);
-			write(pipe_fd[1], expanded_line, ft_strlen(expanded_line));
-			free(expanded_line);
-		}
-		else
-			write(pipe_fd[1], line, ft_strlen(line));
-		write(pipe_fd[1], "\n", 1);
+		write_line_to_pipe(pipe_fd[1], line, env);
 		free(line);
 	}
 	close(pipe_fd[1]);

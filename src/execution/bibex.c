@@ -30,48 +30,8 @@ typedef struct s_pipes_ctx
 	int		i;
 }			t_pipes_ctx;
 
-static void	free_pipes(int **pipes, int count)
+static void	setup_pipe_redirection(t_child_ctx *ctx)
 {
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		free(pipes[i]);
-		i++;
-	}
-	free(pipes);
-}
-
-static void	wait_all(pid_t *pids, int count)
-{
-	int	i;
-	int	status;
-
-	i = 0;
-	while (i < count)
-	{
-		waitpid(pids[i], &status, 0);
-		update_exit_status(status);
-		i++;
-	}
-}
-
-static void	child_proc(t_child_ctx *ctx)
-{
-	int	i;
-
-	i = 0;
-	set_signals_in_child();
-	apply_redirection(ctx->cur);
-	while (i < ctx->cmd_count - 1)
-	{
-		if (i != ctx->i - 1)
-			close(ctx->pipes[i][0]);
-		if (i != ctx->i)
-			close(ctx->pipes[i][1]);
-		i++;
-	}
 	if (ctx->i != 0)
 	{
 		dup2(ctx->pipes[ctx->i - 1][0], STDIN_FILENO);
@@ -82,6 +42,29 @@ static void	child_proc(t_child_ctx *ctx)
 		dup2(ctx->pipes[ctx->i][1], STDOUT_FILENO);
 		close(ctx->pipes[ctx->i][1]);
 	}
+}
+
+static void	close_unused_pipes(t_child_ctx *ctx)
+{
+	int	i;
+
+	i = 0;
+	while (i < ctx->cmd_count - 1)
+	{
+		if (i != ctx->i - 1)
+			close(ctx->pipes[i][0]);
+		if (i != ctx->i)
+			close(ctx->pipes[i][1]);
+		i++;
+	}
+}
+
+static void	child_proc(t_child_ctx *ctx)
+{
+	set_signals_in_child();
+	apply_redirection(ctx->cur);
+	close_unused_pipes(ctx);
+	setup_pipe_redirection(ctx);
 	if (is_builtin(ctx->cur->cmd))
 		exit(execute_builtin(ctx->cur, &ctx->env));
 	exec_externals_in_child(ctx->cur, ctx->env);

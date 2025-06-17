@@ -66,13 +66,15 @@ static char	**get_matches(t_token *current, int *count, int max_matches)
 		return (NULL);
 	}
 	*count = 0;
-	while ((entry = readdir(dir)) != NULL && *count < max_matches)
+	entry = readdir(dir);
+	while (entry != NULL && *count < max_matches)
 	{
 		if (entry->d_name[0] != '.' || current->value[0] == '.')
 		{
 			if (match_pattern(current->value, entry->d_name))
 				matches[(*count)++] = ft_strdup(entry->d_name);
 		}
+		entry = readdir(dir);
 	}
 	closedir(dir);
 	return (matches);
