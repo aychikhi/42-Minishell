@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/18 15:22:07 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:32:53 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	tokeniser(char *input, t_env *env, t_command *cmd)
 	char				*new_input;
 
 	i = 0;
-	new_input = expand_env(input, env);
+	new_input = expand_env(input, env, 0);
 	last = NULL;
 	tokens = NULL;
 	state = tokenize_state_init(&i, &tokens, &last);

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/18 14:59:37 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:30:34 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,12 @@ int					skip_fun(char *line, int flag);
 int					check_tokens(t_token **tokens);
 int					skip_spaces(char *input, int *i);
 char				**ft_split(char const *s, char c);
-int					process_exp_char(t_exp_data *data);
+int					process_exp_char(t_exp_data *data, int flag);
+// int					process_exp_char(t_exp_data *data);
 t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
-char				*expand_env(char *input, t_env *env);
+char				*expand_env(char *input, t_env *env, int flag);
+// char				*expand_env(char *input, t_env *env);
 void				init_cmd(t_cmd **cmd, t_token *tokens);
 void				check_and_join_token(t_token ***token);
 void				add_backfile(t_file **lst, t_file *new);
