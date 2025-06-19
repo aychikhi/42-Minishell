@@ -1,7 +1,7 @@
 CC = cc
 NAME = minishell
 # CFLAGS = -Wall -Wextra -Werror 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include# -g -fsanitize=address
 LDFLAGS = -L/goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
 
 SRCS = src/execution/main.c \

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/19 10:24:56 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:49:20 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ static void	process_line(char *line, t_env **env_list)
 	if (*line)
 	{
 		add_history(line);
-		tokeniser(line, *env_list, &cmd);
-		if (cmd.cmd != NULL)
+		if (!tokeniser(line, *env_list, &cmd))
+			return ;
+		if (!cmd.cmd->cmd && !cmd.cmd->file)
+			ft_strdup("");
+		else if (cmd.cmd)
 			execute_command(&cmd, env_list);
 		if (cmd.cmd)
 			free_cmd(cmd.cmd);

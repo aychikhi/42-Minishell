@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/19 10:30:34 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:49:33 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,6 @@ typedef struct s_cmd
 	t_file			*file;
 	struct s_cmd	*next;
 }					t_cmd;
-
-// typedef struct s_env
-// {
-// 	char			*var;
-// 	char			*value;
-// 	struct s_env	*next;
-// }					t_env;
 
 typedef struct s_command
 {
@@ -137,7 +130,8 @@ int					check_red(char *input, t_tokenize_state *state);
 int					check_pipe(char *input, t_tokenize_state *state);
 void				handle_word(char *input, int *i, t_token **tokens,
 						t_token **last);
-void				tokeniser(char *input, t_env *env, t_command *cmd);
+int					tokeniser(char *input, t_env *env, t_command *cmd);
+// void				tokeniser(char *input, t_env *env, t_command *cmd);
 void				handle_quotes(char *input, int *i, t_token **tokens,
 						t_token **last);
 char				*extract_env(char *input, t_env *env, int dollar_pos,
