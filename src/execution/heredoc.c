@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:54 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:51:41 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:12:50 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	collecting_heredoc(t_cmd *cmd, t_env *env)
 			if (file->type == TOKEN_HEREDOC)
 			{
 				if (process_heredoc(file, env))
-					return 1;
+					return (1);
 			}
 			file = file->next;
 		}

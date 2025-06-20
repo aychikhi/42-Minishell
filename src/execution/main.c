@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:54:43 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:12:46 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	execute_command(t_command *cmd, t_env **env_list)
 {
 	if (!cmd || !cmd->cmd)
 		return ;
-	if(collecting_heredoc(cmd->cmd, *env_list))
+	if (collecting_heredoc(cmd->cmd, *env_list))
 	{
 		reset_heredoc_state();
 		return ;
@@ -38,7 +38,7 @@ static void	execute_command(t_command *cmd, t_env **env_list)
 	{
 		if (cmd->cmd->cmd && is_builtin(cmd->cmd->cmd))
 			execute_builtin(cmd->cmd, env_list);
-		else if(cmd->cmd->cmd) 
+		else if (cmd->cmd->cmd)
 			exec_externals(cmd->cmd, *env_list);
 	}
 }
