@@ -22,10 +22,21 @@ void	handle_fork_error(char *path, char **envp)
 
 void	handle_path_not_found(t_cmd *cmd)
 {
-	ft_putstr_fd("minishell: command not found ", 2);
-	ft_putstr_fd(cmd->cmd, 2);
-	ft_putstr_fd("\n", 2);
-	g_exit_status = 127;
+	if (access(cmd->cmd, F_OK) == 0)
+	{
+		ft_putstr_fd("minishell: permission denied: ", 2);
+		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd("\n", 2);
+		g_exit_status = 126;
+		return ;
+	}
+	else
+	{
+		ft_putstr_fd("minishell: command not found ", 2);
+		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd("\n", 2);
+		g_exit_status = 127;
+	}
 }
 
 static void	handle_file_error_and_exit(t_file *f)
