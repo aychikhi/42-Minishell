@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_help.c                                     :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 19:40:58 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:56:16 by aychikhi         ###   ########.fr       */
+/*   Created: 2024/10/26 16:07:38 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/06/20 13:53:21 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
+void	ft_putstr_fd(char *s, int fd)
 {
-	char	*expanded_line;
+	size_t	i;
 
-	if (expand && line && ft_strchr(line, '$'))
-	{
-		expanded_line = expand_env(line, env, 1);
-		write(pipe_fd, expanded_line, ft_strlen(expanded_line));
-		free(expanded_line);
-	}
-	else
-		write(pipe_fd, line, ft_strlen(line));
-	write(pipe_fd, "\n", 1);
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+		write(fd, &s[i++], 1);
 }

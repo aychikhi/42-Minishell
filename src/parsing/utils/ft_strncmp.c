@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_help.c                                     :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 19:40:58 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:56:16 by aychikhi         ###   ########.fr       */
+/*   Created: 2024/10/25 09:40:06 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/06/20 13:53:44 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
+int	ft_strncmp(char *first, char *second, size_t length)
 {
-	char	*expanded_line;
+	size_t	i;
 
-	if (expand && line && ft_strchr(line, '$'))
+	i = 0;
+	if (length == 0)
+		return (0);
+	while (i < length && (first[i] != '\0' || second[i] != '\0'))
 	{
-		expanded_line = expand_env(line, env, 1);
-		write(pipe_fd, expanded_line, ft_strlen(expanded_line));
-		free(expanded_line);
+		if ((unsigned char)first[i] != (unsigned char)second[i])
+			return ((unsigned char)first[i] - (unsigned char)second[i]);
+		i++;
 	}
-	else
-		write(pipe_fd, line, ft_strlen(line));
-	write(pipe_fd, "\n", 1);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   external_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 21:42:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/17 17:35:53 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/20 13:51:04 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*join_paths(char *dir, char *cmd)
 	return (path);
 }
 
-static char *absolute_path(char *cmd)
+static char	*absolute_path(char *cmd)
 {
 	char	*full;
 

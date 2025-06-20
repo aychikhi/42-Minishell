@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_help.c                                     :+:      :+:    :+:   */
+/*   add_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 19:40:58 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:56:16 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/28 11:28:24 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/06/20 13:52:56 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
+t_cmd	*add_new(int size)
 {
-	char	*expanded_line;
+	t_cmd	*tmp;
 
-	if (expand && line && ft_strchr(line, '$'))
-	{
-		expanded_line = expand_env(line, env, 1);
-		write(pipe_fd, expanded_line, ft_strlen(expanded_line));
-		free(expanded_line);
-	}
-	else
-		write(pipe_fd, line, ft_strlen(line));
-	write(pipe_fd, "\n", 1);
+	tmp = malloc(sizeof(t_cmd));
+	if (!tmp)
+		malloc_error();
+	tmp->args = calloc(size + 1, sizeof(char *));
+	if (!tmp->args)
+		malloc_error();
+	tmp->next = NULL;
+	tmp->cmd = NULL;
+	tmp->file = NULL;
+	return (tmp);
 }

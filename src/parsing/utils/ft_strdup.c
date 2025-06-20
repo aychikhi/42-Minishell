@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_help.c                                     :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 19:40:58 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:56:16 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/15 17:15:13 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/06/20 13:53:34 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
+char	*ft_strdup(const char *s1)
 {
-	char	*expanded_line;
+	int		i;
+	int		l;
+	char	*ptr;
 
-	if (expand && line && ft_strchr(line, '$'))
+	i = 0;
+	if (!s1)
+		return (NULL);
+	l = ft_strlen(s1);
+	ptr = malloc((l + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		expanded_line = expand_env(line, env, 1);
-		write(pipe_fd, expanded_line, ft_strlen(expanded_line));
-		free(expanded_line);
+		ptr[i] = s1[i];
+		i++;
 	}
-	else
-		write(pipe_fd, line, ft_strlen(line));
-	write(pipe_fd, "\n", 1);
+	ptr[i] = '\0';
+	return (ptr);
 }

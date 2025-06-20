@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_help.c                                     :+:      :+:    :+:   */
+/*   ft_file_exists.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 19:40:58 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:56:16 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/06/10 15:30:34 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/06/20 13:53:03 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
+int	ft_file_exists(char *filename)
 {
-	char	*expanded_line;
+	int	fd;
 
-	if (expand && line && ft_strchr(line, '$'))
-	{
-		expanded_line = expand_env(line, env, 1);
-		write(pipe_fd, expanded_line, ft_strlen(expanded_line));
-		free(expanded_line);
-	}
-	else
-		write(pipe_fd, line, ft_strlen(line));
-	write(pipe_fd, "\n", 1);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	close(fd);
+	return (1);
 }

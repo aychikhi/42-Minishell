@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:22:51 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/17 17:29:25 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/20 14:02:50 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
-	write(1, "\n", 1);
+	// write(1, "\n", 1);
 	exit(130);
 }
 

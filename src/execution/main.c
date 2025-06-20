@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/06 22:53:46 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/20 13:54:43 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_builtin(char *cmd)
 static void	execute_command(t_command *cmd, t_env **env_list)
 {
 	if (collecting_heredoc(cmd->cmd, *env_list))
-		return;
+		return ;
 	if (cmd->cmd && cmd->cmd->next)
 		execute_pipeline(cmd->cmd, *env_list);
 	else if (cmd->cmd)
@@ -45,18 +45,28 @@ static void	process_line(char *line, t_env **env_list)
 	if (*line)
 	{
 		add_history(line);
-		tokeniser(line, *env_list, &cmd);
-		if (cmd.cmd != NULL)
+		if (!tokeniser(line, *env_list, &cmd))
+			return ;
+		if (!cmd.cmd->cmd && !cmd.cmd->file)
+			ft_strdup("");
+		else if (cmd.cmd)
 			execute_command(&cmd, env_list);
 		if (cmd.cmd)
 			free_cmd(cmd.cmd);
 	}
 }
 
+static void	exit_fun(void)
+{
+	write(1, "exit\n", 5);
+	exit(g_exit_status);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_env	*env_list;
+	int		flag;
 
 	(void)argc;
 	(void)argv;
@@ -67,11 +77,11 @@ int	main(int argc, char **argv, char **env)
 	{
 		line = readline("minishell$ ");
 		if (!line)
-		{
-			write(1, "exit\n", 5);
-			exit(g_exit_status);
-		}
-		process_line(line, &env_list);
+			exit_fun();
+		check_unprint(&line);
+		flag = check_quotes(line);
+		if (flag)
+			process_line(line, &env_list);
 		free(line);
 	}
 	clear_history();

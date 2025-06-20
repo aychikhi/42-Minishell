@@ -1,24 +1,24 @@
 CC = cc
 NAME = minishell
-# CFLAGS = -Wall -Wextra -Werror #-g #-fsanitize=address
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include
+# CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include# -g -fsanitize=address
 LDFLAGS = -L/goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
 
 SRCS = src/execution/main.c \
-       src/utils/ft_strcpy.c src/utils/ft_strncpy.c src/utils/ft_substr.c \
-       src/utils/ft_lstadd_back.c src/utils/add_new.c src/utils/add_newfile.c \
-       src/init/init_fun.c src/init/init_fun1.c \
-       src/token/helper.c src/token/helper1.c src/token/helper2.c \
-       src/token/helper3.c src/token/helper4.c src/token/helper5.c \
-       src/token/helper6.c src/token/tokeniser.c src/token/wildcard_helper.c \
-       src/token/helpeer.c \
-       src/parser/parser.c src/parser/parser1.c \
-       src/utils/ft_strlen.c src/utils/ft_strdup.c src/utils/ft_isalnum.c \
-       src/utils/ft_isalpha.c src/utils/ft_isdigit.c src/utils/ft_lstnew.c \
-       src/utils/ft_strcmp.c src/utils/ft_strjoin.c src/utils/add_backfile.c \
-       src/utils/ft_strchr.c src/utils/ft_putstr_fd.c src/utils/ft_strncmp.c \
-       src/utils/ft_atoi.c src/utils/ft_split.c src/utils/ft_itoa.c \
-       src/utils/ft_file_exists.c \
+       src/parsing/utils/ft_strcpy.c src/parsing/utils/ft_strncpy.c src/parsing/utils/ft_substr.c \
+       src/parsing/utils/ft_lstadd_back.c src/parsing/utils/add_new.c src/parsing/utils/add_newfile.c \
+       src/parsing/init/init_fun.c src/parsing/init/init_fun1.c \
+       src/parsing/token/helper.c src/parsing/token/helper1.c src/parsing/token/helper2.c \
+       src/parsing/token/helper3.c src/parsing/token/helper4.c src/parsing/token/helper5.c \
+       src/parsing/token/helper6.c src/parsing/token/tokeniser.c src/parsing/token/wildcard_helper.c \
+       src/parsing/token/helpeer.c \
+       src/parsing/token/parser/parser.c src/parsing/token/parser/parser1.c \
+       src/parsing/utils/ft_strlen.c src/parsing/utils/ft_strdup.c src/parsing/utils/ft_isalnum.c \
+       src/parsing/utils/ft_isalpha.c src/parsing/utils/ft_isdigit.c src/parsing/utils/ft_lstnew.c \
+       src/parsing/utils/ft_strcmp.c src/parsing/utils/ft_strjoin.c src/parsing/utils/add_backfile.c \
+       src/parsing/utils/ft_strchr.c src/parsing/utils/ft_putstr_fd.c src/parsing/utils/ft_strncmp.c \
+       src/parsing/utils/ft_atoi.c src/parsing/utils/ft_split.c src/parsing/utils/ft_itoa.c \
+       src/parsing/utils/ft_file_exists.c \
        src/execution/builtins/ft_echo.c src/execution/builtins/ft_env.c \
        src/execution/builtins/ft_export.c src/execution/builtins/ft_pwd.c \
        src/execution/builtins/ft_unset.c src/execution/builtins/ft_cd.c \

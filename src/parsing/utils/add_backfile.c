@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_help.c                                     :+:      :+:    :+:   */
+/*   add_backfile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 19:40:58 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:56:16 by aychikhi         ###   ########.fr       */
+/*   Created: 2025/04/29 14:33:51 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/06/20 13:52:43 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
+static t_file	*ft_lstlast(t_file *lst)
 {
-	char	*expanded_line;
+	t_file	*current;
 
-	if (expand && line && ft_strchr(line, '$'))
+	if (!lst)
+		return (NULL);
+	current = lst;
+	while (current->next != NULL)
 	{
-		expanded_line = expand_env(line, env, 1);
-		write(pipe_fd, expanded_line, ft_strlen(expanded_line));
-		free(expanded_line);
+		current = current->next;
 	}
-	else
-		write(pipe_fd, line, ft_strlen(line));
-	write(pipe_fd, "\n", 1);
+	return (current);
+}
+
+void	add_backfile(t_file **lst, t_file *new)
+{
+	t_file	*last;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		(*lst) = new;
+		return ;
+	}
+	last = ft_lstlast(*lst);
+	last->next = new;
 }
