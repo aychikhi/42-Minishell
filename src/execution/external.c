@@ -55,7 +55,7 @@ void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 	set_signals_in_child();
 	apply_redirection(cmd);
 	execve(path, cmd->args, envp);
-	ft_putstr_fd("minishell: execve failed: ", 2);
+	ft_putstr_fd("minishell: command not found: ", 2);
 	ft_putstr_fd(cmd->cmd, 2);
 	ft_putstr_fd("\n", 2);
 	exit(1);
