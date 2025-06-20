@@ -12,10 +12,17 @@
 
 #include "../../includes/minishell.h"
 
+void	reset_heredoc_state(void)
+{
+	set_signals_interactive();
+	g_exit_status = 0;
+}
+
 void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
-	// write(1, "\n", 1);
+	ft_putstr_fd("\n", 2);
+	close(STDIN_FILENO);
 	exit(130);
 }
 

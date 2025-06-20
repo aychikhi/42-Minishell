@@ -16,11 +16,18 @@ void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
 {
 	char	*expanded_line;
 
-	if (expand && line && ft_strchr(line, '$'))
+	if (!line)
+		return ;
+	if (expand && ft_strchr(line, '$'))
 	{
 		expanded_line = expand_env(line, env, 1);
-		write(pipe_fd, expanded_line, ft_strlen(expanded_line));
-		free(expanded_line);
+		if (expanded_line)
+		{
+			write(pipe_fd, expanded_line, ft_strlen(expanded_line));
+			free(expanded_line);
+		}
+		else
+			write(pipe_fd, line, ft_strlen(line));
 	}
 	else
 		write(pipe_fd, line, ft_strlen(line));

@@ -50,6 +50,7 @@ static void	handle_heredoc_parent(int pipe_fd[2], t_file *file, pid_t pid)
 	}
 	else
 		file->h_fd = pipe_fd[0];
+	set_signals_interactive();
 }
 
 static int	setup_heredoc_pipe(int pipe_fd[2])
@@ -96,6 +97,7 @@ int	collecting_heredoc(t_cmd *cmd, t_env *env)
 	t_file	*file;
 
 	cur = cmd;
+	g_exit_status = 0;
 	while (cur)
 	{
 		file = cur->file;
@@ -104,7 +106,7 @@ int	collecting_heredoc(t_cmd *cmd, t_env *env)
 			if (file->type == TOKEN_HEREDOC)
 			{
 				if (process_heredoc(file, env))
-					return (1);
+					return 1;
 			}
 			file = file->next;
 		}

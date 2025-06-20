@@ -25,15 +25,20 @@ int	is_builtin(char *cmd)
 
 static void	execute_command(t_command *cmd, t_env **env_list)
 {
-	if (collecting_heredoc(cmd->cmd, *env_list))
+	if (!cmd || !cmd->cmd)
 		return ;
+	if(collecting_heredoc(cmd->cmd, *env_list))
+	{
+		reset_heredoc_state();
+		return ;
+	}
 	if (cmd->cmd && cmd->cmd->next)
 		execute_pipeline(cmd->cmd, *env_list);
 	else if (cmd->cmd)
 	{
-		if (is_builtin(cmd->cmd->cmd))
+		if (cmd->cmd->cmd && is_builtin(cmd->cmd->cmd))
 			execute_builtin(cmd->cmd, env_list);
-		else
+		else if(cmd->cmd->cmd) 
 			exec_externals(cmd->cmd, *env_list);
 	}
 }
@@ -42,6 +47,7 @@ static void	process_line(char *line, t_env **env_list)
 {
 	t_command	cmd;
 
+	reset_heredoc_state();
 	if (*line)
 	{
 		add_history(line);
