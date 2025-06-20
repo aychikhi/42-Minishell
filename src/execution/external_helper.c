@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   external_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 21:42:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/17 17:35:53 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/20 13:37:16 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,23 @@ static char	*join_paths(char *dir, char *cmd)
 	return (path);
 }
 
+static char	*absolute_path(char *cmd)
+{
+	char	*full;
+
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+		return (NULL);
+	}
+	full = join_paths(".", cmd);
+	if (access(full, X_OK) == 0)
+		return (full);
+	free(full);
+	return (NULL);
+}
+
 char	*get_cmd_path(char *cmd, t_env *env)
 {
 	char	**path;
@@ -30,6 +47,11 @@ char	*get_cmd_path(char *cmd, t_env *env)
 	int		i;
 	char	*full;
 
+	if (!cmd || !*cmd)
+		return (NULL);
+	full = absolute_path(cmd);
+	if (full)
+		return (full);
 	path_env = get_env_value(env, "PATH");
 	if (!path_env)
 		return (NULL);

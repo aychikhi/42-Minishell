@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/19 18:49:04 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:37:29 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,36 +63,6 @@ static void	finalize_tokens(t_token **tokens, t_token **last)
 	process_wildcards(tokens);
 	check_and_join_token(&tokens);
 }
-// static void	print_command(t_command *cmd)
-// {
-// 	t_command	*tmp;
-// 	int			i;
-
-// 	i = 0;
-// 	tmp = cmd;
-// 	while (tmp->cmd)
-// 	{
-// 		i = 0;
-// 		printf("cmd : %s\n", tmp->cmd->cmd);
-// 		printf("args : ");
-// 		while (tmp->cmd->args[i])
-// 		{
-// 			printf("[%s] ", tmp->cmd->args[i]);
-// 			i++;
-// 		}
-// 		printf("\n");
-// 		if (tmp->cmd->file)
-// 		{
-// 			while (tmp->cmd->file)
-// 			{
-// 				printf("file : %s type : %d\n", tmp->cmd->file->name,
-// 					tmp->cmd->file->type);
-// 				tmp->cmd->file = tmp->cmd->file->next;
-// 			}
-// 		}
-// 		tmp->cmd = tmp->cmd->next;
-// 	}
-// }
 
 int	tokeniser(char *input, t_env *env, t_command *cmd)
 {
@@ -117,8 +87,8 @@ int	tokeniser(char *input, t_env *env, t_command *cmd)
 	}
 	finalize_tokens(&tokens, &last);
 	init_command(&cmd, tokens, &env);
-	// print_command(cmd);//n
 	free_tokens(tokens);
 	free(new_input);
 	return (1);
 }
+	// print_command(cmd);//n

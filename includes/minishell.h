@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/19 18:49:33 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:40:22 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,8 @@ int					skip_fun(char *line, int flag);
 int					check_tokens(t_token **tokens);
 int					skip_spaces(char *input, int *i);
 char				**ft_split(char const *s, char c);
-int					process_exp_char(t_exp_data *data, int flag);
-// int					process_exp_char(t_exp_data *data);
 t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
-char				*expand_env(char *input, t_env *env, int flag);
-// char				*expand_env(char *input, t_env *env);
 void				init_cmd(t_cmd **cmd, t_token *tokens);
 void				check_and_join_token(t_token ***token);
 void				add_backfile(t_file **lst, t_file *new);
@@ -124,14 +120,15 @@ void				add_token(t_token **tokens, t_token **last,
 char				*ft_strjoin(char const *s1, char const *s2);
 t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);
+int					process_exp_char(t_exp_data *data, int flag);
 char				*ft_substr(char const *s, int start, int len);
+char				*expand_env(char *input, t_env *env, int flag);
 char				*ft_strncpy(char *dest, const char *src, int n);
 int					check_red(char *input, t_tokenize_state *state);
 int					check_pipe(char *input, t_tokenize_state *state);
 void				handle_word(char *input, int *i, t_token **tokens,
 						t_token **last);
 int					tokeniser(char *input, t_env *env, t_command *cmd);
-// void				tokeniser(char *input, t_env *env, t_command *cmd);
 void				handle_quotes(char *input, int *i, t_token **tokens,
 						t_token **last);
 char				*extract_env(char *input, t_env *env, int dollar_pos,
@@ -171,7 +168,6 @@ char				*expand_exit_status(char *input, int i);
 
 void				close_pipes(int **pipe, int count);
 int					**create_pipes(int count);
-// int					handle_heredoc(t_file *file);
 int					collecting_heredoc(t_cmd *cmd, t_env *env);
 int					ft_file_exists(char *filename);
 

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/19 18:49:20 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:37:20 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	is_builtin(char *cmd)
 
 static void	execute_command(t_command *cmd, t_env **env_list)
 {
-	collecting_heredoc(cmd->cmd, *env_list);
+	if (collecting_heredoc(cmd->cmd, *env_list))
+		return ;
 	if (cmd->cmd && cmd->cmd->next)
 		execute_pipeline(cmd->cmd, *env_list);
 	else if (cmd->cmd)

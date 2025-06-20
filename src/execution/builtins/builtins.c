@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:55:14 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/13 17:36:18 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/20 13:23:23 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	execute_builtin(t_cmd *cmd, t_env **env)
 
 	if (!cmd || !cmd->cmd)
 		return (1);
-	collecting_heredoc(cmd, *env);
+	if (collecting_heredoc(cmd, *env))
+		return (g_exit_status);
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
 	apply_redirection(cmd);
