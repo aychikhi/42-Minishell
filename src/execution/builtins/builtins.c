@@ -30,7 +30,6 @@ static void	run_builtin(t_cmd *cmd, t_env **env)
 		ft_unset(cmd->args, env);
 	else
 	{
-		// ft_putstr_fd("minishell: command not found ", 2);
 		ft_putstr_fd("minishell:", 2);
 		ft_putstr_fd(cmd->cmd, 2);
 		ft_putstr_fd(":command not found ", 2);

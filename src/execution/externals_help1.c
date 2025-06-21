@@ -32,7 +32,6 @@ void	handle_path_not_found(t_cmd *cmd)
 	}
 	else
 	{
-		// ft_putstr_fd("minishell: command not found ", 2);
 		ft_putstr_fd("minishell:", 2);
 		ft_putstr_fd(cmd->cmd, 2);
 		ft_putstr_fd(":command not found ", 2);

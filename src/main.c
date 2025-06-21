@@ -54,10 +54,6 @@ static void	process_line(char *line, t_env **env_list)
 			return ;
 		if (cmd.cmd)
 			execute_command(&cmd, env_list);
-		// if (!cmd.cmd->cmd && !cmd.cmd->file)
-		// 	ft_strdup("");
-		// else if (cmd.cmd)
-		// 	execute_command(&cmd, env_list);
 		if (cmd.cmd)
 			free_cmd(cmd.cmd);
 	}

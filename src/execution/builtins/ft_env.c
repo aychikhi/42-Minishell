@@ -91,8 +91,6 @@ void	update_env_var(t_env **env, const char *key, const char *value)
 		tmp = tmp->next;
 	}
 	new_node = malloc(sizeof(t_env));
-	if (!new_node)
-		return ;
 	new_node->var = ft_strdup(key);
 	if (value)
 		new_node->value = ft_strdup(value);

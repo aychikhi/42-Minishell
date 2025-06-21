@@ -23,50 +23,62 @@ static char	*join_paths(char *dir, char *cmd)
 	return (path);
 }
 
-static char	*absolute_path(char *cmd)
+static char	*check_current_dir(char *cmd)
 {
-	if (ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
-		return (NULL);
-	}
+	char	*full;
+
+	full = join_paths(".", cmd);
+	if (access(full, X_OK) == 0)
+		return (full);
+	free(full);
 	return (NULL);
 }
 
-char	*get_cmd_path(char *cmd, t_env *env)
+static char	*search_in_path(char *cmd, t_env *env)
 {
 	char	**path;
 	char	*path_env;
 	int		i;
 	char	*full;
 
+	path_env = get_env_value(env, "PATH");
+	if (!path_env)
+		return (NULL);
+	i = 0;
+	path = ft_split(path_env, ':');
+	if (!path)
+		return (NULL);
+	while (path[i])
+	{
+		full = join_paths(path[i], cmd);
+		if (access(full, X_OK) == 0)
+		{
+			free_2d_arr(path);
+			return (full);
+		}
+		free(full);
+		i++;
+	}
+	free_2d_arr(path);
+	return (NULL);
+}
+
+char	*get_cmd_path(char *cmd, t_env *env)
+{
+	char	*path;
+
 	if (!cmd || !*cmd)
 		return (NULL);
 	if (ft_strchr(cmd, '/'))
-		return (absolute_path(cmd));
-	path_env = get_env_value(env, "PATH");
-	if (path_env)
 	{
-		i = 0;
-		path = ft_split(path_env, ':');
-		if (path)
-		{
-			while (path[i])
-			{
-				full = join_paths(path[i], cmd);
-				if (access(full, X_OK) == 0)
-					return (free_2d_arr(path), full);
-				free(full);
-				i++;
-			}
-			free_2d_arr(path);
-		}
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+		return (NULL);
 	}
-	full = join_paths(".", cmd);
-	if (access(full, X_OK) == 0)
-		return (full);
-	return (free(full), NULL);
+	path = search_in_path(cmd, env);
+	if (path)
+		return (path);
+	return (check_current_dir(cmd));
 }
 
 void	exec_externals_in_child(t_cmd *cmd, t_env *env)
@@ -77,7 +89,6 @@ void	exec_externals_in_child(t_cmd *cmd, t_env *env)
 	path = get_cmd_path(cmd->cmd, env);
 	if (!path)
 	{
-		// ft_putstr_fd("minishell: command not found", 2);
 		ft_putstr_fd("minishell:", 2);
 		ft_putstr_fd(cmd->cmd, 2);
 		ft_putstr_fd(":command not found ", 2);
