@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:33:04 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:55:26 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/21 16:00:44 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ static int	handle_redirections(t_exp_data *data)
 	if (data->expanded[data->i] == '<' && data->expanded[data->i + 1] == '<')
 	{
 		data->i++;
-		data->flag = 1;
 		if (data->expanded[data->i + 1])
 		{
 			data->i++;
 			while (data->expanded[data->i] == ' ')
 				data->i++;
 		}
+		if (data->expanded[data->i] == '$')
+			data->flag = 1;
 		return (1);
 	}
 	return (0);
@@ -52,7 +53,7 @@ int	process_exp_char(t_exp_data *data, int flag)
 	{
 		if (handle_redirections(data))
 			return (0);
-		else if (handle_quote(data))
+		if (handle_quote(data))
 			return (0);
 	}
 	if (data->expanded[data->i] == '$' && !data->in_sq && !data->flag)

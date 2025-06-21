@@ -4,7 +4,7 @@ NAME = minishell
 CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include# -g -fsanitize=address
 LDFLAGS = -L/goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
 
-SRCS = src/execution/main.c \
+SRCS = src/main.c \
        src/parsing/utils/ft_strcpy.c src/parsing/utils/ft_strncpy.c src/parsing/utils/ft_substr.c \
        src/parsing/utils/ft_lstadd_back.c src/parsing/utils/add_new.c src/parsing/utils/add_newfile.c \
        src/parsing/init/init_fun.c src/parsing/init/init_fun1.c \

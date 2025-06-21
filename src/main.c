@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 17:12:46 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/21 16:01:38 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 int			g_exit_status;
 
@@ -53,10 +53,12 @@ static void	process_line(char *line, t_env **env_list)
 		add_history(line);
 		if (!tokeniser(line, *env_list, &cmd))
 			return ;
-		if (!cmd.cmd->cmd && !cmd.cmd->file)
-			ft_strdup("");
-		else if (cmd.cmd)
+		if (cmd.cmd)
 			execute_command(&cmd, env_list);
+		// if (!cmd.cmd->cmd && !cmd.cmd->file)
+		// 	ft_strdup("");
+		// else if (cmd.cmd)
+		// 	execute_command(&cmd, env_list);
 		if (cmd.cmd)
 			free_cmd(cmd.cmd);
 	}

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:05:10 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:55:55 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/21 12:59:57 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,6 @@ void	check_unprint(char **line)
 	}
 	line[0][i] = '\0';
 }
-
-// void	one_space(char **line)
-// {
-// 	int	i;
-// 	int	f;
-// 	int	flag;
-
-// 	i = 0;
-// 	f = 0;
-// 	flag = 0;
-// 	while (line[0][f])
-// 	{
-// 		while (line[0][f] == ' ')
-// 		{
-// 			flag = 1;
-// 			f++;
-// 		}
-// 		if (flag)
-// 		{
-// 			line[0][i] = ' ';
-// 			flag = 0;
-// 			i++;
-// 		}
-// 		line[0][i] = line[0][f];
-// 		f++;
-// 		i++;
-// 	}
-// 	line[0][i] = '\0';
-// }
 
 int	skip_fun(char *line, int flag)
 {

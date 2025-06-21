@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:55:59 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/21 13:24:40 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	handle_redirection_chars(char *input, int *i, int *l)
 				return (printf("syntax error near unexpected token `|'\n"), 0);
 		}
 		if (!input[*i])
-			return (printf("syntax error\n"), 0);
+			return (printf("minishell : syntax error\n"), 0);
 		if (*l == 1 && input[*i - 1] == '>' && input[*i] == '|')
 			return (1);
 	}
@@ -69,14 +69,14 @@ int	check_red(char *input, t_tokenize_state *state)
 	i = *state->i;
 	if ((input[i] == '>' && input[i + 1] == '<') || (input[i] == '<' && input[i
 				+ 1] == '>'))
-		return (printf("syntax error\n"), 0);
+		return (printf("minishell : syntax error\n"), 0);
 	ret = handle_redirection_chars(input, &i, &l);
 	if (ret != 2)
 		return (ret);
 	if (input[i] == '|')
 		return (printf("syntax error near unexpected token `|'\n"), 0);
 	if (l > 2)
-		return (printf("syntax error\n"), 0);
+		return (printf("minishell : syntax error\n"), 0);
 	return (1);
 }
 
@@ -115,7 +115,7 @@ int	check_tokens(t_token **tokens)
 	{
 		if ((tmp->type == 5 || tmp->type == 6 || tmp->type == 3
 				|| tmp->type == 4) && tmp->next->type == 9)
-			return (printf("syntax error\n"), 0);
+			return (printf("minishell : syntax error\n"), 0);
 		tmp = tmp->next;
 	}
 	return (1);

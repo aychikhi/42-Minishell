@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:55:03 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:51:38 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,28 @@ static void	init_exp_data(t_exp_data *data, char *input, t_env *env)
 char	*expand_env(char *input, t_env *env, int flag)
 {
 	t_exp_data	data;
+	int			original_len;
+	int			current_len;
 
-	if (!input)
-		return (NULL);
+	original_len = ft_strlen(input);
+	if (original_len == 0)
+		return (ft_strdup(""));
 	init_exp_data(&data, input, env);
-	if (!data.expanded)
-		return (NULL);
-	while (data.expanded[data.i])
+	while (data.expanded && data.i >= 0 && data.expanded[data.i])
 	{
+		current_len = ft_strlen(data.expanded);
+		if (data.i >= current_len)
+			break ;
 		if (process_exp_char(&data, flag))
+		{
+			current_len = ft_strlen(data.expanded);
+			if (data.i >= current_len)
+				break ;
 			continue ;
+		}
 		data.i++;
+		if (data.i > current_len)
+			break ;
 	}
 	return (data.expanded);
 }

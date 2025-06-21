@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 21:42:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 13:51:04 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/21 12:34:29 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ char	*get_cmd_path(char *cmd, t_env *env)
 			{
 				full = join_paths(path[i], cmd);
 				if (access(full, X_OK) == 0)
-				{
-					free_2d_arr(path);
-					return (full);
-				}
+					return (free_2d_arr(path), full);
 				free(full);
 				i++;
 			}
@@ -69,8 +66,7 @@ char	*get_cmd_path(char *cmd, t_env *env)
 	full = join_paths(".", cmd);
 	if (access(full, X_OK) == 0)
 		return (full);
-	free(full);
-	return (NULL);
+	return (free(full), NULL);
 }
 
 void	exec_externals_in_child(t_cmd *cmd, t_env *env)
