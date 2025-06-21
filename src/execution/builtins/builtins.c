@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:55:14 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/13 17:36:18 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/21 18:25:44 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ static void	run_builtin(t_cmd *cmd, t_env **env)
 		ft_unset(cmd->args, env);
 	else
 	{
-		ft_putstr_fd("minishell: command not found ", 2);
+		// ft_putstr_fd("minishell: command not found ", 2);
+		ft_putstr_fd("minishell:", 2);
 		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd(":command not found ", 2);
 		g_exit_status = 127;
 	}
 }

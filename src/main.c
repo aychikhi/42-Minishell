@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/21 16:01:38 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/21 18:21:54 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	process_line(char *line, t_env **env_list)
 	reset_heredoc_state();
 	if (*line)
 	{
-		add_history(line);
 		if (!tokeniser(line, *env_list, &cmd))
 			return ;
 		if (cmd.cmd)
@@ -86,6 +85,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline("minishell$ ");
 		if (!line)
 			exit_fun();
+		add_history(line);
 		check_unprint(&line);
 		flag = check_quotes(line);
 		if (flag)

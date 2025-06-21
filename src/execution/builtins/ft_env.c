@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:56:03 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/05/08 15:31:58 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/21 18:17:43 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,7 @@ void	update_env_var(t_env **env, const char *key, const char *value)
 int	ft_env(t_env *env)
 {
 	if (!env)
-	{
-		ft_putstr_fd("env: environment is empty\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("env: environment is empty\n", 2), 1);
 	while (env)
 	{
 		if (env->value)

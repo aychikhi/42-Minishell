@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:39:05 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/21 10:40:28 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/21 18:25:42 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 	set_signals_in_child();
 	apply_redirection(cmd);
 	execve(path, cmd->args, envp);
-	ft_putstr_fd("minishell: command not found: ", 2);
+	// ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putstr_fd("minishell:", 2);
 	ft_putstr_fd(cmd->cmd, 2);
+	ft_putstr_fd(":command not found ", 2);
 	ft_putstr_fd("\n", 2);
 	exit(1);
 }

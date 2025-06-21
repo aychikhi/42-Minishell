@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   externals_help1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:41:20 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/17 19:41:21 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/21 18:25:43 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	handle_path_not_found(t_cmd *cmd)
 	}
 	else
 	{
-		ft_putstr_fd("minishell: command not found ", 2);
+		// ft_putstr_fd("minishell: command not found ", 2);
+		ft_putstr_fd("minishell:", 2);
 		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd(":command not found ", 2);
 		ft_putstr_fd("\n", 2);
 		g_exit_status = 127;
 	}
