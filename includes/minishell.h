@@ -172,7 +172,7 @@ int					**create_pipes(int count);
 int					collecting_heredoc(t_cmd *cmd, t_env *env);
 int					ft_file_exists(char *filename);
 
-void 				help(t_cmd *cmd);
+void				help(t_cmd *cmd);
 
 /* Wildcard expansion */
 int					has_wildcard(const char *str);
