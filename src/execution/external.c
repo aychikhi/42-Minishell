@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   external.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:39:05 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/21 18:25:42 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 13:53:18 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	handle_heredoc(t_file *f)
 		close(f->h_fd);
 		f->h_fd = -1;
 	}
-	else
-		ft_putstr_fd("error in the heredoc\n", 2);
 }
 
 int	open_file_by_type(t_file *f)

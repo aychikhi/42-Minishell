@@ -3,20 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   helper2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:24:22 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:28:21 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:02:13 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static int	check_expand(char *input, int i)
+{
+	while (input[i])
+	{
+		if (input[i] == '\'' || input[i] == '\"')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void	handle_in_redirection(char *input, int *i, t_token **tokens,
 		t_token **last)
 {
 	if (input[*i + 1] == '<')
 	{
+		if (check_expand(input, *i + 2))
+		{
+			add_token(tokens, last, TOKEN_HEREDOC_quoted, "<<");
+			*i += 2;
+			return ;
+		}
 		add_token(tokens, last, TOKEN_HEREDOC, "<<");
 		*i += 2;
 	}
@@ -69,14 +86,4 @@ void	handle_quotes(char *input, int *i, t_token **tokens, t_token **last)
 		*i += ft_strlen(word) + 2;
 		free(word);
 	}
-}
-
-void	handle_word(char *input, int *i, t_token **tokens, t_token **last)
-{
-	char	*word;
-
-	word = add_word(input + *i);
-	add_token(tokens, last, TOKEN_WORD, word);
-	*i += ft_strlen(word);
-	free(word);
 }

@@ -1,8 +1,7 @@
 CC = cc
 NAME = minishell
-# CFLAGS = -Wall -Wextra -Werror 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include -g -fsanitize=address
-LDFLAGS = -L/goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
+CFLAGS =  -Wall -Wextra -Werror   -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include -g -fsanitize=address
+LDFLAGS = -lreadline -lncurses -L/goinfre/$(USER)/homebrew/opt/readline/lib
 
 SRCS = src/main.c \
        src/parsing/utils/ft_strcpy.c src/parsing/utils/ft_strncpy.c src/parsing/utils/ft_substr.c \

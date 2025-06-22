@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:20:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:55:24 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 15:59:16 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	free_file(t_file *file)
 		tmp = file;
 		file = file->next;
 		free(tmp->name);
-		if (tmp->type == TOKEN_HEREDOC && tmp->h_fd != -1)
+		if ((tmp->type == TOKEN_HEREDOC || tmp->type == TOKEN_HEREDOC_quoted)
+			&& tmp->h_fd != -1)
 		{
 			close(tmp->h_fd);
 			tmp->h_fd = -1;

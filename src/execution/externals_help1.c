@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   externals_help1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:41:20 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/21 18:25:43 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:03:28 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	handle_redir(t_file *f)
 {
 	int	fd;
 
-	if (f->type == TOKEN_HEREDOC)
+	if (f->type == TOKEN_HEREDOC || f->type == TOKEN_HEREDOC_quoted)
 	{
 		handle_heredoc(f);
 		return ;

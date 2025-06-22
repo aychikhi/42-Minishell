@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:54 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 17:12:50 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:03:13 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ int	collecting_heredoc(t_cmd *cmd, t_env *env)
 		file = cur->file;
 		while (file)
 		{
-			if (file->type == TOKEN_HEREDOC)
+			if (file->type == TOKEN_HEREDOC
+				|| file->type == TOKEN_HEREDOC_quoted)
 			{
 				if (process_heredoc(file, env))
 					return (1);

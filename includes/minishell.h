@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:50:17 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:00:28 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum e_token_type
 	TOKEN_SINGLE_QUOTE,
 	TOKEN_DOUBLE_QUOTE,
 	TOKEN_EOF,
+	TOKEN_HEREDOC_quoted,
 }					t_token_type;
 
 typedef struct s_file
@@ -62,6 +63,7 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
+	int				quoted;
 	struct s_token	*next;
 }					t_token;
 

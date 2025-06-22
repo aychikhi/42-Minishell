@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   helper1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:31:53 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:55:12 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:01:39 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+void	handle_word(char *input, int *i, t_token **tokens, t_token **last)
+{
+	char	*word;
+
+	word = add_word(input + *i);
+	add_token(tokens, last, TOKEN_WORD, word);
+	*i += ft_strlen(word);
+	free(word);
+}
 
 char	*extract_var(char *var)
 {

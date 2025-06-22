@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_fun1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:52:31 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:03:05 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	arg_size(t_token *tokens)
 static void	add_file_to_cmd(t_cmd *tmp, t_token **tokens, int type, int *flag)
 {
 	t_file	*new_file;
-	int		is_quoted;
 
 	if ((*tokens)->next->type == 1)
 		*tokens = (*tokens)->next;
@@ -48,11 +47,9 @@ static void	add_file_to_cmd(t_cmd *tmp, t_token **tokens, int type, int *flag)
 		*tokens = (*tokens)->next;
 	if ((*tokens)->next && (*tokens)->next->type != 9)
 	{
-		is_quoted = ((*tokens)->next->type == TOKEN_SINGLE_QUOTE
-				|| (*tokens)->next->type == TOKEN_DOUBLE_QUOTE);
 		new_file = add_newfile(ft_strdup((*tokens)->next->value), type);
-		if (type == TOKEN_HEREDOC)
-			new_file->quoted = is_quoted;
+		if (type == TOKEN_HEREDOC_quoted)
+			new_file->quoted = 1;
 		if (!(*flag))
 		{
 			*flag = 1;
@@ -110,7 +107,7 @@ void	init_cmd(t_cmd **cmd, t_token *tokens)
 		else if (tokens->type == 1)
 			handle_pipe(&tmp, &tokens, &i, &flag);
 		else if (tokens->type == 3 || tokens->type == 4 || tokens->type == 5
-			|| tokens->type == 6)
+			|| tokens->type == 6 || tokens->type == 10)
 		{
 			type = tokens->type;
 			add_file_to_cmd(tmp, &tokens, type, &flag);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/21 18:21:54 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/22 14:34:17 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	process_line(char *line, t_env **env_list)
 
 static void	exit_fun(void)
 {
-	write(1, "exit\n", 5);
+	write(1, "exit\n", 6);
 	exit(g_exit_status);
 }
 
