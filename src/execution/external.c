@@ -18,6 +18,7 @@ void	handle_heredoc(t_file *f)
 	{
 		dup2(f->h_fd, STDIN_FILENO);
 		close(f->h_fd);
+		f->h_fd = -1;
 	}
 	else
 		ft_putstr_fd("error in the heredoc\n", 2);

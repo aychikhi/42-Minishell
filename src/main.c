@@ -40,6 +40,8 @@ static void	execute_command(t_command *cmd, t_env **env_list)
 			execute_builtin(cmd->cmd, env_list);
 		else if (cmd->cmd->cmd)
 			exec_externals(cmd->cmd, *env_list);
+		else if(cmd->cmd->file)
+			help(cmd->cmd);
 	}
 }
 

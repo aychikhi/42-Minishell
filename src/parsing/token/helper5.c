@@ -34,6 +34,11 @@ void	free_file(t_file *file)
 		tmp = file;
 		file = file->next;
 		free(tmp->name);
+		if (tmp->type == TOKEN_HEREDOC && tmp->h_fd != -1)
+		{
+			close(tmp->h_fd);
+			tmp->h_fd = -1;
+		}
 		free(tmp);
 	}
 }
