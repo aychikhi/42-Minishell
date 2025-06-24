@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 17:27:14 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:46:07 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,8 @@ typedef struct s_tokenize_state
 typedef struct s_exp_data
 {
 	int				i;
-	int				in_sq;
-	int				in_dq;
 	t_env			*env;
 	char			*expanded;
-	int				flag;
 }					t_exp_data;
 
 int					error_fun(void);
