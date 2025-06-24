@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:22:51 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/20 14:02:50 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 11:53:56 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	reset_heredoc_state(void)
 {
 	set_signals_interactive();
-	g_exit_status = 0;
 }
 
 void	handle_sigint_heredoc(int sig)

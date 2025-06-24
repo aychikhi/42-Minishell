@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:40:58 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/22 15:36:08 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/24 11:54:07 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
 		return ;
 	if (expand && ft_strchr(line, '$'))
 	{
-		printf("Expanding line: fegegege\n");
 		expanded_line = expand_env(line, env, 1);
 		if (expanded_line)
 		{
