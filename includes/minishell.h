@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/22 16:00:28 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/24 16:33:30 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 int					process_exp_char(t_exp_data *data, int flag);
 char				*ft_substr(char const *s, int start, int len);
 char				*expand_env(char *input, t_env *env, int flag);
+void				expand_from_token(t_token **tokens, t_env *env);
 char				*ft_strncpy(char *dest, const char *src, int n);
 int					check_red(char *input, t_tokenize_state *state);
 int					check_pipe(char *input, t_tokenize_state *state);

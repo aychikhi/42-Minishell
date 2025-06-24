@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 12:28:38 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:30:09 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ char	*handle_env_expansion(char *input, int i, t_env *env)
 static void	init_exp_data(t_exp_data *data, char *input, t_env *env)
 {
 	data->i = 0;
-	data->in_sq = 0;
-	data->in_dq = 0;
 	data->env = env;
-	data->flag = 0;
 	data->expanded = ft_strdup(input);
 }
 

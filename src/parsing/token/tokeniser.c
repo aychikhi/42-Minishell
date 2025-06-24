@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 13:02:54 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:33:00 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,30 +64,71 @@ static void	finalize_tokens(t_token **tokens, t_token **last)
 	check_and_join_token(&tokens);
 }
 
+// void	print_tokens(t_token *head)
+// {
+// 	t_token	*current;
+
+// 	current = head;
+// 	if (!current)
+// 	{
+// 		printf("No tokens to print.\n");
+// 		return ;
+// 	}
+// 	while (current)
+// 	{
+// 		printf("Token Type: %d\n", current->type);
+// 		printf("Token Value: %s\n", current->value ? current->value : "(null)");
+// 		printf("--------------------\n");
+// 		current = current->next;
+// 	}
+// }
+// void	print_command(t_command *cmd)
+// {
+// 	t_command	*tmp;
+// 	int			i;
+
+// 	i = 0;
+// 	tmp = cmd;
+// 	while (tmp->cmd)
+// 	{
+// 		i = 0;
+// 		printf("cmd : [%s]\n", tmp->cmd->cmd);
+// 		printf("args : ");
+// 		while (tmp->cmd->args[i])
+// 		{
+// 			printf("[%s] ", tmp->cmd->args[i]);
+// 			i++;
+// 		}
+// 		printf("\n");
+// 		if (tmp->cmd->file)
+// 		{
+// 			while (tmp->cmd->file)
+// 			{
+// 				printf("file : %s type : %d\n", tmp->cmd->file->name,
+// 					tmp->cmd->file->type);
+// 				tmp->cmd->file = tmp->cmd->file->next;
+// 			}
+// 		}
+// 		tmp->cmd = tmp->cmd->next;
+// 	}
+// }
+
 int	tokeniser(char *input, t_env *env, t_command *cmd)
 {
 	int					i;
 	t_token				*tokens;
 	t_token				*last;
 	t_tokenize_state	state;
-	char				*new_input;
 
 	i = 0;
-	new_input = expand_env(input, env, 0);
 	last = NULL;
 	tokens = NULL;
 	state = tokenize_state_init(&i, &tokens, &last);
-	if (!new_input)
-		return (0);
-	if (!process_tokens(new_input, &state))
-	{
-		free_tokens(tokens);
-		free(new_input);
-		return (0);
-	}
+	if (!process_tokens(input, &state))
+		return (free_tokens(tokens), 0);
 	finalize_tokens(&tokens, &last);
+	expand_from_token(&tokens, env);
 	init_command(&cmd, tokens, &env);
 	free_tokens(tokens);
-	free(new_input);
 	return (1);
 }
