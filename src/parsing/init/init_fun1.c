@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 17:05:41 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:21:50 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,31 +88,22 @@ static void	handle_pipe(t_cmd **tmp, t_token **tokens, int *i, int *flag)
 	*tmp = (*tmp)->next;
 }
 
-void	init_cmd(t_cmd **cmd, t_token *tokens)
+void	process_token(t_cmd **tmp, t_token **tokens, int *i, int *flag)
 {
-	t_cmd	*tmp;
-	int		i;
-	int		flag;
-	int		type;
+	int	type;
 
-	flag = 0;
-	i = 0;
-	type = 0;
-	*cmd = add_new(arg_size(tokens));
-	tmp = *cmd;
-	while (tokens && tokens->type != 9)
+	if ((*tokens)->type == 2 || ((*tokens)->value[0] == '\0'
+			&& (*tokens)->type == 0))
+		*tokens = (*tokens)->next;
+	else if ((*tokens)->type == 1)
+		handle_pipe(tmp, tokens, i, flag);
+	else if ((*tokens)->type == 3 || (*tokens)->type == 4
+		|| (*tokens)->type == 5 || (*tokens)->type == 6
+		|| (*tokens)->type == 10)
 	{
-		if (tokens->type == 2 || (tokens->value[0] == '\0' && tokens->type == 0))
-			tokens = tokens->next;
-		else if (tokens->type == 1)
-			handle_pipe(&tmp, &tokens, &i, &flag);
-		else if (tokens->type == 3 || tokens->type == 4 || tokens->type == 5
-			|| tokens->type == 6 || tokens->type == 10)
-		{
-			type = tokens->type;
-			add_file_to_cmd(tmp, &tokens, type, &flag);
-		}
-		else
-			add_arg_to_cmd(tmp, &tokens, &i);
+		type = (*tokens)->type;
+		add_file_to_cmd(*tmp, tokens, type, flag);
 	}
+	else
+		add_arg_to_cmd(*tmp, tokens, i);
 }

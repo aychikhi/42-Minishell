@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 16:46:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/20 13:52:23 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:21:39 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,22 @@ t_env	*env_init(char **env)
 		i++;
 	}
 	return (new_env);
+}
+
+void	init_cmd(t_cmd **cmd, t_token *tokens)
+{
+	t_cmd	*tmp;
+	int		i;
+	int		flag;
+
+	flag = 0;
+	i = 0;
+	*cmd = add_new(arg_size(tokens));
+	tmp = *cmd;
+	while (tokens && tokens->type != 9)
+	{
+		process_token(&tmp, &tokens, &i, &flag);
+	}
 }
 
 void	init_command(t_command **cmd, t_token *tokens, t_env **env)

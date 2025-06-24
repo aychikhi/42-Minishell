@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 16:33:30 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:22:36 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void				handle_redirection(char *input, int *i, t_token **tokens,
 void				handle_in_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				init_command(t_command **cmd, t_token *tokens, t_env **env);
+void				process_token(t_cmd **tmp, t_token **tokens, int *i,
+						int *flag);
 
 void				execute_pipeline(t_cmd *cmds, t_env *env);
 int					execute_builtin(t_cmd *cmd, t_env **env);
