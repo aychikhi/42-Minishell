@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 17:22:36 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:27:14 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_env				*env_init(char **env);
 void				free_file(t_file *file);
 char				*extract_var(char *var);
 int					check_quotes(char *line);
+int					arg_size(t_token *tokens);
 char				*ft_strdup(const char *s1);
 int					ft_strlen(const char *str);
 void				check_unprint(char **line);

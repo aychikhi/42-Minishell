@@ -6,13 +6,13 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 17:21:50 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:26:57 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int	arg_size(t_token *tokens)
+int	arg_size(t_token *tokens)
 {
 	t_token	*tmp;
 	int		size;
