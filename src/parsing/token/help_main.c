@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   help_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 12:29:15 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/22 12:29:15 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/24 14:56:05 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	help(t_cmd *cmd)
 {
