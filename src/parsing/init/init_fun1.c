@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_fun1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/22 16:03:05 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/24 17:05:41 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	init_cmd(t_cmd **cmd, t_token *tokens)
 	tmp = *cmd;
 	while (tokens && tokens->type != 9)
 	{
-		if (tokens->type == 2)
+		if (tokens->type == 2 || (tokens->value[0] == '\0' && tokens->type == 0))
 			tokens = tokens->next;
 		else if (tokens->type == 1)
 			handle_pipe(&tmp, &tokens, &i, &flag);
