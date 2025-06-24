@@ -6,38 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/21 13:24:40 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:07:06 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
-
-int	check_pipe(char *input, t_tokenize_state *state)
-{
-	int	i;
-	int	l;
-
-	l = 0;
-	i = *state->i;
-	while (input[i] == '|')
-	{
-		i++;
-		l++;
-		while (input[i] == ' ')
-			i++;
-	}
-	if (l > 1)
-		return (printf("syntax error near unexpected token `|'\n"), 0);
-	while (input[i] == ' ')
-		i++;
-	if (l == 2 && input[i])
-		return (3);
-	else if (input[i])
-		return (1);
-	else
-		return (printf("syntax error near unexpected token `|'\n"), 0);
-	return (1);
-}
 
 static int	handle_redirection_chars(char *input, int *i, int *l)
 {
@@ -80,24 +53,36 @@ int	check_red(char *input, t_tokenize_state *state)
 	return (1);
 }
 
+static int	should_join_tokens(t_token *current, t_token *next)
+{
+	return (next && current->type != 1 && next->type != 1
+		&& next->type != 9 && current->type != 9 && next->type != 2
+		&& current->type != 2 && next->type != 3 && current->type != 3
+		&& next->type != 4 && current->type != 4 && next->type != 5
+		&& current->type != 5 && next->type != 6 && current->type != 6);
+}
+
 void	check_and_join_token(t_token ***token)
 {
 	t_token	*tmp;
 	t_token	*tmp2;
+	char	*old_value;
+	char	*new_value;
 
 	tmp = **token;
 	while (tmp)
 	{
-		if (tmp->next && tmp->type != 1 && tmp->next->type != 1
-			&& tmp->next->type != 9 && tmp->type != 9 && tmp->next->type != 2
-			&& tmp->type != 2 && tmp->next->type != 3 && tmp->type != 3
-			&& tmp->next->type != 4 && tmp->type != 4 && tmp->next->type != 5
-			&& tmp->type != 5 && tmp->next->type != 6 && tmp->type != 6)
+		if (should_join_tokens(tmp, tmp->next))
 		{
-			tmp->value = ft_strjoin(tmp->value, tmp->next->value);
+			old_value = tmp->value;
+			new_value = ft_strjoin(tmp->value, tmp->next->value);
+			tmp->value = new_value;
 			tmp->type = 0;
 			tmp2 = tmp->next;
 			tmp->next = tmp2->next;
+			free(old_value);
+			free(tmp2->value);
+			free(tmp2);
 		}
 		else
 			tmp = tmp->next;
