@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:41:20 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/24 16:38:00 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:30:46 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,25 @@ void	handle_path_not_found(t_cmd *cmd)
 {
 	if (access(cmd->cmd, F_OK) == 0)
 	{
-		ft_putstr_fd("minishell: permission denied: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd(": Permission denied", 2);
 		ft_putstr_fd("\n", 2);
 		g_exit_status = 126;
 		return ;
+	}
+	else if (cmd->cmd[0] == '.' && cmd->cmd[1] == '/')// new
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		g_exit_status = 1;
 	}
 	else
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd->cmd, 2);
-		ft_putstr_fd(": command not found ", 2);
+		ft_putstr_fd(": command not found", 2);
 		ft_putstr_fd("\n", 2);
 		g_exit_status = 127;
 	}

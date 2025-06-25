@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 21:42:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/24 16:38:33 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:23:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	exec_externals_in_child(t_cmd *cmd, t_env *env)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd->cmd, 2);
-		ft_putstr_fd(": command not found ", 2);
+		ft_putstr_fd(": command not found", 2);
 		ft_putstr_fd("\n", 2);
 		exit(127);
 	}

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:55:14 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/24 15:32:52 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:24:16 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	run_builtin(t_cmd *cmd, t_env **env)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd->cmd, 2);
-		ft_putstr_fd(": command not found ", 2);
+		ft_putstr_fd(": command not found", 2);
 		g_exit_status = 127;
 	}
 }
