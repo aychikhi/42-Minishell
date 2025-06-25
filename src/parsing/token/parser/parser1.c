@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 13:07:06 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:08:12 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static int	should_join_tokens(t_token *current, t_token *next)
 		&& next->type != 9 && current->type != 9 && next->type != 2
 		&& current->type != 2 && next->type != 3 && current->type != 3
 		&& next->type != 4 && current->type != 4 && next->type != 5
-		&& current->type != 5 && next->type != 6 && current->type != 6);
+		&& current->type != 5 && next->type != 6 && current->type != 6
+		&& next->type != 10 && current->type != 10);
 }
 
 void	check_and_join_token(t_token ***token)

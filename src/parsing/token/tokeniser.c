@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 17:15:40 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:11:07 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	finalize_tokens(t_token **tokens, t_token **last)
 	process_wildcards(tokens);
 	check_and_join_token(&tokens);
 }
-
 // void	print_tokens(t_token *head)
 // {
 // 	t_token	*current;
