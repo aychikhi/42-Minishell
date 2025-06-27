@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 11:37:54 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:43:46 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+
+# define RESET "\e[0m"
+# define PURPLE "\e[1;95m"
 
 typedef enum e_token_type
 {
@@ -86,13 +89,13 @@ int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 void				malloc_error(void);
 t_cmd				*add_new(int size);
+void				print_ballas(void);
 void				free_env(t_env *env);
 void				free_cmd(t_cmd *cmd);
 char				*add_word(char *str);
 t_env				*env_init(char **env);
 void				free_file(t_file *file);
 char				*extract_var(char *var);
-void				lstaddtoken_back(t_token **lst, t_token *new);
 int					check_quotes(char *line);
 int					arg_size(t_token *tokens);
 char				*ft_strdup(const char *s1);
@@ -108,7 +111,6 @@ char				**ft_split(char const *s, char c);
 t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
 void				init_cmd(t_cmd **cmd, t_token *tokens);
-void				init_exp_data(t_exp_data *data, char *input, t_env *env);
 void				check_and_join_token(t_token ***token);
 void				add_backfile(t_file **lst, t_file *new);
 void				ft_lstadd_back(t_env **lst, t_env *new);
@@ -138,6 +140,7 @@ void				handle_quotes(char *input, int *i, t_token **tokens,
 char				*extract_env(char *input, t_env *env, int dollar_pos,
 						char *var_name);
 char				*handle_env_expansion(char *input, int i, t_env *env);
+void				init_exp_data(t_exp_data *data, char *input, t_env *env);
 void				handle_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				handle_in_redirection(char *input, int *i, t_token **tokens,

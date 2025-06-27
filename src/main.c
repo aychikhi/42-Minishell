@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:37:47 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/26 15:34:03 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:47:45 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	g_exit_status = 0;
+	print_ballas();
 	env_list = env_to_list(env);
 	set_signals_interactive();
 	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline(PURPLE "-> minishell$ " RESET);
 		if (!line)
 			exit_fun();
 		add_history(line);
