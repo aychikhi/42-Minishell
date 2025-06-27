@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 12:43:46 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 16:18:56 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void				add_token(t_token **tokens, t_token **last,
 char				*ft_strjoin(char const *s1, char const *s2);
 t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);
-int					process_exp_char(t_exp_data *data, int flag);
+int					process_exp_char(t_exp_data *data);
 char				*ft_substr(char const *s, int start, int len);
 char				*expand_env(int type, char *input, t_env *env,
 						t_token **tokens);
