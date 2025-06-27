@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:33:04 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 18:11:02 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:33:05 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,14 @@ void	expand_from_token(t_token **tokens, t_env *env)
 			flag = 1;
 		else if ((tmp->type == TOKEN_DOUBLE_QUOTE || tmp->type == TOKEN_WORD))
 		{
-			expanded = expand_env(tmp->value, env, flag);
-			free(tmp->value);
-			tmp->value = expanded;
+			expanded = expand_env(tmp->type, tmp->value, env, &tmp);
+			if (tmp->type == TOKEN_DOUBLE_QUOTE)
+			{
+				free(tmp->value);
+				tmp->value = expanded;
+			}
+			else
+				free(expanded);
 			flag = 0;
 		}
 		tmp = tmp->next;

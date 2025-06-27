@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/25 14:11:07 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:21:30 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	handle_token(char c, char *input, t_tokenize_state *state)
 {
-	if (c == ' ')
+	if (c == ' ' || c == '\t')
 	{
 		add_token(state->tokens, state->last, TOKEN_SPACE, " ");
 		(*state->i) = skip_spaces(input, state->i);
@@ -51,7 +51,7 @@ static int	process_tokens(char *input, t_tokenize_state *state)
 	return (1);
 }
 
-static void	finalize_tokens(t_token **tokens, t_token **last)
+static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 {
 	add_token(tokens, last, TOKEN_EOF, "EOF");
 	if (!check_tokens(tokens))
@@ -61,6 +61,7 @@ static void	finalize_tokens(t_token **tokens, t_token **last)
 		return ;
 	}
 	process_wildcards(tokens);
+	expand_from_token(tokens, env);
 	check_and_join_token(&tokens);
 }
 // void	print_tokens(t_token *head)
@@ -125,8 +126,7 @@ int	tokeniser(char *input, t_env *env, t_command *cmd)
 	state = tokenize_state_init(&i, &tokens, &last);
 	if (!process_tokens(input, &state))
 		return (free_tokens(tokens), 0);
-	finalize_tokens(&tokens, &last);
-	expand_from_token(&tokens, env);
+	finalize_tokens(&tokens, &last, env);
 	init_command(&cmd, tokens, &env);
 	free_tokens(tokens);
 	return (1);

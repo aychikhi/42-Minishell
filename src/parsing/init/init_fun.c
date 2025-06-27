@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 16:46:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 17:21:39 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:10:43 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 	state.tokens = tokens;
 	state.last = last;
 	return (state);
+}
+
+void	init_exp_data(t_exp_data *data, char *input, t_env *env)
+{
+	data->i = 0;
+	data->env = env;
+	data->expanded = ft_strdup(input);
 }
 
 t_env	*env_init(char **env)

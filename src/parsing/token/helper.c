@@ -6,95 +6,96 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 18:12:32 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:26:13 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	add_token(t_token **tokens, t_token **last, t_token_type type,
-		const char *value)
+static t_token	*lstlast(t_token *lst)
 {
-	t_token	*new_token;
+	t_token	*current;
 
-	new_token = malloc(sizeof(t_token));
-	if (!new_token)
-		malloc_error();
-	new_token->type = type;
-	new_token->value = ft_strdup(value);
-	new_token->next = NULL;
-	if (!*tokens)
+	if (!lst)
+		return (NULL);
+	current = lst;
+	while (current->next != NULL)
 	{
-		*tokens = new_token;
-		*last = new_token;
+		current = current->next;
 	}
-	else
+	return (current);
+}
+
+static void	free_split_array(char **array)
+{
+	int	j;
+
+	j = 0;
+	while (array[j])
 	{
-		(*last)->next = new_token;
-		*last = new_token;
+		free(array[j]);
+		j++;
+	}
+	free(array);
+}
+
+static void	connect_tokens(t_token *tmp, t_token *new_list)
+{
+	t_token	*save_next2;
+	t_token	*save_next;
+	t_token	*save_last;
+
+	if (new_list->next)
+	{
+		save_next2 = tmp->next;
+		save_next = new_list->next;
+		new_list->next = NULL;
+		tmp->next = save_next;
+		save_last = lstlast(save_next);
+		if (save_last)
+			save_last->next = save_next2;
 	}
 }
 
-static int	handle_dollar(char *input)
+static int	handle_word_expansion(t_exp_data *data, t_token *tmp)
 {
-	int	i;
-	int	l;
+	char	**new_expanded;
+	t_token	*new_list;
 
-	i = 0;
-	l = 0;
-	if (ft_isalpha(input[1]) || input[1] == '_')
-	{
-		i++;
-		while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
-		{
-			l++;
-			i++;
-		}
-	}
-	return (l);
+	new_expanded = ft_split(data->expanded, ' ');
+	if (!new_expanded)
+		return (0);
+	new_list = create_nude(new_expanded);
+	free_split_array(new_expanded);
+	if (!new_list)
+		return (0);
+	free(tmp->value);
+	tmp->value = ft_strdup(new_list->value);
+	connect_tokens(tmp, new_list);
+	free(new_list->value);
+	free(new_list);
+	return (1);
 }
 
-char	*handle_env_expansion(char *input, int i, t_env *env)
-{
-	int		l;
-	char	*result;
-	char	*var_name;
-
-	if (input[i + 1] == '?')
-		return (expand_exit_status(input, i));
-	l = handle_dollar(input + i);
-	if (l > 0)
-	{
-		var_name = ft_substr(input, i + 1, l);
-		if (!var_name)
-			return (NULL);
-		result = extract_env(input, env, i, var_name);
-		free(var_name);
-		return (result);
-	}
-	return (NULL);
-}
-
-static void	init_exp_data(t_exp_data *data, char *input, t_env *env)
-{
-	data->i = 0;
-	data->env = env;
-	data->expanded = ft_strdup(input);
-}
-
-char	*expand_env(char *input, t_env *env, int flag)
+char	*expand_env(int type, char *input, t_env *env, t_token **tokens)
 {
 	t_exp_data	data;
-	int			current_len;
+	t_token		*tmp;
 
+	tmp = *tokens;
 	init_exp_data(&data, input, env);
 	while (data.expanded && data.i >= 0 && data.expanded[data.i])
 	{
-		current_len = ft_strlen(data.expanded);
-		if (process_exp_char(&data, flag))
-			continue ;
+		if (process_exp_char(&data, 0))
+		{
+			if (type == TOKEN_WORD)
+			{
+				if (handle_word_expansion(&data, tmp))
+					break ;
+			}
+		}
 		data.i++;
-		if (data.i > current_len)
+		if (data.i > (int)ft_strlen(data.expanded))
 			break ;
 	}
 	return (data.expanded);

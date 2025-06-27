@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/24 17:46:07 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:37:54 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
-	int				quoted;
 	struct s_token	*next;
 }					t_token;
 
@@ -93,10 +92,12 @@ char				*add_word(char *str);
 t_env				*env_init(char **env);
 void				free_file(t_file *file);
 char				*extract_var(char *var);
+void				lstaddtoken_back(t_token **lst, t_token *new);
 int					check_quotes(char *line);
 int					arg_size(t_token *tokens);
 char				*ft_strdup(const char *s1);
 int					ft_strlen(const char *str);
+t_token				*create_nude(char **array);
 void				check_unprint(char **line);
 char				*extract_value(char *value);
 void				free_tokens(t_token *tokens);
@@ -107,6 +108,7 @@ char				**ft_split(char const *s, char c);
 t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
 void				init_cmd(t_cmd **cmd, t_token *tokens);
+void				init_exp_data(t_exp_data *data, char *input, t_env *env);
 void				check_and_join_token(t_token ***token);
 void				add_backfile(t_file **lst, t_file *new);
 void				ft_lstadd_back(t_env **lst, t_env *new);
@@ -122,7 +124,8 @@ t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);
 int					process_exp_char(t_exp_data *data, int flag);
 char				*ft_substr(char const *s, int start, int len);
-char				*expand_env(char *input, t_env *env, int flag);
+char				*expand_env(int type, char *input, t_env *env,
+						t_token **tokens);
 void				expand_from_token(t_token **tokens, t_env *env);
 char				*ft_strncpy(char *dest, const char *src, int n);
 int					check_red(char *input, t_tokenize_state *state);

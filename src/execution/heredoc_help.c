@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:40:58 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/24 18:09:37 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:14:29 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	write_line_to_pipe(int pipe_fd, char *line, t_env *env, int expand)
 {
 	char	*expanded_line;
+	t_token	*tmp;
 
+	tmp = NULL;
 	if (!line)
 		return ;
 	if (expand && ft_strchr(line, '$'))
 	{
-		expanded_line = expand_env(line, env, 0);
+		expanded_line = expand_env(1, line, env, &tmp);
 		if (expanded_line)
 		{
 			write(pipe_fd, expanded_line, ft_strlen(expanded_line));
