@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:41:20 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/27 11:37:25 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 20:39:52 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@ void	handle_path_not_found(t_cmd *cmd)
 		ft_putstr_fd("\n", 2);
 		g_exit_status = 126;
 		return ;
-	}
-	else if (cmd->cmd[0] == '.' && cmd->cmd[1] == '/') // new
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd->cmd, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		g_exit_status = 1;
 	}
 	else
 	{
