@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:10:26 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/27 12:18:33 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 20:27:18 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	error_fun(void)
 {
-	printf("Error: Unclosed quotes!\n");
+	ft_putstr_fd("Error: Unclosed quotes!\n", 2);
+	g_exit_status = 258;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 20:18:19 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 20:33:14 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	handle_token(char c, char *input, t_tokenize_state *state)
 	else if (c == '|')
 	{
 		if (!check_pipe(input, state))
-			return (0);
+			return (g_exit_status = 258, 0);
 		else if (check_pipe(input, state) == 3)
 			(*state->i)++;
 		add_token(state->tokens, state->last, TOKEN_PIPE, "|");
@@ -31,7 +31,7 @@ static int	handle_token(char c, char *input, t_tokenize_state *state)
 	else if (c == '<' || c == '>')
 	{
 		if (!check_red(input, state))
-			return (0);
+			return (g_exit_status = 258, 0);
 		handle_redirection(input, state->i, state->tokens, state->last);
 	}
 	else if (c == '\'' || c == '\"')
@@ -58,6 +58,7 @@ static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 	{
 		free_tokens(*tokens);
 		*tokens = NULL;
+		g_exit_status = 258;
 		return ;
 	}
 	process_wildcards(tokens);

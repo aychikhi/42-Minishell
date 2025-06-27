@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:05:10 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 17:35:34 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/27 20:28:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	check_pipe(char *input, t_tokenize_state *state)
 			i++;
 	}
 	if (l > 1)
-		return (printf("minishell : syntax error\n"), 0);
+		return (ft_putstr_fd("minishell : syntax error\n", 2), 0);
 	while (input[i] == ' ')
 		i++;
 	if (l == 2 && input[i])
@@ -104,6 +104,6 @@ int	check_pipe(char *input, t_tokenize_state *state)
 	else if (input[i])
 		return (1);
 	else
-		return (printf("minishell : syntax error\n"), 0);
+		return (ft_putstr_fd("minishell : syntax error\n", 2), 0);
 	return (1);
 }
