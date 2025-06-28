@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:59:17 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 10:59:32 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:39:21 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	add_token(t_token **tokens, t_token **last, t_token_type type,
 		malloc_error();
 	new_token->type = type;
 	new_token->value = ft_strdup(value);
+	new_token->before_expand = ft_strdup(value);
+	new_token->expanded = 0;
 	new_token->next = NULL;
 	if (!*tokens)
 	{

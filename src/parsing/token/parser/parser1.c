@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 20:29:20 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:45:03 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	check_and_join_token(t_token ***token)
 			tmp->next = tmp2->next;
 			free(old_value);
 			free(tmp2->value);
+			free(tmp2->before_expand);
 			free(tmp2);
 		}
 		else

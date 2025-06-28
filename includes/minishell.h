@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 16:18:56 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/28 19:23:38 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
+	char			*before_expand;
+	int				expanded;
 	struct s_token	*next;
 }					t_token;
 
@@ -103,13 +105,17 @@ int					ft_strlen(const char *str);
 t_token				*create_nude(char **array);
 void				check_unprint(char **line);
 char				*extract_value(char *value);
+int					is_redirect_token(int type);
 void				free_tokens(t_token *tokens);
+t_token				*skip_spaces2(t_token *token);
 int					skip_fun(char *line, int flag);
 int					check_tokens(t_token **tokens);
+int					check_wildcard(t_token *tokens);
 int					skip_spaces(char *input, int *i);
 char				**ft_split(char const *s, char c);
 t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
+int					check_tokens_errors(t_token *tokens);
 void				init_cmd(t_cmd **cmd, t_token *tokens);
 void				check_and_join_token(t_token ***token);
 void				add_backfile(t_file **lst, t_file *new);
@@ -121,6 +127,7 @@ void				handle_out_redirection(char *input, int *i,
 						t_token **tokens, t_token **last);
 void				add_token(t_token **tokens, t_token **last,
 						t_token_type type, const char *value);
+int					print_ambiguous_error(char *before_expand);
 char				*ft_strjoin(char const *s1, char const *s2);
 t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);

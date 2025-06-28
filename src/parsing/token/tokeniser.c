@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 20:33:14 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/28 19:24:20 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,6 @@ static int	process_tokens(char *input, t_tokenize_state *state)
 	}
 	return (1);
 }
-
-static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
-{
-	add_token(tokens, last, TOKEN_EOF, "EOF");
-	if (!check_tokens(tokens))
-	{
-		free_tokens(*tokens);
-		*tokens = NULL;
-		g_exit_status = 258;
-		return ;
-	}
-	process_wildcards(tokens);
-	expand_from_token(tokens, env);
-	check_and_join_token(&tokens);
-}
 // void	print_tokens(t_token *head)
 // {
 // 	t_token	*current;
@@ -83,37 +68,57 @@ static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 // 		current = current->next;
 // 	}
 // }
-// void	print_command(t_command *cmd)
+static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
+{
+	add_token(tokens, last, TOKEN_EOF, "EOF");
+	if (!check_tokens(tokens))
+	{
+		free_tokens(*tokens);
+		*tokens = NULL;
+		g_exit_status = 258;
+		return ;
+	}
+	if (!check_wildcard(*tokens))
+	{
+		free_tokens(*tokens);
+		*tokens = NULL;
+		return ;
+	}
+	process_wildcards(tokens);
+	expand_from_token(tokens, env);
+	check_and_join_token(&tokens);
+}
+
+// void	print_cmd(t_cmd *cmd)
 // {
-// 	t_command	*tmp;
+// 	t_cmd	*tmp;
 // 	int			i;
 
 // 	i = 0;
 // 	tmp = cmd;
-// 	while (tmp->cmd)
+// 	while (tmp)
 // 	{
 // 		i = 0;
-// 		printf("cmd : [%s]\n", tmp->cmd->cmd);
+// 		printf("cmd : [%s]\n", tmp->cmd);
 // 		printf("args : ");
-// 		while (tmp->cmd->args[i])
+// 		while (tmp->args[i])
 // 		{
-// 			printf("[%s] ", tmp->cmd->args[i]);
+// 			printf("[%s] ", tmp->args[i]);
 // 			i++;
 // 		}
 // 		printf("\n");
-// 		if (tmp->cmd->file)
+// 		if (tmp->file)
 // 		{
-// 			while (tmp->cmd->file)
+// 			while (tmp->file)
 // 			{
-// 				printf("file : %s type : %d\n", tmp->cmd->file->name,
-// 					tmp->cmd->file->type);
-// 				tmp->cmd->file = tmp->cmd->file->next;
+// 				printf("file : %s type : %d\n", tmp->file->name,
+// 					tmp->file->type);
+// 				tmp->file = tmp->file->next;
 // 			}
 // 		}
-// 		tmp->cmd = tmp->cmd->next;
+// 		tmp = tmp->next;
 // 	}
 // }
-
 int	tokeniser(char *input, t_env *env, t_command *cmd)
 {
 	int					i;
@@ -128,6 +133,8 @@ int	tokeniser(char *input, t_env *env, t_command *cmd)
 	if (!process_tokens(input, &state))
 		return (free_tokens(tokens), 0);
 	finalize_tokens(&tokens, &last, env);
+	if (!check_tokens_errors(tokens))
+		return (free_tokens(tokens), 0);
 	init_command(&cmd, tokens, &env);
 	free_tokens(tokens);
 	return (1);

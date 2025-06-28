@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:20:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/22 15:59:16 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/28 17:39:26 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	free_tokens(t_token *tokens)
 		tmp = tokens;
 		tokens = tokens->next;
 		free(tmp->value);
+		free(tmp->before_expand);
 		free(tmp);
 	}
 }
