@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokeniser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/28 19:24:20 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 01:32:25 by ayaarab            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 		*tokens = NULL;
 		return ;
 	}
-	process_wildcards(tokens);
 	expand_from_token(tokens, env);
 	check_and_join_token(&tokens);
+	process_wildcards(tokens);
 }
 
 // void	print_cmd(t_cmd *cmd)
