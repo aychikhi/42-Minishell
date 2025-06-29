@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 10:43:26 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 11:14:01 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:40:33 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,39 +64,11 @@ static int	process_tokens(char *input, t_tokenize_state *state)
 // 	{
 // 		printf("Token Type: %d\n", current->type);
 // 		printf("Token expanded: %d\n", current->expanded);
-// 		printf("Token flag: %d\n", current->flag);
 // 		printf("Token Value: %s\n", current->value ? current->value : "(null)");
 // 		printf("--------------------\n");
 // 		current = current->next;
 // 	}
 // }
-static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
-{
-	add_token(tokens, last, TOKEN_EOF, "EOF");
-	if (!check_tokens(tokens))
-	{
-		free_tokens(*tokens);
-		*tokens = NULL;
-		g_exit_status = 258;
-		return ;
-	}
-	expand_from_token(tokens, env);
-	if (!check_tokens_errors(*tokens))
-	{
-		free_tokens(*tokens);
-		*tokens = NULL;
-		return ;
-	}
-	check_and_join_token(&tokens);
-	if (!check_wildcard(*tokens))
-	{
-		free_tokens(*tokens);
-		*tokens = NULL;
-		return ;
-	}
-	process_wildcards(tokens);
-}
-
 // void	print_cmd(t_cmd *cmd)
 // {
 // 	t_cmd	*tmp;
@@ -127,6 +99,34 @@ static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 // 		tmp = tmp->next;
 // 	}
 // }
+
+static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
+{
+	add_token(tokens, last, TOKEN_EOF, "EOF");
+	if (!check_tokens(tokens))
+	{
+		free_tokens(*tokens);
+		*tokens = NULL;
+		g_exit_status = 258;
+		return ;
+	}
+	expand_from_token(tokens, env);
+	if (!check_tokens_errors(*tokens))
+	{
+		free_tokens(*tokens);
+		*tokens = NULL;
+		return ;
+	}
+	check_and_join_token(&tokens);
+	if (!check_wildcard(*tokens))
+	{
+		free_tokens(*tokens);
+		*tokens = NULL;
+		return ;
+	}
+	process_wildcards(tokens);
+}
+
 int	tokeniser(char *input, t_env *env, t_command *cmd)
 {
 	int					i;

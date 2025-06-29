@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 11:05:52 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:03:30 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_token
 	char			*value;
 	char			*before_expand;
 	int				expanded;
-	int				flag;
 	struct s_token	*next;
 }					t_token;
 

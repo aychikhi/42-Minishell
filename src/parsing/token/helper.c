@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 11:12:19 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:04:57 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static int	handle_word_expansion(t_exp_data *data, t_token *tmp)
 		return (0);
 	new_list = create_nude(new_expanded);
 	i = free_split_array(new_expanded);
-	if (i > 1)
-		tmp->flag = 1;
 	if (!new_list)
 		return (0);
 	free(tmp->value);

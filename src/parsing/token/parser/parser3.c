@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:47:16 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 11:15:49 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:38:31 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int	print_ambiguous_error(char *before_expand)
 
 static int	check_empty_expansion_condition(t_token *token, int flag)
 {
-	if ((flag && token->expanded && token->value[0] == '\0') || (flag
-			&& token->expanded && token->flag))
+	if (token->next && (token->next->type == TOKEN_DOUBLE_QUOTE
+			|| token->next->type == TOKEN_SINGLE_QUOTE) && flag)
+		return (1);
+	if (flag && token->expanded && token->value[0] == '\0')
 		return (print_ambiguous_error(token->before_expand));
 	return (1);
 }
