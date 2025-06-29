@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 13:03:30 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:57:08 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
-	char			*before_expand;
 	int				expanded;
 	struct s_token	*next;
 }					t_token;
@@ -127,7 +126,7 @@ void				handle_out_redirection(char *input, int *i,
 						t_token **tokens, t_token **last);
 void				add_token(t_token **tokens, t_token **last,
 						t_token_type type, const char *value);
-int					print_ambiguous_error(char *before_expand);
+int					print_ambiguous_error(void);
 char				*ft_strjoin(char const *s1, char const *s2);
 t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);

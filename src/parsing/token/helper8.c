@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:02:09 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/27 11:13:27 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:50:24 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static t_token	*lstcreate(void *value)
 		malloc_error();
 	ptr->value = value;
 	ptr->type = TOKEN_WORD;
+	ptr->expanded = 0;
 	ptr->next = NULL;
 	return (ptr);
 }

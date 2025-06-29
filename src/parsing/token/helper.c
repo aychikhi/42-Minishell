@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 13:52:16 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:50:42 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_token	*lstlast(t_token *lst)
 	return (current);
 }
 
-static int	free_split_array(char **array)
+static void	free_split_array(char **array)
 {
 	int	j;
 
@@ -37,7 +37,6 @@ static int	free_split_array(char **array)
 		j++;
 	}
 	free(array);
-	return (j);
 }
 
 static void	connect_tokens(t_token *tmp, t_token *new_list)

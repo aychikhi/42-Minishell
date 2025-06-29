@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:22:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 10:34:10 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:51:15 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	is_redirect_token(int type)
 static int	check_wildcard_condition(t_token *token, int flag)
 {
 	if (flag && token->type == TOKEN_WORD && ft_cmp(token->value))
-		return (print_ambiguous_error(token->before_expand));
+		return (print_ambiguous_error());
 	return (1);
 }
 

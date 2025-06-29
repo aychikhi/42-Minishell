@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:47:16 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 14:54:24 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:51:02 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ t_token	*skip_spaces2(t_token *token)
 	return (token);
 }
 
-int	print_ambiguous_error(char *before_expand)
+int	print_ambiguous_error(void)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(before_expand, 2);
-	ft_putstr_fd(": ambiguous redirect\n", 2);
+	ft_putstr_fd("minishell: : ambiguous redirect\n", 2);
 	return (g_exit_status = 1, 0);
 }
 
@@ -33,7 +31,7 @@ static int	check_empty_expansion_condition(t_token *token, int flag)
 			|| token->next->type == TOKEN_SINGLE_QUOTE) && flag)
 		return (1);
 	if (flag && token->expanded && token->value[0] == '\0')
-		return (print_ambiguous_error(token->before_expand));
+		return (print_ambiguous_error());
 	return (1);
 }
 

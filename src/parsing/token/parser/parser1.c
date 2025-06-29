@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 13:08:59 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:51:31 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,11 @@ static void	join_two_tokens(t_token *tmp)
 	old_value = tmp->value;
 	new_value = ft_strjoin(tmp->value, tmp->next->value);
 	tmp->value = new_value;
-	free(tmp->before_expand);
-	tmp->before_expand = ft_strdup(tmp->value);
 	tmp->type = 0;
 	tmp2 = tmp->next;
 	tmp->next = tmp2->next;
 	free(old_value);
 	free(tmp2->value);
-	free(tmp2->before_expand);
 	free(tmp2);
 }
 
