@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:20:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 12:42:23 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 15:43:20 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	free_tokens(t_token *tokens)
 		tmp = tokens;
 		tokens = tokens->next;
 		free(tmp->value);
-		free(tmp->before_expand);
+		if (tmp->before_expand)
+			free(tmp->before_expand);
 		free(tmp);
 	}
 }

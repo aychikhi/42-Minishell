@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 10:43:26 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 13:40:33 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:59:02 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	process_tokens(char *input, t_tokenize_state *state)
 // 	}
 // }
 
-static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
+static int	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 {
 	add_token(tokens, last, TOKEN_EOF, "EOF");
 	if (!check_tokens(tokens))
@@ -108,23 +108,24 @@ static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 		free_tokens(*tokens);
 		*tokens = NULL;
 		g_exit_status = 258;
-		return ;
+		return 0;
 	}
 	expand_from_token(tokens, env);
 	if (!check_tokens_errors(*tokens))
 	{
 		free_tokens(*tokens);
 		*tokens = NULL;
-		return ;
+		return 0;
 	}
 	check_and_join_token(&tokens);
 	if (!check_wildcard(*tokens))
 	{
 		free_tokens(*tokens);
 		*tokens = NULL;
-		return ;
+		return 0;
 	}
 	process_wildcards(tokens);
+	return (1);
 }
 
 int	tokeniser(char *input, t_env *env, t_command *cmd)
@@ -140,7 +141,8 @@ int	tokeniser(char *input, t_env *env, t_command *cmd)
 	state = tokenize_state_init(&i, &tokens, &last);
 	if (!process_tokens(input, &state))
 		return (free_tokens(tokens), 0);
-	finalize_tokens(&tokens, &last, env);
+	if (!finalize_tokens(&tokens, &last, env))
+		return (free_tokens(tokens), 0);
 	init_command(&cmd, tokens, &env);
 	free_tokens(tokens);
 	return (1);
