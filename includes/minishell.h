@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 17:12:58 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/29 17:18:35 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ int					collecting_heredoc(t_cmd *cmd, t_env *env);
 int					ft_file_exists(char *filename);
 
 void				help(t_cmd *cmd);
-int					useless(t_cmd *cmd , char **path);
+int					useless(t_cmd *cmd, char **path);
 
 /* Wildcard expansion */
 int					has_wildcard(const char *str);

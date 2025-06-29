@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   useless_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 17:12:17 by ayaarab             #+#    #+#             */
-/*   Updated: 2025/06/29 17:12:18 by ayaarab            ###   ########.fr       */
+/*   Created: 2025/06/29 17:19:00 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/06/29 17:19:09 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int useless(t_cmd *cmd , char **path)
+int	useless(t_cmd *cmd, char **path)
 {
 	if (!path)
 	{
