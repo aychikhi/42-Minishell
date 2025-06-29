@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/29 16:42:41 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/29 17:52:28 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	close_unused_pipes(t_child_ctx *ctx)
 
 static void	child_proc(t_child_ctx *ctx)
 {
+	// g_exit_status = 0;
 	set_signals_in_child();
 	apply_redirection(ctx->cur);
 	close_unused_pipes(ctx);
@@ -89,6 +90,13 @@ void	execute_pipeline(t_cmd *cmds, t_env *env)
 		p_ctx.pids[p_ctx.i] = fork();
 		if (p_ctx.pids[p_ctx.i] == 0)
 			child_proc(&ctx);
+		else if (p_ctx.pids[p_ctx.i] < 0)
+		{
+			ft_putstr_fd("minishell: fork failed\n", STDERR_FILENO);
+			free_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
+			free(p_ctx.pids);
+			exit(EXIT_FAILURE);
+		}
 		p_ctx.cur = p_ctx.cur->next;
 		p_ctx.i++;
 	}

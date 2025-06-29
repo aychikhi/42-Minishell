@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 10:44:27 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 17:09:31 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/29 17:43:28 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	execute_child_process(t_cmd *cmd, char *path, char **envp)
 	ft_putstr_fd(cmd->cmd, 2);
 	ft_putstr_fd(": command not found", 2);
 	ft_putstr_fd("\n", 2);
-	exit(1);
+	exit(127);
 }
 
 void	exec_externals(t_cmd *cmd, t_env *env)
