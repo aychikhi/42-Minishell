@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/28 17:45:03 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:54:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,55 +55,44 @@ int	check_red(char *input, t_tokenize_state *state)
 
 static int	should_join_tokens(t_token *current, t_token *next)
 {
-	return (next && current->type != 1 && next->type != 1
-		&& next->type != 9 && current->type != 9 && next->type != 2
-		&& current->type != 2 && next->type != 3 && current->type != 3
-		&& next->type != 4 && current->type != 4 && next->type != 5
-		&& current->type != 5 && next->type != 6 && current->type != 6
-		&& next->type != 10 && current->type != 10);
+	return (next && current->type != 1 && next->type != 1 && next->type != 9
+		&& current->type != 9 && next->type != 2 && current->type != 2
+		&& next->type != 3 && current->type != 3 && next->type != 4
+		&& current->type != 4 && next->type != 5 && current->type != 5
+		&& next->type != 6 && current->type != 6 && next->type != 10
+		&& current->type != 10);
+}
+
+static void	join_two_tokens(t_token *tmp)
+{
+	t_token	*tmp2;
+	char	*old_value;
+	char	*new_value;
+
+	old_value = tmp->value;
+	new_value = ft_strjoin(tmp->value, tmp->next->value);
+	tmp->value = new_value;
+	free(tmp->before_expand);
+	tmp->before_expand = ft_strdup(tmp->value);
+	tmp->type = 0;
+	tmp2 = tmp->next;
+	tmp->next = tmp2->next;
+	free(old_value);
+	free(tmp2->value);
+	free(tmp2->before_expand);
+	free(tmp2);
 }
 
 void	check_and_join_token(t_token ***token)
 {
 	t_token	*tmp;
-	t_token	*tmp2;
-	char	*old_value;
-	char	*new_value;
 
 	tmp = **token;
 	while (tmp)
 	{
 		if (should_join_tokens(tmp, tmp->next))
-		{
-			old_value = tmp->value;
-			new_value = ft_strjoin(tmp->value, tmp->next->value);
-			tmp->value = new_value;
-			tmp->type = 0;
-			tmp2 = tmp->next;
-			tmp->next = tmp2->next;
-			free(old_value);
-			free(tmp2->value);
-			free(tmp2->before_expand);
-			free(tmp2);
-		}
+			join_two_tokens(tmp);
 		else
 			tmp = tmp->next;
 	}
-}
-
-int	check_tokens(t_token **tokens)
-{
-	t_token	*tmp;
-
-	tmp = *tokens;
-	if (tmp->type == 1)
-		return (ft_putstr_fd("minishell : syntax error\n", 2), 0);
-	while (tmp)
-	{
-		if ((tmp->type == 5 || tmp->type == 6 || tmp->type == 3
-				|| tmp->type == 4) && tmp->next->type == 9)
-			return (ft_putstr_fd("minishell : syntax error\n", 2), 0);
-		tmp = tmp->next;
-	}
-	return (1);
 }

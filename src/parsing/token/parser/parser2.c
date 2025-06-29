@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:22:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/28 18:49:52 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:34:10 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	ft_cmp(char *str)
 	int	i;
 
 	i = 0;
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
 		if (str[i] != '*')

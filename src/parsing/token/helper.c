@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/28 17:22:45 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 11:12:19 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_token	*lstlast(t_token *lst)
 	return (current);
 }
 
-static void	free_split_array(char **array)
+static int	free_split_array(char **array)
 {
 	int	j;
 
@@ -37,6 +37,7 @@ static void	free_split_array(char **array)
 		j++;
 	}
 	free(array);
+	return (j);
 }
 
 static void	connect_tokens(t_token *tmp, t_token *new_list)
@@ -61,12 +62,16 @@ static int	handle_word_expansion(t_exp_data *data, t_token *tmp)
 {
 	char	**new_expanded;
 	t_token	*new_list;
+	int		i;
 
+	i = 0;
 	new_expanded = ft_split(data->expanded, ' ');
 	if (!new_expanded)
 		return (0);
 	new_list = create_nude(new_expanded);
-	free_split_array(new_expanded);
+	i = free_split_array(new_expanded);
+	if (i > 1)
+		tmp->flag = 1;
 	if (!new_list)
 		return (0);
 	free(tmp->value);

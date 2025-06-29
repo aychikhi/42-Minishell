@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wildcard.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/29 00:45:47 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/29 10:45:15 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,21 @@ static char	**get_matches(t_token *current, int *count, int max_matches)
 	entry = readdir(dir);
 	while (entry != NULL && *count < max_matches)
 	{
-		printf("DEBUG: Checking file '%s' against pattern '%s'\n", entry->d_name, current->value);
+		// printf("DEBUG: Checking file '%s' against pattern '%s'\n",
+		// entry->d_name, current->value);
 		if (entry->d_name[0] != '.' || current->value[0] == '.')
 		{
 			if (match_pattern(current->value, entry->d_name))
 			{
-				printf("DEBUG: MATCH! '%s' matches pattern '%s'\n", entry->d_name, current->value);
+				// printf("DEBUG: MATCH! '%s' matches pattern '%s'\n",
+				// entry->d_name, current->value);
 				matches[(*count)++] = ft_strdup(entry->d_name);
 			}
-			else
-				printf("DEBUG: No match for '%s'\n", entry->d_name);
+			// else
+			// printf("DEBUG: No match for '%s'\n", entry->d_name);
 		}
-		else
-			printf("DEBUG: Skipping hidden file '%s'\n", entry->d_name);
+		// else
+		// printf("DEBUG: Skipping hidden file '%s'\n", entry->d_name);
 		entry = readdir(dir);
 	}
 	closedir(dir);
@@ -116,11 +118,11 @@ void	expand_wildcard(t_token **tokens, t_token **last, t_token *current)
 	int		max_matches;
 
 	max_matches = 100;
-	printf("DEBUG: Expanding pattern: '%s'\n", current->value);
+	// printf("DEBUG: Expanding pattern: '%s'\n", current->value);
 	matches = get_matches(current, &count, max_matches);
 	if (!matches)
 		return ;
-	printf("DEBUG: Found %d matches\n", count);
+	// printf("DEBUG: Found %d matches\n", count);
 	add_matches_to_tokens(tokens, last, matches, count);
 	if (count == 0)
 		add_token(tokens, last, TOKEN_WORD, current->value);

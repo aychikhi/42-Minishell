@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokeniser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 01:32:25 by ayaarab            ###   ########.fr       */
+/*   Created: 2025/06/29 10:43:26 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/06/29 11:14:01 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int	process_tokens(char *input, t_tokenize_state *state)
 // 	while (current)
 // 	{
 // 		printf("Token Type: %d\n", current->type);
+// 		printf("Token expanded: %d\n", current->expanded);
+// 		printf("Token flag: %d\n", current->flag);
 // 		printf("Token Value: %s\n", current->value ? current->value : "(null)");
 // 		printf("--------------------\n");
 // 		current = current->next;
@@ -78,14 +80,20 @@ static void	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 		g_exit_status = 258;
 		return ;
 	}
+	expand_from_token(tokens, env);
+	if (!check_tokens_errors(*tokens))
+	{
+		free_tokens(*tokens);
+		*tokens = NULL;
+		return ;
+	}
+	check_and_join_token(&tokens);
 	if (!check_wildcard(*tokens))
 	{
 		free_tokens(*tokens);
 		*tokens = NULL;
 		return ;
 	}
-	expand_from_token(tokens, env);
-	check_and_join_token(&tokens);
 	process_wildcards(tokens);
 }
 
@@ -133,8 +141,6 @@ int	tokeniser(char *input, t_env *env, t_command *cmd)
 	if (!process_tokens(input, &state))
 		return (free_tokens(tokens), 0);
 	finalize_tokens(&tokens, &last, env);
-	if (!check_tokens_errors(tokens))
-		return (free_tokens(tokens), 0);
 	init_command(&cmd, tokens, &env);
 	free_tokens(tokens);
 	return (1);

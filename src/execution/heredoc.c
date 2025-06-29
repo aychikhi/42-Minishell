@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 18:06:54 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/28 11:48:05 by ayaarab            ###   ########.fr       */
+/*   Created: 2025/06/29 10:44:02 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/06/29 10:44:13 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	handle_heredoc_child(int pipe_fd[2], char *delimiter, t_env *env,
 static void	handle_heredoc_parent(int pipe_fd[2], t_file *file, pid_t pid)
 {
 	int	status;
-	
+
 	close(pipe_fd[1]);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status))
