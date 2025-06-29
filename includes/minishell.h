@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 16:57:08 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:12:58 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ int					count_cmd(t_cmd *cmd);
 int					is_builtin(char *cmd);
 void				set_signals_interactive(void);
 void				set_signals_in_child(void);
+void				set_signals_for_child_execution(void);
 void				set_signals_heredoc(void);
 void				update_exit_status(int status);
 void				reset_heredoc_state(void);
@@ -188,6 +189,7 @@ int					collecting_heredoc(t_cmd *cmd, t_env *env);
 int					ft_file_exists(char *filename);
 
 void				help(t_cmd *cmd);
+int					useless(t_cmd *cmd , char **path);
 
 /* Wildcard expansion */
 int					has_wildcard(const char *str);

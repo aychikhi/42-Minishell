@@ -1,6 +1,6 @@
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I/goinfre/$(USER)/homebrew/opt/readline/include -g -fsanitize=address
 LDFLAGS = -lreadline -lncurses -L/goinfre/$(USER)/homebrew/opt/readline/lib
 
 SRCS = src/main.c \
@@ -23,7 +23,7 @@ SRCS = src/main.c \
        src/execution/builtins/ft_export.c src/execution/builtins/ft_pwd.c \
        src/execution/builtins/ft_unset.c src/execution/builtins/ft_cd.c \
        src/execution/builtins/ft_exit.c src/execution/builtins/builtins.c \
-       src/execution/ft_wildcard.c src/execution/external.c \
+       src/execution/ft_wildcard.c src/execution/external.c src/execution/useless_help.c \
        src/execution/bibex.c src/execution/help.c src/execution/heredoc.c src/execution/externals_help1.c src/execution/heredoc_help.c\
        src/execution/signals.c src/execution/signals_help.c src/execution/bibex_help.c\
        src/execution/external_helper.c src/parsing/token/help_main.c

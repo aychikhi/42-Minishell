@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bibex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/08 13:12:07 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/29 16:42:41 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	execute_pipeline(t_cmd *cmds, t_env *env)
 	p_ctx.pids = malloc(sizeof(pid_t) * p_ctx.cmd_count);
 	p_ctx.cur = cmds;
 	p_ctx.i = 0;
+	set_signals_for_child_execution();
 	while (p_ctx.cur)
 	{
 		ctx = (t_child_ctx){p_ctx.cur, env, p_ctx.pipes, p_ctx.i,
@@ -93,6 +94,7 @@ void	execute_pipeline(t_cmd *cmds, t_env *env)
 	}
 	close_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
 	wait_all(p_ctx.pids, p_ctx.cmd_count);
+	set_signals_interactive();
 	free_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
 	free(p_ctx.pids);
 }

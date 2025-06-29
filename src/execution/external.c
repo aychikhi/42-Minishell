@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   external.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 10:44:27 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 15:45:17 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:09:31 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,17 @@ void	exec_externals(t_cmd *cmd, t_env *env)
 	int		status;
 
 	path = get_cmd_path(cmd->cmd, env);
-	if (!path)
-	{
-		handle_path_not_found(cmd);
+	if (useless(cmd, &path) == 0)
 		return ;
-	}
 	envp = list_to_env(env);
+	set_signals_for_child_execution();
 	pid = fork();
 	if (pid == 0)
 		execute_child_process(cmd, path, envp);
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
+		set_signals_interactive();
 		update_exit_status(status);
 	}
 	else
