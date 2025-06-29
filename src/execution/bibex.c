@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bibex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/29 17:53:58 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/29 21:33:23 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ typedef struct s_pipes_ctx
 
 static void	setup_pipe_redirection(t_child_ctx *ctx)
 {
-	if (ctx->i != 0)
+	if (ctx->i != 0 && ctx->pipes)
 	{
 		dup2(ctx->pipes[ctx->i - 1][0], STDIN_FILENO);
 		close(ctx->pipes[ctx->i - 1][0]);
 	}
-	if (ctx->i != ctx->cmd_count - 1)
+	if (ctx->i != ctx->cmd_count - 1 && ctx->pipes)
 	{
 		dup2(ctx->pipes[ctx->i][1], STDOUT_FILENO);
 		close(ctx->pipes[ctx->i][1]);
@@ -48,6 +48,8 @@ static void	close_unused_pipes(t_child_ctx *ctx)
 {
 	int	i;
 
+	if (!ctx->pipes)
+		return;
 	i = 0;
 	while (i < ctx->cmd_count - 1)
 	{
@@ -72,37 +74,90 @@ static void	child_proc(t_child_ctx *ctx)
 	exit(EXIT_FAILURE);
 }
 
+static void cleanup_pipeline_resources(t_pipes_ctx *p_ctx)
+{
+	if (p_ctx->pipes)
+	{
+		close_pipes(p_ctx->pipes, p_ctx->cmd_count - 1);
+		free_pipes(p_ctx->pipes, p_ctx->cmd_count - 1);
+		p_ctx->pipes = NULL;
+	}
+	if (p_ctx->pids)
+	{
+		free(p_ctx->pids);
+		p_ctx->pids = NULL;
+	}
+}
+
 void	execute_pipeline(t_cmd *cmds, t_env *env)
 {
 	t_child_ctx	ctx;
 	t_pipes_ctx	p_ctx;
 
 	p_ctx.cmd_count = count_cmd(cmds);
-	p_ctx.pipes = create_pipes(p_ctx.cmd_count - 1);
+	if (p_ctx.cmd_count <= 0)
+		return;
+		
+	// Handle single command case (no pipes needed)
+	if (p_ctx.cmd_count == 1)
+	{
+		p_ctx.pipes = NULL;
+	}
+	else
+	{
+		p_ctx.pipes = create_pipes(p_ctx.cmd_count - 1);
+		if (!p_ctx.pipes)
+		{
+			// Don't exit, just return with error status already set
+			return;
+		}
+	}
+	
 	p_ctx.pids = malloc(sizeof(pid_t) * p_ctx.cmd_count);
+	if (!p_ctx.pids)
+	{
+		ft_putstr_fd("minishell: malloc: allocation error\n", 2);
+		g_exit_status = 1;
+		if (p_ctx.pipes)
+		{
+			close_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
+			free_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
+		}
+		return;
+	}
+	
 	p_ctx.cur = cmds;
 	p_ctx.i = 0;
 	set_signals_for_child_execution();
-	while (p_ctx.cur)
+	
+	while (p_ctx.cur && p_ctx.i < p_ctx.cmd_count)
 	{
-		ctx = (t_child_ctx){p_ctx.cur, env, p_ctx.pipes, p_ctx.i,
-			p_ctx.cmd_count};
+		ctx = (t_child_ctx){p_ctx.cur, env, p_ctx.pipes, p_ctx.i, p_ctx.cmd_count};
 		p_ctx.pids[p_ctx.i] = fork();
+		
 		if (p_ctx.pids[p_ctx.i] == 0)
+		{
 			child_proc(&ctx);
+		}
 		else if (p_ctx.pids[p_ctx.i] < 0)
 		{
 			ft_putstr_fd("minishell: fork failed\n", STDERR_FILENO);
-			free_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
-			free(p_ctx.pids);
-			exit(EXIT_FAILURE);
+			g_exit_status = 1;
+			// Don't exit, continue with cleanup
+			break;
 		}
 		p_ctx.cur = p_ctx.cur->next;
 		p_ctx.i++;
 	}
-	close_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
-	wait_all(p_ctx.pids, p_ctx.cmd_count);
+	
+	// Close pipes in parent process
+	if (p_ctx.pipes)
+		close_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
+	
+	// Wait for all successfully forked children
+	if (p_ctx.i > 0)
+		wait_all(p_ctx.pids, p_ctx.i);
+	
 	set_signals_interactive();
-	free_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
-	free(p_ctx.pids);
+	cleanup_pipeline_resources(&p_ctx);
 }
