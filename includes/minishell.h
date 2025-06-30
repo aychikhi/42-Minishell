@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 17:18:35 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/30 21:09:30 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,24 @@ typedef struct s_exp_data
 	t_env			*env;
 	char			*expanded;
 }					t_exp_data;
+
+typedef struct s_child_ctx
+{
+	t_cmd	*cur;
+	t_env	*env;
+	int		**pipes;
+	int		i;
+	int		cmd_count;
+}			t_child_ctx;
+
+typedef struct s_pipes_ctx
+{
+	int		cmd_count;
+	int		**pipes;
+	pid_t	*pids;
+	t_cmd	*cur;
+	int		i;
+}			t_pipes_ctx;
 
 int					error_fun(void);
 int					ft_isdigit(int c);
@@ -196,5 +214,11 @@ int					has_wildcard(const char *str);
 void				expand_wildcard(t_token **tokens, t_token **last,
 						t_token *current);
 void				process_wildcards(t_token **tokens);
+
+/* Pipeline functions */
+int					initialize_pipeline_resources(t_pipes_ctx *p_ctx, t_cmd *cmds);
+void				execute_pipeline_commands(t_pipes_ctx *p_ctx, t_env *env, t_cmd *cmds);
+void				finalize_pipeline_execution(t_pipes_ctx *p_ctx);
+void				cleanup_pipeline_resources(t_pipes_ctx *p_ctx);
 
 #endif
