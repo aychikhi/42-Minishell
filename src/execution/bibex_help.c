@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bibex_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:40:52 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/29 21:33:37 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:00:13 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_pipes(int **pipes, int count)
 	int	i;
 
 	if (!pipes)
-		return;
+		return ;
 	i = 0;
 	while (i < count)
 	{
@@ -37,7 +37,7 @@ void	wait_all(pid_t *pids, int count)
 	int	status;
 
 	if (!pids || count <= 0)
-		return;
+		return ;
 	i = 0;
 	while (i < count)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bibex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/29 21:33:23 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:59:54 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	close_unused_pipes(t_child_ctx *ctx)
 	int	i;
 
 	if (!ctx->pipes)
-		return;
+		return ;
 	i = 0;
 	while (i < ctx->cmd_count - 1)
 	{
@@ -74,7 +74,7 @@ static void	child_proc(t_child_ctx *ctx)
 	exit(EXIT_FAILURE);
 }
 
-static void cleanup_pipeline_resources(t_pipes_ctx *p_ctx)
+static void	cleanup_pipeline_resources(t_pipes_ctx *p_ctx)
 {
 	if (p_ctx->pipes)
 	{
@@ -96,23 +96,15 @@ void	execute_pipeline(t_cmd *cmds, t_env *env)
 
 	p_ctx.cmd_count = count_cmd(cmds);
 	if (p_ctx.cmd_count <= 0)
-		return;
-		
-	// Handle single command case (no pipes needed)
+		return ;
 	if (p_ctx.cmd_count == 1)
-	{
 		p_ctx.pipes = NULL;
-	}
 	else
 	{
 		p_ctx.pipes = create_pipes(p_ctx.cmd_count - 1);
 		if (!p_ctx.pipes)
-		{
-			// Don't exit, just return with error status already set
-			return;
-		}
+			return ;
 	}
-	
 	p_ctx.pids = malloc(sizeof(pid_t) * p_ctx.cmd_count);
 	if (!p_ctx.pids)
 	{
@@ -123,41 +115,31 @@ void	execute_pipeline(t_cmd *cmds, t_env *env)
 			close_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
 			free_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
 		}
-		return;
+		return ;
 	}
-	
 	p_ctx.cur = cmds;
 	p_ctx.i = 0;
 	set_signals_for_child_execution();
-	
 	while (p_ctx.cur && p_ctx.i < p_ctx.cmd_count)
 	{
-		ctx = (t_child_ctx){p_ctx.cur, env, p_ctx.pipes, p_ctx.i, p_ctx.cmd_count};
+		ctx = (t_child_ctx){p_ctx.cur, env, p_ctx.pipes, p_ctx.i,
+			p_ctx.cmd_count};
 		p_ctx.pids[p_ctx.i] = fork();
-		
 		if (p_ctx.pids[p_ctx.i] == 0)
-		{
 			child_proc(&ctx);
-		}
 		else if (p_ctx.pids[p_ctx.i] < 0)
 		{
 			ft_putstr_fd("minishell: fork failed\n", STDERR_FILENO);
 			g_exit_status = 1;
-			// Don't exit, continue with cleanup
-			break;
+			break ;
 		}
 		p_ctx.cur = p_ctx.cur->next;
 		p_ctx.i++;
 	}
-	
-	// Close pipes in parent process
 	if (p_ctx.pipes)
 		close_pipes(p_ctx.pipes, p_ctx.cmd_count - 1);
-	
-	// Wait for all successfully forked children
 	if (p_ctx.i > 0)
 		wait_all(p_ctx.pids, p_ctx.i);
-	
 	set_signals_interactive();
 	cleanup_pipeline_resources(&p_ctx);
 }

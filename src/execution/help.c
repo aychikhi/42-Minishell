@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:10:26 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/29 21:33:46 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:01:34 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	close_pipes(int **pipe, int count)
 	int	i;
 
 	if (!pipe)
-		return;
+		return ;
 	i = 0;
 	while (i < count)
 	{
@@ -76,7 +76,6 @@ int	**create_pipes(int count)
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
 		{
-			// Clean up previously allocated pipes
 			while (--i >= 0)
 			{
 				close(pipes[i][0]);
@@ -90,7 +89,6 @@ int	**create_pipes(int count)
 		}
 		if (pipe(pipes[i]) < 0)
 		{
-			// Clean up all allocated pipes including current one
 			free(pipes[i]);
 			while (--i >= 0)
 			{
