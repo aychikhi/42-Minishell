@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:10:26 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/30 15:01:34 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:05:54 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	error_fun(void)
 
 void	malloc_error(void)
 {
-	printf("malloc Error !\n");
+	ft_putstr_fd("malloc Error !\n", 2);
 	exit(EXIT_FAILURE);
 }
 
