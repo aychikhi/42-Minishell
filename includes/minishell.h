@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/30 21:09:30 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/30 21:38:25 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,5 +220,6 @@ int					initialize_pipeline_resources(t_pipes_ctx *p_ctx, t_cmd *cmds);
 void				execute_pipeline_commands(t_pipes_ctx *p_ctx, t_env *env, t_cmd *cmds);
 void				finalize_pipeline_execution(t_pipes_ctx *p_ctx);
 void				cleanup_pipeline_resources(t_pipes_ctx *p_ctx);
+void				child_proc(t_child_ctx *ctx);
 
 #endif

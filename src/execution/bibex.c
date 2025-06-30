@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/30 21:08:55 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/30 21:38:13 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	close_unused_pipes(t_child_ctx *ctx)
 	}
 }
 
-static void	child_proc(t_child_ctx *ctx)
+void	child_proc(t_child_ctx *ctx)
 {
 	g_exit_status = 0;
 	set_signals_in_child();
