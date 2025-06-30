@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:10:26 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/30 21:02:39 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/30 21:46:35 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static int	**allocate_pipes_array(int count)
 	pipes = malloc(sizeof(int *) * count);
 	if (!pipes)
 	{
-		ft_putstr_fd("minishell: malloc: allocation error\n", 2);
 		g_exit_status = 1;
 	}
 	return (pipes);
@@ -77,7 +76,6 @@ int	**create_pipes(int count)
 			if (pipes[i])
 				free(pipes[i]);
 			cleanup_pipes_on_error(pipes, i);
-			ft_putstr_fd("minishell: pipe: allocation error\n", 2);
 			g_exit_status = 1;
 			return (NULL);
 		}

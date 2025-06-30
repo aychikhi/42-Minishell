@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:05:00 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/30 21:15:20 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/06/30 21:46:37 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	initialize_pipeline_resources(t_pipes_ctx *p_ctx, t_cmd *cmds)
 	p_ctx->pids = malloc(sizeof(pid_t) * p_ctx->cmd_count);
 	if (!p_ctx->pids)
 	{
-		ft_putstr_fd("minishell: malloc: allocation error\n", 2);
 		g_exit_status = 1;
 		if (p_ctx->pipes)
 		{
@@ -59,7 +58,6 @@ void	execute_pipeline_commands(t_pipes_ctx *p_ctx, t_env *env, t_cmd *cmds)
 			child_proc(&ctx);
 		else if (p_ctx->pids[p_ctx->i] < 0)
 		{
-			ft_putstr_fd("minishell: fork failed\n", 2);
 			g_exit_status = 1;
 			break ;
 		}
