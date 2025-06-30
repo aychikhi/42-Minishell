@@ -1,5 +1,5 @@
 .gitignore
-gold.md
+./gold.md
 .vscode/
 .DS_Store
 minishell
