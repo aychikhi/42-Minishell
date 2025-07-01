@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bibex_pipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:05:00 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/07/01 01:24:03 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/07/01 11:16:20 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	initialize_pipeline_resources(t_pipes_ctx *p_ctx, t_cmd *cmds)
-{
-	p_ctx->cmd_count = count_cmd(cmds);
-	if (p_ctx->cmd_count <= 0)
-		return (0);
-	
-	p_ctx->pids = malloc(sizeof(pid_t) * p_ctx->cmd_count);
-	if (!p_ctx->pids)
-	{
-		g_exit_status = 1;
-		return (0);
-	}
-	p_ctx->pipes = NULL;
-	return (1);
-}
 
 static int	**allocate_pipes_array_only(int cmd_count)
 {
@@ -65,7 +49,8 @@ static int	create_pipe_if_needed(int **pipes, int i, int cmd_count)
 	return (1);
 }
 
-static void	setup_child_context(t_child_ctx *ctx, t_pipes_ctx *p_ctx, t_env *env)
+static void	setup_child_context(t_child_ctx *ctx, t_pipes_ctx *p_ctx,
+		t_env *env)
 {
 	ctx->cur = p_ctx->cur;
 	ctx->env = env;
@@ -105,7 +90,7 @@ void	execute_pipeline_commands(t_pipes_ctx *p_ctx, t_env *env, t_cmd *cmds)
 
 void	finalize_pipeline_execution(t_pipes_ctx *p_ctx)
 {
-	int save ;
+	int	save;
 
 	save = g_exit_status;
 	if (p_ctx->pipes)
@@ -116,19 +101,4 @@ void	finalize_pipeline_execution(t_pipes_ctx *p_ctx)
 	cleanup_pipeline_resources(p_ctx);
 	if (save == 1)
 		g_exit_status = 1;
-}
-
-void	cleanup_pipeline_resources(t_pipes_ctx *p_ctx)
-{
-	if (p_ctx->pipes)
-	{
-		close_pipes(p_ctx->pipes, p_ctx->cmd_count - 1);
-		free_pipes(p_ctx->pipes, p_ctx->cmd_count - 1);
-		p_ctx->pipes = NULL;
-	}
-	if (p_ctx->pids)
-	{
-		free(p_ctx->pids);
-		p_ctx->pids = NULL;
-	}
 }

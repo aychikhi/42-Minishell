@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:10:26 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/07/01 00:45:33 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/07/01 11:16:17 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,58 +30,32 @@ void	close_pipes(int **pipe, int count)
 	}
 }
 
-static void	cleanup_pipes_on_error(int **pipes, int count)
+int	initialize_pipeline_resources(t_pipes_ctx *p_ctx, t_cmd *cmds)
 {
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
-		free(pipes[i]);
-		i++;
-	}
-	free(pipes);
-}
-
-static int	**allocate_pipes_array(int count)
-{
-	int	**pipes;
-
-	pipes = malloc(sizeof(int *) * count);
-	if (!pipes)
+	p_ctx->cmd_count = count_cmd(cmds);
+	if (p_ctx->cmd_count <= 0)
+		return (0);
+	p_ctx->pids = malloc(sizeof(pid_t) * p_ctx->cmd_count);
+	if (!p_ctx->pids)
 	{
 		g_exit_status = 1;
-		return (NULL);
+		return (0);
 	}
-	return (pipes);
+	p_ctx->pipes = NULL;
+	return (1);
 }
 
-int	**create_pipes(int count)
+void	cleanup_pipeline_resources(t_pipes_ctx *p_ctx)
 {
-	int	**pipes;
-	int	i;
-
-	if (count <= 0)
-		return (NULL);
-	pipes = allocate_pipes_array(count);
-	if (!pipes)
-		return (NULL);
-	i = 0;
-	while (i < count)
+	if (p_ctx->pipes)
 	{
-		pipes[i] = malloc(sizeof(int) * 2);
-		if (!pipes[i] || pipe(pipes[i]) < 0)
-		{
-			if (pipes[i])
-				free(pipes[i]);
-			cleanup_pipes_on_error(pipes, i);
-			ft_putstr_fd("minishell: pipe creation failed\n", STDERR_FILENO);
-			g_exit_status = 1;
-			return (NULL);
-		}
-		i++;
+		close_pipes(p_ctx->pipes, p_ctx->cmd_count - 1);
+		free_pipes(p_ctx->pipes, p_ctx->cmd_count - 1);
+		p_ctx->pipes = NULL;
 	}
-	return (pipes);
+	if (p_ctx->pids)
+	{
+		free(p_ctx->pids);
+		p_ctx->pids = NULL;
+	}
 }

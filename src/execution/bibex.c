@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bibex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:06:17 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/30 21:38:13 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/07/01 10:55:48 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ static void	close_unused_pipes(t_child_ctx *ctx)
 	i = 0;
 	while (i < ctx->cmd_count - 1)
 	{
-		if (i != ctx->i - 1)
-			close(ctx->pipes[i][0]);
-		if (i != ctx->i)
-			close(ctx->pipes[i][1]);
+		if (ctx->pipes[i])
+		{
+			if (i != ctx->i - 1)
+				close(ctx->pipes[i][0]);
+			if (i != ctx->i)
+				close(ctx->pipes[i][1]);
+		}
 		i++;
 	}
 }
