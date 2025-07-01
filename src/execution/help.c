@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:10:26 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/30 21:46:35 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/07/01 00:45:33 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	**allocate_pipes_array(int count)
 	if (!pipes)
 	{
 		g_exit_status = 1;
+		return (NULL);
 	}
 	return (pipes);
 }
@@ -76,6 +77,7 @@ int	**create_pipes(int count)
 			if (pipes[i])
 				free(pipes[i]);
 			cleanup_pipes_on_error(pipes, i);
+			ft_putstr_fd("minishell: pipe creation failed\n", STDERR_FILENO);
 			g_exit_status = 1;
 			return (NULL);
 		}
