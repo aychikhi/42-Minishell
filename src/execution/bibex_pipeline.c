@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:05:00 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/07/01 01:03:22 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/07/01 01:24:03 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,17 @@ void	execute_pipeline_commands(t_pipes_ctx *p_ctx, t_env *env, t_cmd *cmds)
 
 void	finalize_pipeline_execution(t_pipes_ctx *p_ctx)
 {
+	int save ;
+
+	save = g_exit_status;
 	if (p_ctx->pipes)
 		close_pipes(p_ctx->pipes, p_ctx->cmd_count - 1);
 	if (p_ctx->i > 0)
 		wait_all(p_ctx->pids, p_ctx->i);
 	set_signals_interactive();
 	cleanup_pipeline_resources(p_ctx);
+	if (save == 1)
+		g_exit_status = 1;
 }
 
 void	cleanup_pipeline_resources(t_pipes_ctx *p_ctx)
