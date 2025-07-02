@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:47:16 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/07/02 12:09:00 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:14:14 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_tokens(t_token **tokens)
 	while (tmp)
 	{
 		if (tmp->type == 5 || tmp->type == 6 || tmp->type == 3
-				|| tmp->type == 4)
+			|| tmp->type == 4)
 			return (ft_putstr_fd("minishell : syntax error\n", 2), 0);
 		tmp = tmp->next;
 	}
