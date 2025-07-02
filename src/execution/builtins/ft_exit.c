@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:56:10 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/06/26 15:29:27 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:10:35 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static int	handel_args(char **args)
 
 	if (!is_num(args[1]))
 	{
-		ft_putstr_fd("minishell: exit: %s: numeric argument required\n", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		exit(255);
 	}
 	else if (args[2])

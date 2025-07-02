@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 16:50:42 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:08:31 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ char	*expand_env(int type, char *input, t_env *env, t_token **tokens)
 			if (type == TOKEN_WORD)
 			{
 				tmp->expanded = 1;
-				if (handle_word_expansion(&data, tmp))
-					break ;
+				handle_word_expansion(&data, tmp);
 			}
 		}
 		data.i++;
