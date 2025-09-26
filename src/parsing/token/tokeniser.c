@@ -103,13 +103,13 @@ static int	process_tokens(char *input, t_tokenize_state *state)
 static int	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 {
 	add_token(tokens, last, TOKEN_EOF, "EOF");
-	if (!check_tokens(tokens))
-	{
-		free_tokens(*tokens);
-		*tokens = NULL;
-		g_exit_status = 258;
-		return (0);
-	}
+	// if (!check_tokens(tokens))
+	// {
+	// 	free_tokens(*tokens);
+	// 	*tokens = NULL;
+	// 	g_exit_status = 258;
+	// 	return (0);
+	// }
 	expand_from_token(tokens, env);
 	if (!check_tokens_errors(*tokens))
 	{
