@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 10:43:26 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/06/29 17:02:30 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:41:44 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ static int	process_tokens(char *input, t_tokenize_state *state)
 static int	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 {
 	add_token(tokens, last, TOKEN_EOF, "EOF");
-	if (!check_tokens(tokens))
-	{
-		free_tokens(*tokens);
-		*tokens = NULL;
-		g_exit_status = 258;
-		return (0);
-	}
+	// if (!check_tokens(tokens))
+	// {
+	// 	free_tokens(*tokens);
+	// 	*tokens = NULL;
+	// 	g_exit_status = 258;
+	// 	return (0);
+	// }
 	expand_from_token(tokens, env);
 	if (!check_tokens_errors(*tokens))
 	{
@@ -127,6 +127,18 @@ static int	finalize_tokens(t_token **tokens, t_token **last, t_env *env)
 	process_wildcards(tokens);
 	return (1);
 }
+
+// void print_token(t_token *token)
+// {
+// 	t_token *tmp = token;
+// 	while (tmp)
+// 	{
+// 		printf("type : %d\n", tmp->type);
+// 		printf("value : %s\n", tmp->value);
+// 		printf("expanded : %d\n", tmp->expanded);
+// 		tmp = tmp->next;
+// 	}
+// }
 
 int	tokeniser(char *input, t_env *env, t_command *cmd)
 {
