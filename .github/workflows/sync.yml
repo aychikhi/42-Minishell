@@ -14,10 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sync with original repository
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Sync with original
         run: |
-          gh repo sync "$GITHUB_REPOSITORY" \
-            --branch main \
-            --force
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git remote add upstream https://github.com/42-CodeChronicles/42-Minishell.git
+          git fetch upstream master
+
+          git merge upstream/master --no-edit
+          git push origin master
