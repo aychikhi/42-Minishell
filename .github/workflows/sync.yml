@@ -1,0 +1,23 @@
+
+name: Auto Sync Fork
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sync with original repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh repo sync "$GITHUB_REPOSITORY" \
+            --branch main \
+            --force
